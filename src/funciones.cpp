@@ -19,6 +19,7 @@ void menuPrincipal()
     system("chcp 65001 > nul");
     int opc = 0;
 
+    /// PRUEBA
     while(true)
     {
         cout << "╔══════════════════════════════════════╗\n";
