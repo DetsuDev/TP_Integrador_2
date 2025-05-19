@@ -4,7 +4,7 @@
 /// Objeto Cuota: Numero de Socio, Fecha de pago, Importe, Mes, Año, Importe
 
 /// Definir cuáles son los objetos que se necesitan para registrar la información necesaria.
-
+/// hola estoy haciendo un test aprobado por un intelectual de miller
 
 #include <iostream>
 #include <cstring>
