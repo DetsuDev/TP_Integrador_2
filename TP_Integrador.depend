@@ -48,3 +48,45 @@
 	"clsArchSocios.h"
 	"clsSocio.h"
 
+1747142373 source:d:\users\tomi\documents\github\tp_integrador_2\main.cpp
+	<iostream>
+	<cstring>
+	"funciones.h"
+
+1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\funciones.h
+	"clsSocio.h"
+
+1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\clssocio.h
+	"clsFecha.h"
+	"clsDomicilio.h"
+	"clsSocio.h"
+	<cstring>
+
+1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\clsfecha.h
+
+1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\clsdomicilio.h
+
+1747142373 source:d:\users\tomi\documents\github\tp_integrador_2\src\clsarchsocios.cpp
+	<iostream>
+	<cstring>
+	"clsArchSocios.h"
+	"clsSocio.h"
+
+1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\clsarchsocios.h
+	"clsSocio.h"
+
+1747142373 source:d:\users\tomi\documents\github\tp_integrador_2\src\clsdomicilio.cpp
+	<iostream>
+	"clsDomicilio.h"
+	"funciones.h"
+
+1747142373 source:d:\users\tomi\documents\github\tp_integrador_2\src\clsfecha.cpp
+	<iostream>
+	"clsFecha.h"
+
+1747142373 source:d:\users\tomi\documents\github\tp_integrador_2\src\clssocio.cpp
+	<iostream>
+	<cstring>
+	"clsSocio.h"
+	"funciones.h"
+
