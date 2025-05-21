@@ -3,9 +3,6 @@
 /// Objeto Prestamos: Libro prestado, Socio al que se le presto, fecha del prestamo, fecha de devolucion
 /// Objeto Cuota: Numero de Socio, Fecha de pago, Importe, Mes, Año, Importe
 
-/// Definir cuáles son los objetos que se necesitan para registrar la información necesaria.
-/// hola estoy haciendo un test aprobado por un intelectual de miller
-
 #include <iostream>
 #include <cstring>
 #include "clsArchSocios.h"
@@ -20,7 +17,6 @@ void menuPrincipal()
     system("chcp 65001 > nul");
     int opc = 0;
 
-    /// PRUEBA
     while(true)
     {
         cout << "╔══════════════════════════════════════╗\n";
@@ -74,6 +70,7 @@ void menuPrincipal()
 void cargarCadena(char *palabra, int tamano)
 {
     int i=0;
+
     fflush(stdin);
     for (i=0; i<tamano; i++)
     {
@@ -109,7 +106,8 @@ void listarSocio()
     }
 }
 
-void cargarLibro(){
+void cargarLibro()
+{
     Libro libr;
     libr.Cargar();
 

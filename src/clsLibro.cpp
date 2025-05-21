@@ -5,7 +5,8 @@
 
 using namespace std;
 
-void Libro::Cargar(){
+void Libro::Cargar()
+{
     cout << "INGRESE ISBN: ";
     cargarCadena(isbn, 19);
     cout << "INGRESE TÍTULO: ";
@@ -18,7 +19,8 @@ void Libro::Cargar(){
     cin >> cantidadEjemplares;
 }
 
-void Libro::Mostrar(){
+void Libro::Mostrar()
+{
     cout << "ISBN: " << isbn << endl;
     cout << "TÍTULO: " << titulo << endl;
     cout << "AUTOR: " << autor << endl;

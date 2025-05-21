@@ -1,7 +1,8 @@
 #ifndef CLSLIBRO_H
 #define CLSLIBRO_H
 
-class Libro {
+class Libro
+{
 private:
     char isbn[20];
     char titulo[50];

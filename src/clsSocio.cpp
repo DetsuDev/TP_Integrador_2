@@ -16,8 +16,6 @@ void Socio::Cargar(){
     fechaNacimiento.Cargar();
     cout<<"INGRESE EL DOMICILIO: "<<endl;
     domicilio.Cargar();
-    //cout<<"INGRESE EL TELEFONO: ";
-    //cargarCadena(telefono, 19);
     cout<<"INGRESE EL EMAIL: ";
     cargarCadena(email, 39);
 }
@@ -29,15 +27,10 @@ void Socio::Mostrar(){
     fechaNacimiento.Mostrar();
     cout<<"DOMICILIO: "<<endl;
     domicilio.Mostrar();
-    //cout<<"TELEFONO: "<<telefono<<endl;
     cout<<"EMAIL: "<<email<<endl;
 }
 
-void Socio::setEmail(const char *e){
-    strcpy(email, e);
-}
+void Socio::setEmail(const char *e){ strcpy(email, e); }
 
-int Socio::getDni(){
-    return dni;
-}
+int Socio::getDni(){ return dni; }
 
