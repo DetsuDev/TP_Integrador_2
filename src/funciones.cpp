@@ -11,6 +11,7 @@
 #include "clsArchSocios.h"
 #include "clsSocio.h"
 #include "funciones.h"
+#include "clsLibro.h"
 
 
 using namespace std;
@@ -53,6 +54,9 @@ void menuPrincipal()
         {
         case 1:
             registrarSocio();
+            break;
+        case 2:
+            cargarLibro();
             break;
         case 5:
             listarSocio();
@@ -103,4 +107,10 @@ void listarSocio()
         obj = arcSoc.leerRegistro(i);
         obj.Mostrar();
     }
+}
+
+void cargarLibro(){
+    Libro libr;
+    libr.Cargar();
+
 }
