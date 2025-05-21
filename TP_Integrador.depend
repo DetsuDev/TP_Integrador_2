@@ -53,7 +53,7 @@
 	<cstring>
 	"funciones.h"
 
-1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\funciones.h
+1747790201 d:\users\tomi\documents\github\tp_integrador_2\include\funciones.h
 	"clsSocio.h"
 
 1747142373 d:\users\tomi\documents\github\tp_integrador_2\include\clssocio.h
@@ -139,4 +139,20 @@
 	<cstring>
 	"clsSocio.h"
 	"funciones.h"
+
+1747789707 source:d:\users\tomi\documents\github\tp_integrador_2\src\clslibro.cpp
+	<iostream>
+	<cstring>
+	"clsLibro.h"
+	"funciones.h"
+
+1747789707 d:\users\tomi\documents\github\tp_integrador_2\include\clslibro.h
+
+1747790201 source:d:\users\tomi\documents\github\tp_integrador_2\src\funciones.cpp
+	<iostream>
+	<cstring>
+	"clsArchSocios.h"
+	"clsSocio.h"
+	"funciones.h"
+	"clsLibro.h"
 
