@@ -6,6 +6,7 @@
 #include <iostream>
 #include <cstring>
 #include "clsArchSocios.h"
+#include "clsArchLibro.h"
 #include "clsSocio.h"
 #include "funciones.h"
 #include "clsLibro.h"
@@ -52,10 +53,13 @@ void menuPrincipal()
             registrarSocio();
             break;
         case 2:
-            cargarLibro();
+            registrarLibro();
             break;
         case 5:
             listarSocio();
+            break;
+        case 6:
+            listarLibro();
             break;
         case 0:
             return;
@@ -106,9 +110,24 @@ void listarSocio()
     }
 }
 
-void cargarLibro()
-{
+void registrarLibro(){
     Libro libr;
     libr.Cargar();
+    ArchivoLibros ArcLibr;
+    ArcLibr.grabarRegistro(libr);
+
+}
+
+void listarLibro()
+{
+    ArchivoLibros arcLibr;
+    Libro libr;
+    //libr.Cargar();
+    int cantReg = arcLibr.contarRegistros();
+        for(int i=0; i<cantReg; i++)
+    {
+        libr = arcLibr.leerRegistro(i);
+        libr.Mostrar();
+    }
 
 }
