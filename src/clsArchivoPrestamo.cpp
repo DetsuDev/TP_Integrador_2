@@ -49,7 +49,7 @@ int ArchivoPrestamo::contarRegistros(){
     return tam/sizeof (Libro);
 }
 
-int ArchivoPrestamo::buscarRegistro(const char *isbn){
+int ArchivoPrestamo::buscarRegistro(const char *idPrestamo){
     Prestamo obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){

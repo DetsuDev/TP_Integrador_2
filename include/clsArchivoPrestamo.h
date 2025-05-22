@@ -8,11 +8,11 @@ class ArchivoPrestamo{
         char nombre[30];
     public:
         ArchivoPrestamo(const char *n="Prestamos.dat");
-        Libro leerRegistro(int);
-        bool grabarRegistro(Libro);
-        bool modificarRegistro(Libro, int);
+        Prestamo leerRegistro(int);
+        bool grabarRegistro(Prestamo);
+        bool modificarRegistro(Prestamo, int);
         int contarRegistros();
-        int buscarRegistro(const char *isbn);
+        int buscarRegistro(const char *idPrestamo);
 };
 
 #endif // CLSARCHIVOPRESTAMO_H_INCLUDED
