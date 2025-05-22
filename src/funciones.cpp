@@ -107,6 +107,7 @@ void listarSocio()
     {
         obj = arcSoc.leerRegistro(i);
         obj.Mostrar();
+        cout << endl;
     }
 }
 
@@ -128,6 +129,7 @@ void listarLibro()
     {
         libr = arcLibr.leerRegistro(i);
         libr.Mostrar();
+        cout << endl;
     }
 
 }
