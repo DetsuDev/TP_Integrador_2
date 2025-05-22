@@ -36,6 +36,7 @@
 		</Compiler>
 		<Unit filename="include/clsArchLibro.h" />
 		<Unit filename="include/clsArchSocios.h" />
+		<Unit filename="include/clsArchivoPrestamo.h" />
 		<Unit filename="include/clsCuota.h" />
 		<Unit filename="include/clsDomicilio.h" />
 		<Unit filename="include/clsFecha.h" />
@@ -46,6 +47,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/clsArchLibro.cpp" />
 		<Unit filename="src/clsArchSocios.cpp" />
+		<Unit filename="src/clsArchivoPrestamo.cpp" />
 		<Unit filename="src/clsDomicilio.cpp" />
 		<Unit filename="src/clsFecha.cpp" />
 		<Unit filename="src/clsLibro.cpp" />
