@@ -46,7 +46,7 @@ int ArchivoPrestamo::contarRegistros(){
     fseek(p, 0, 2);
     int tam=ftell(p);
     fclose(p);
-    return tam/sizeof (Libro);
+    return tam/sizeof (Prestamo);
 }
 
 int ArchivoPrestamo::buscarRegistro(const char *idPrestamo){
@@ -54,7 +54,7 @@ int ArchivoPrestamo::buscarRegistro(const char *idPrestamo){
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
-        if(obj.getIdPrestamo() == idPrestamo){
+        if(obj.getIdPrestamo() == *idPrestamo){
             return i;
         }
     }

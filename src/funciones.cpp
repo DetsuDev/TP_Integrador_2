@@ -20,6 +20,7 @@ void menuPrincipal()
 
     while(true)
     {
+        system("cls");
         cout << "╔══════════════════════════════════════╗\n";
         cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
         cout << "╠══════════════════════════════════════╣\n";
