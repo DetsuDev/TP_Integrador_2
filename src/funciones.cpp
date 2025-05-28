@@ -90,6 +90,8 @@ void cargarCadena(char *palabra, int tamano)
 }
 
 
+// esta funcion crea el objeto obj, luego ejecuta el metodo "Cargar()", luego crea el objeto "obj" y graba los registros en el archivo de socios
+
 void registrarSocio()
 {
     Socio obj;
@@ -97,6 +99,8 @@ void registrarSocio()
     ArchivoSocios arc;
     arc.grabarRegistro(obj);
 }
+
+// lee el archivo de socios y los muestra en pantalla
 
 
 void listarSocio()
@@ -112,6 +116,8 @@ void listarSocio()
     }
 }
 
+
+// esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
 void registrarLibro(){
     Libro libr;
     libr.Cargar();
@@ -120,6 +126,7 @@ void registrarLibro(){
 
 }
 
+// lee el archivo de libros y los muestra en pantalla
 void listarLibro()
 {
     ArchivoLibros arcLibr;
