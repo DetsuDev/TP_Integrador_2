@@ -18,7 +18,8 @@ void menuPrincipal()
     system("chcp 65001 > nul");
     int opc = 0;
 
-    while(true)
+    bool menu=true;
+    while(menu)
     {
         system("cls");
         cout << "╔══════════════════════════════════════╗\n";
@@ -26,17 +27,15 @@ void menuPrincipal()
         cout << "╠══════════════════════════════════════╣\n";
         cout << "╟── REGISTRO ──────────────────────────╣\n";
         cout << "║                                      ║\n";
-        cout << "║  [1] Registrar Socio                 ║\n";
-        cout << "║  [2] Registrar Libro                 ║\n";
-        cout << "║  [3] Registrar Prestamo              ║\n";
-        cout << "║  [4] Registrar Cuota                 ║\n";
+        cout << "║  [1] Gestionar Socio                 ║\n";
+        cout << "║  [2] Gestionar Libro                 ║\n";
+        cout << "║  [3] Gestionar Prestamo              ║\n";
+        cout << "║  [4] Gestionar Cuota                 ║\n";
         cout << "║                                      ║\n";
-        cout << "╟── LECTURA ───────────────────────────╣\n";
+        cout << "╟── SISTEMA ───────────────────────────╣\n";
         cout << "║                                      ║\n";
-        cout << "║  [5] Mostrar Lista de Socio          ║\n";
-        cout << "║  [6] Mostrar Lista de Libros         ║\n";
-        cout << "║  [7] Mostrar Lista de Prestamo       ║\n";
-        cout << "║  [8] Mostrar Lista de Cuota          ║\n";
+        cout << "║  [8] RESTAURACION                    ║\n";
+        cout << "║  [9] EXPORTAR/IMPORTAR               ║\n";
         cout << "║                                      ║\n";
         cout << "╟──────────────────────────────────────╣\n";
         cout << "║  [0] Salir                           ║\n";
@@ -51,16 +50,78 @@ void menuPrincipal()
         switch (opc)
         {
         case 1:
-            registrarSocio();
-            break;
+        bool subMenu=true;
+        while(subMenu)
+        {
+            system("cls");
+            cout << "╔══════════════════════════════════════╗\n";
+            cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+            cout << "╠══════════════════════════════════════╣\n";
+            cout << "╟── GESTION ───────────────────────────╣\n";
+            cout << "║                                      ║\n";
+            cout << "║  [1] Registrar Socio                 ║\n";
+            cout << "║  [2] Mostrar Lista de Socioo         ║\n";
+            cout << "║                                      ║\n";
+            cout << "╟──────────────────────────────────────╣\n";
+            cout << "║  [0] Volver                          ║\n";
+            cout << "╚══════════════════════════════════════╝\n";
+            cin >> opc;
+                switch (opc)
+                {
+                case 1:
+                    registrarSocio();
+                    break;
+                case 2:
+                    listarSocio();
+                    break;
+                case 0:
+                    menu=false;
+                    break;
+                }
+        }
         case 2:
+            system("cls");
+            cout << "╔══════════════════════════════════════╗\n";
+            cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+            cout << "╠══════════════════════════════════════╣\n";
+            cout << "╟── GESTION ───────────────────────────╣\n";
+            cout << "║                                      ║\n";
+            cout << "║  [1] Registrar Libro                 ║\n";
+            cout << "║  [2] Mostrar Lista de Libros         ║\n";
+            cout << "║                                      ║\n";
+            cout << "╟──────────────────────────────────────╣\n";
+            cout << "║  [0] Volver                          ║\n";
+            cout << "╚══════════════════════════════════════╝\n";
             registrarLibro();
+            listarLibro();
             break;
         case 5:
-            listarSocio();
+            system("cls");
+            cout << "╔══════════════════════════════════════╗\n";
+            cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+            cout << "╠══════════════════════════════════════╣\n";
+            cout << "╟── GESTION ───────────────────────────╣\n";
+            cout << "║                                      ║\n";
+            cout << "║  [1] Registrar Prestamo              ║\n";
+            cout << "║  [2] Mostrar Lista de Prestamos      ║\n";
+            cout << "║                                      ║\n";
+            cout << "╟──────────────────────────────────────╣\n";
+            cout << "║  [0] Volver                          ║\n";
+            cout << "╚══════════════════════════════════════╝\n";
             break;
         case 6:
-            listarLibro();
+            system("cls");
+            cout << "╔══════════════════════════════════════╗\n";
+            cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+            cout << "╠══════════════════════════════════════╣\n";
+            cout << "╟── GESTION ───────────────────────────╣\n";
+            cout << "║                                      ║\n";
+            cout << "║  [1] Registrar Cuota                 ║\n";
+            cout << "║  [2] Mostrar Lista de Cuotas         ║\n";
+            cout << "║                                      ║\n";
+            cout << "╟──────────────────────────────────────╣\n";
+            cout << "║  [0] Volver                          ║\n";
+            cout << "╚══════════════════════════════════════╝\n";
             break;
         case 0:
             return;

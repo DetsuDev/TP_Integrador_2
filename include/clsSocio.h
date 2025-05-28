@@ -10,7 +10,7 @@ class Socio
 {
 
 private:
-    char dni[10];
+    const char dni[10];
     char nombre[30];
     char apellido[30];
     char email[40];
@@ -18,7 +18,7 @@ private:
     Domicilio domicilio;
 
 public:
-    int getDni();
+    const char* getDni();
     void setDni(int);
     void setEmail(const char *);
     void Cargar();
