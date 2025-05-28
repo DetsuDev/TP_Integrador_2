@@ -7,7 +7,7 @@ using namespace std;
 
 void Socio::Cargar(){
     cout<<"INGRESE EL DNI: ";
-    cin>>dni;
+    cargarCadena(dni,9);
     cout<<"INGRESE EL NOMBRE: ";
     cargarCadena(nombre,29);
     cout<<"INGRESE EL APELLIDO: ";
@@ -32,5 +32,5 @@ void Socio::Mostrar(){
 
 void Socio::setEmail(const char *e){ strcpy(email, e); }
 
-int Socio::getDni(){ return dni; }
+char Socio::getDni(){ return dni; }
 

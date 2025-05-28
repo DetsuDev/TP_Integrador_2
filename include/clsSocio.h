@@ -10,7 +10,7 @@ class Socio
 {
 
 private:
-    int dni;
+    char dni[10];
     char nombre[30];
     char apellido[30];
     char email[40];
