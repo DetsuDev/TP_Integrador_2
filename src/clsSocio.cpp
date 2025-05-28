@@ -32,5 +32,6 @@ void Socio::Mostrar(){
 
 void Socio::setEmail(const char *e){ strcpy(email, e); }
 
-char Socio::getDni(){ return dni; }
+void Socio::setDni(const char *i) { strcpy(dni, i); }
 
+const char* Socio::getDni(){ return dni; }

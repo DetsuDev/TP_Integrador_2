@@ -12,7 +12,7 @@ class ArchivoSocios{
         bool grabarRegistro(Socio);
         bool modificarRegistro(Socio, int);
         int contarRegistros();
-        int buscarRegistro(char*);
+        int buscarRegistro(const char *dni);
 };
 
 #endif // CLSARCHSOCIOS_H_INCLUDED

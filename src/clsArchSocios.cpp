@@ -49,13 +49,12 @@ int ArchivoSocios::contarRegistros(){
     return tam/sizeof (Socio);
 }
 
-int ArchivoSocios::buscarRegistro(char *dni){
+int ArchivoSocios::buscarRegistro(const char *dni){
     Socio obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
-
-        if(char(obj.getDni()) == *dni){
+        if(obj.getDni() == dni){
             return i;
         }
     }
