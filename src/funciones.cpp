@@ -72,6 +72,8 @@ void menuPrincipal()
     }
 }
 
+// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
+
 void cargarCadena(char *palabra, int tamano)
 {
     int i=0;
