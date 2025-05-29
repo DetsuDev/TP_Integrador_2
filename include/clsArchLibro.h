@@ -7,7 +7,7 @@ class ArchivoLibros{
     private:
         char nombre[30];
     public:
-        ArchivoLibros(const char *n="Libros.dat");
+        ArchivoLibros(const char *n="Files/Libros.dat");
         Libro leerRegistro(int);
         bool grabarRegistro(Libro);
         bool modificarRegistro(Libro, int);

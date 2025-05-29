@@ -115,7 +115,6 @@ void menuPrincipal()
                     break;
                 }
 
-                    subMenu=false;
             }
 
         }

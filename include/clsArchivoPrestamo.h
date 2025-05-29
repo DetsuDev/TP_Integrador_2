@@ -7,7 +7,7 @@ class ArchivoPrestamo{
     private:
         char nombre[30];
     public:
-        ArchivoPrestamo(const char *n="Prestamos.dat");
+        ArchivoPrestamo(const char *n="Files/Prestamos.dat");
         Prestamo leerRegistro(int);
         bool grabarRegistro(Prestamo);
         bool modificarRegistro(Prestamo, int);
