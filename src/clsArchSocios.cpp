@@ -3,6 +3,8 @@
 #include "clsArchSocios.h"
 #include "clsSocio.h"
 
+using namespace std;
+
 ArchivoSocios::ArchivoSocios(const char *n){
     strcpy(nombre, n);
 }
@@ -54,7 +56,7 @@ int ArchivoSocios::buscarRegistro(const char *dni){
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
-        if(obj.getDni() == dni){
+        if(strcmp(obj.getDni(), dni) == 0){
             return i;
         }
     }
