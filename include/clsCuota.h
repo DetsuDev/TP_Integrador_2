@@ -1,18 +1,33 @@
 #ifndef CLSCUOTA_H_INCLUDED
 #define CLSCUOTA_H_INCLUDED
 
-#include "clsSocio.h"
 #include "clsFecha.h"
 
-class Cuota{
+class Cuota {
+private:
+    int numeroSocio;
+    Fecha fechaPago;
+    float importe;
+    int mes;
+    int anio;
 
-    private:
-    Fecha fecha(int d, int m, int a);
+public:
+    void Cargar();
+    void Mostrar();
 
-    public:
+    // Getters
+    int getNumeroSocio();
+    Fecha getFechaPago();
+    float getImporte();
+    int getMes();
+    int getAnio();
 
-
+    // Setters
+    void setNumeroSocio(int num);
+    void setFechaPago(Fecha f);
+    void setImporte(float imp);
+    void setMes(int m);
+    void setAnio(int a);
 };
-
 
 #endif // CLSCUOTA_H_INCLUDED
