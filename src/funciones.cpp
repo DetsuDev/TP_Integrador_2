@@ -95,6 +95,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
+                        opc = -1;
                         subMenu=false;
                         //menuPrincipal();
                         break;
@@ -131,6 +132,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
+                        opc ==-1;
                         subMenu=false;
                         break;
                     }
@@ -167,6 +169,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
+                        opc ==-1;
                         subMenu=false;
                         break;
                     }
@@ -203,6 +206,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
+                        opc ==-1;
                         subMenu=false;
                         break;
                     }
@@ -234,12 +238,16 @@ void menuPrincipal()
                     case 2:
                         break;
                     case 0:
+                        opc ==-1;
                         subMenu=false;
                         break;
                     }
 
                 }
             case 0:
+                if(!(opc ==-1)){
+                   menu = false;
+                }
                 break;
             }
 
