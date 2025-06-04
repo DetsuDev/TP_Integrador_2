@@ -1,10 +1,4 @@
 #ifndef CLSIMPORTEEXPORTE_H_INCLUDED
 #define CLSIMPORTEEXPORTE_H_INCLUDED
 
-class ImporteExporte {
-public:
-   
-};
-
 #endif // CLSIMPORTEEXPORTE_H_INCLUDED
-

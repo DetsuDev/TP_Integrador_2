@@ -5,11 +5,11 @@
 
 #include <iostream>
 #include <cstring>
-#include "clsArchSocios.h"
-#include "clsArchLibro.h"
-#include "clsSocio.h"
+#include "socio/clsSocio.h"
+#include "socio/clsArchSocio.h"
+#include "libro/clsLibro.h"
+#include "libro/clsArchLibro.h"
 #include "funciones.h"
-#include "clsLibro.h"
 
 
 using namespace std;

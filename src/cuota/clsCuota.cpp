@@ -1,5 +1,5 @@
 #include <iostream>
-#include "clsCuota.h"
+#include "cuota/clsCuota.h"
 
 using namespace std;
 

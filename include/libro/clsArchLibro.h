@@ -1,13 +1,13 @@
 #ifndef CLSARCHLIBRO_H_INCLUDED
 #define CLSARCHLIBRO_H_INCLUDED
 
-#include "clsLibro.h"
+#include "libro/clsLibro.h"
 
 class ArchivoLibros{
     private:
         char nombre[30];
     public:
-        ArchivoLibros(const char *n="Files/Libros.dat");
+        ArchivoLibros(const char *n="FILES/current/Libros.dat");
         Libro leerRegistro(int);
         bool grabarRegistro(Libro);
         bool modificarRegistro(Libro, int);

@@ -34,26 +34,31 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="include/clsArchLibro.h" />
-		<Unit filename="include/clsArchSocios.h" />
-		<Unit filename="include/clsArchivoPrestamo.h" />
-		<Unit filename="include/clsCuota.h" />
 		<Unit filename="include/clsDomicilio.h" />
 		<Unit filename="include/clsFecha.h" />
-		<Unit filename="include/clsLibro.h" />
-		<Unit filename="include/clsPrestamo.h" />
-		<Unit filename="include/clsSocio.h" />
+		<Unit filename="include/clsImporteExporte.h" />
+		<Unit filename="include/cuota/clsArchCuota.h" />
+		<Unit filename="include/cuota/clsCuota.h" />
 		<Unit filename="include/funciones.h" />
+		<Unit filename="include/libro/clsArchLibro.h" />
+		<Unit filename="include/libro/clsLibro.h" />
+		<Unit filename="include/prestamo/clsArchPrestamo.h" />
+		<Unit filename="include/prestamo/clsPrestamo.h" />
+		<Unit filename="include/socio/clsArchSocio.h" />
+		<Unit filename="include/socio/clsSocio.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/clsArchLibro.cpp" />
-		<Unit filename="src/clsArchSocios.cpp" />
-		<Unit filename="src/clsArchivoPrestamo.cpp" />
 		<Unit filename="src/clsDomicilio.cpp" />
 		<Unit filename="src/clsFecha.cpp" />
-		<Unit filename="src/clsLibro.cpp" />
-		<Unit filename="src/clsPrestamo.cpp" />
-		<Unit filename="src/clsSocio.cpp" />
+		<Unit filename="src/clsImporteExporte.cpp" />
+		<Unit filename="src/cuota/clsArchCuota.cpp" />
+		<Unit filename="src/cuota/clsCuota.cpp" />
 		<Unit filename="src/funciones.cpp" />
+		<Unit filename="src/libro/clsArchLibro.cpp" />
+		<Unit filename="src/libro/clsLibro.cpp" />
+		<Unit filename="src/prestamo/clsArchPrestamo.cpp" />
+		<Unit filename="src/prestamo/clsPrestamo.cpp" />
+		<Unit filename="src/socio/clsArchSocio.cpp" />
+		<Unit filename="src/socio/clsSocio.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

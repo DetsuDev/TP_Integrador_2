@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "clsPrestamo.h"
+#include "prestamo/clsPrestamo.h"
 #include "funciones.h"
 
 using namespace std;

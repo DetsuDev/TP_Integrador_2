@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cstring>
-#include "clsArchCuotas.h"
+#include "cuota/clsArchCuota.h"
 
 ArchivoCuotas::ArchivoCuotas(const char *n) {
     strcpy(nombre, n);

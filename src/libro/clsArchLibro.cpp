@@ -1,14 +1,13 @@
 #include <iostream>
 #include <cstring>
-#include "clsPrestamo.h"
-#include "clsArchivoPrestamo.h"
+#include "libro/clsArchLibro.h"
 
-ArchivoPrestamo::ArchivoPrestamo(const char *n){
+ArchivoLibros::ArchivoLibros(const char *n){
     strcpy(nombre, n);
 }
 
-Prestamo ArchivoPrestamo::leerRegistro(int pos){
-    Prestamo obj;
+Libro ArchivoLibros::leerRegistro(int pos){
+    Libro obj;
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
     fread(&obj, sizeof obj, 1, p);
@@ -16,7 +15,7 @@ Prestamo ArchivoPrestamo::leerRegistro(int pos){
     return obj;
 }
 
-bool ArchivoPrestamo::grabarRegistro(Prestamo obj){
+bool ArchivoLibros::grabarRegistro(Libro obj){
     FILE *p = fopen(nombre, "ab");
     if(p == nullptr){
         return false;
@@ -26,7 +25,7 @@ bool ArchivoPrestamo::grabarRegistro(Prestamo obj){
     return escribio;
 }
 
-bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos){
+bool ArchivoLibros::modificarRegistro(Libro obj, int pos){
     FILE *p;
     p = fopen(nombre, "rb+");
     if(p == nullptr){
@@ -38,7 +37,7 @@ bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos){
     return escribio;
 }
 
-int ArchivoPrestamo::contarRegistros(){
+int ArchivoLibros::contarRegistros(){
     FILE *p = fopen(nombre, "rb");
     if(p == nullptr){
         return -1;
@@ -46,15 +45,15 @@ int ArchivoPrestamo::contarRegistros(){
     fseek(p, 0, 2);
     int tam=ftell(p);
     fclose(p);
-    return tam/sizeof (Prestamo);
+    return tam/sizeof (Libro);
 }
 
-int ArchivoPrestamo::buscarRegistro(const char *idPrestamo){
-    Prestamo obj;
+int ArchivoLibros::buscarRegistro(const char *isbn){
+    Libro obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
-        if(obj.getIdPrestamo() == *idPrestamo){
+        if(obj.getISBN() == isbn){
             return i;
         }
     }
