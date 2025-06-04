@@ -94,7 +94,6 @@ void menuPrincipal()
                     subMenu=false;
                     break;
                 }
-                opc = = -1;
             }
         /// LIBROS ------------------------------
         case 2:
@@ -120,13 +119,17 @@ void menuPrincipal()
                 {
                 case 1:
                     registrarLibro();
+                    subMenu=false;
+                    system("pause");
                     break;
                 case 2:
                     listarLibro();
+                    subMenu=false;
                     system("pause");
                     break;
                 case 0:
                     subMenu=false;
+                    system("pause");
                     break;
                 }
 
@@ -155,13 +158,17 @@ void menuPrincipal()
                 {
                 case 1:
                     registrarPrestamo();
+                    subMenu=false;
+                    system("pause");
                     break;
                 case 2:
                     listarPrestamo();
+                    subMenu=false;
                     system("pause");
                     break;
                 case 0:
                     subMenu=false;
+                    system("pause");
                     break;
                 }
 
