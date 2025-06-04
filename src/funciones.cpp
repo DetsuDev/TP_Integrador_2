@@ -29,6 +29,7 @@ void menuPrincipal()
 
     bool menu=true;
     bool subMenu=true;
+
     while(menu)
     {
             system("cls");
@@ -54,6 +55,7 @@ void menuPrincipal()
             cout << ">> Ingrese opción: ";
 
             cin >> opc;
+            subMenu=true;
             system("cls");
 
             switch (opc)
@@ -91,10 +93,10 @@ void menuPrincipal()
                     case 3:
                         buscarSocio();
                         system("pause");
+                        break;
                     case 0:
                         subMenu=false;
                         //menuPrincipal();
-                        system("pause");
                         break;
                     }
                 }
@@ -129,7 +131,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
-                        system("pause");
+                        subMenu=false;
                         break;
                     }
 
@@ -165,7 +167,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
-                        system("pause");
+                        subMenu=false;
                         break;
                     }
 
@@ -201,6 +203,7 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 0:
+                        subMenu=false;
                         break;
                     }
 
@@ -231,6 +234,7 @@ void menuPrincipal()
                     case 2:
                         break;
                     case 0:
+                        subMenu=false;
                         break;
                     }
 
