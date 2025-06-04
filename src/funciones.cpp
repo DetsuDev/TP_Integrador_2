@@ -78,6 +78,7 @@ void menuPrincipal()
                 cout << "╚══════════════════════════════════════╝\n";
                 cout << ">> Ingrese opción: ";
                 cin >> opc;
+                cout << endl;
                 switch (opc)
                 {
                 case 1:
@@ -93,6 +94,7 @@ void menuPrincipal()
                     subMenu=false;
                     break;
                 }
+                opc = = -1;
             }
         /// LIBROS ------------------------------
         case 2:
@@ -113,6 +115,7 @@ void menuPrincipal()
                 cout << ">> Ingrese opción: ";
 
                 cin >> opc;
+                cout << endl;
                 switch (opc)
                 {
                 case 1:
@@ -147,6 +150,7 @@ void menuPrincipal()
                 cout << ">> Ingrese opción: ";
 
                 cin >> opc;
+                cout << endl;
                 switch (opc)
                 {
                 case 1:
@@ -181,6 +185,7 @@ void menuPrincipal()
                 cout << ">> Ingrese opción: ";
 
                 cin >> opc;
+                cout << endl;
                 switch (opc)
                 {
                 case 1:
@@ -196,6 +201,42 @@ void menuPrincipal()
                 }
 
             }
+            case 8:
+                while(subMenu)
+                {
+                    system("cls");
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+                    cout << "╠══════════════════════════════════════╣\n";
+                    cout << "╟── GESTION ───────────────────────────╣\n";
+                    cout << "║                                      ║\n";
+                    cout << "║  [1] Restaurar BACKUP                ║\n";
+                    cout << "║  [2] Generar BACKUP                  ║\n";
+                    cout << "║                                      ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    cout << ">> Ingrese opción: ";
+
+                    cin >> opc;
+                    cout << endl;
+                    switch (opc)
+                    {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 0:
+                        subMenu=false;
+                        break;
+                    }
+
+            }
+                case 0:
+                       menu = false;
+                       break;
+
+
         }
 
     }
@@ -226,8 +267,9 @@ void cargarCadena(char *palabra, int tamano)
 void registrarSocio()
 {
     Socio obj;
-    obj.Cargar();
     ArchivoSocios arc;
+
+    obj.Cargar();
     arc.grabarRegistro(obj);
 }
 
@@ -292,6 +334,56 @@ void listarLibro()
     {
         libr = arcLibr.leerRegistro(i);
         libr.Mostrar();
+        cout << endl;
+    }
+
+}
+
+void registrarPrestamo(){
+    Prestamo prest;
+    ArchivoPrestamo archPrest;
+
+    prest.Cargar();
+    archPrest.grabarRegistro(prest);
+}
+
+void listarPrestamo(){
+    ArchivoPrestamo archPrest;
+    Prestamo prest;
+
+
+    int cantReg = archPrest.contarRegistros();
+
+    for(int i=0; i<cantReg; i++)
+    {
+        prest = archPrest.leerRegistro(i);
+        prest.Mostrar();
+        cout << endl;
+    }
+
+
+}
+
+void registrarCuota(){
+
+    Cuota cuota;
+    ArchivoCuotas archCuot;
+
+    cuota.Cargar();
+    archCuot.grabarRegistro(cuota);
+}
+
+void listarCuota(){
+
+    ArchivoCuotas archCuot;
+    Cuota cuota;
+
+    int cantReg = archCuot.contarRegistros();
+
+    for(int i=0; i<cantReg; i++)
+    {
+        cuota = archCuot.leerRegistro(i);
+        cuota.Mostrar();
         cout << endl;
     }
 

@@ -2,6 +2,8 @@
 #include <cstring>
 #include "prestamo/clsPrestamo.h"
 #include "funciones.h"
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -14,6 +16,9 @@ void Prestamo::Cargar() {
     fechaPrestamo.Cargar();
     cout << "FECHA DE DEVOLUCIÓN: ";
     fechaDevolucion.Cargar();
+
+    srand(time(0));
+    idPrestamo = rand() % 100000 + 1;
 }
 
 void Prestamo::Mostrar() {
