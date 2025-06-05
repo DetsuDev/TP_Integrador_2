@@ -18,6 +18,8 @@ Socio ArchivoSocios::leerRegistro(int pos){
 }
 
 bool ArchivoSocios::grabarRegistro(Socio obj){
+
+
     FILE *p = fopen(nombre, "ab");
     if(p == nullptr){
         return false;
@@ -49,19 +51,23 @@ int ArchivoSocios::contarRegistros(){
     fclose(p);
     return tam/sizeof (Socio);
 }
-/*int ArchivoSocios::buscarRegistro(const char *dni){
+string ArchivoSocios::buscarRegistro(const char *dni){
     Socio obj;
+    string dniStr = "No encontrado.";
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
         if(strcmp(obj.getDni(), dni) == 0){
-            return i;
+            dniStr = dni;
+            return dniStr;
         }
     }
-    return -1;
-}*/
+    return dniStr;
+}
 
-Socio ArchivoSocios::buscarRegistro(const char *dni){
+
+
+/*Socio ArchivoSocios::buscarRegistro(const char *dni){
     Socio obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
@@ -71,4 +77,4 @@ Socio ArchivoSocios::buscarRegistro(const char *dni){
         }
     }
     //return obj;
-}
+}*/

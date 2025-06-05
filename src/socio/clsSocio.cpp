@@ -58,8 +58,10 @@ void Socio::MostrarBusqueda()
     cin >> dni;
 
     ArchivoSocios arcSoc;
-    Socio obj = arcSoc.buscarRegistro(dni);
-    obj.Mostrar();
+    string dniStr = arcSoc.buscarRegistro(dni);
+    cout << "DNI: " << dniStr;
+    cout << endl;
+    //obj.Mostrar();
 
 }
 
