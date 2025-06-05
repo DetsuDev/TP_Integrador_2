@@ -274,6 +274,12 @@ void cargarCadena(char *palabra, int tamano)
             break;
         }
     }
+
+     while (i < tamano) {
+        palabra[i] = ' ';
+        i++;
+    }
+
     palabra[i]='\0';
     fflush(stdin);
 }

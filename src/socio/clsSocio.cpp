@@ -41,15 +41,29 @@ cout << "╟──────────────────────�
 */
 
 void Socio::Mostrar(){
-    cout << " DNI: "<<dni<<endl;
+    cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
+    /*cout << " DNI: "<<dni<<endl;
     cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
     cout << " FECHA DE NACIMIENTO: ";
     fechaNacimiento.Mostrar();
     cout << " DOMICILIO: "<<endl;
     domicilio.Mostrar();
-    cout << " EMAIL: "<<email<<endl;
+    cout << " EMAIL: "<<email<<endl;*/
     cout << "────────────────────────────────────────";
 }
+
+                    /*cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+                    cout << "╠══════════════════════════════════════╣\n";
+                    cout << "╟── GESTION ───────────────────────────╣\n";
+                    cout << "║                                      ║\n";
+                    cout << "║  [1] Restaurar BACKUP                ║\n";
+                    cout << "║  [2] Generar BACKUP                  ║\n";
+                    cout << "║                                      ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";*/
+
 
 void Socio::MostrarBusqueda()
 {
@@ -58,8 +72,8 @@ void Socio::MostrarBusqueda()
     cin >> dni;
 
     ArchivoSocios arcSoc;
-    string dniStr = arcSoc.buscarRegistro(dni);
-    cout << "DNI: " << dniStr;
+    string dniReg = arcSoc.buscarDniRegistro(dni);
+    cout << "DNI: " << dniReg;
     cout << endl;
     //obj.Mostrar();
 

@@ -9,7 +9,8 @@ class ArchivoSocios{
     public:
         ArchivoSocios(const char *n="FILES/current/Socios.dat");
         Socio leerRegistro(int);
-        std::string buscarRegistro(const char *dni);
+        int buscarRegistro(const char *dni);
+        std::string buscarDniRegistro(const char *dni);
         bool grabarRegistro(Socio);
         bool modificarRegistro(Socio, int);
         int contarRegistros();

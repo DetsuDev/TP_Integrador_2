@@ -51,30 +51,26 @@ int ArchivoSocios::contarRegistros(){
     fclose(p);
     return tam/sizeof (Socio);
 }
-string ArchivoSocios::buscarRegistro(const char *dni){
+
+
+int ArchivoSocios::buscarRegistro(const char *dni){
     Socio obj;
-    string dniStr = "No encontrado.";
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++){
         obj = leerRegistro(i);
         if(strcmp(obj.getDni(), dni) == 0){
-            dniStr = dni;
-            return dniStr;
+            return i;
         }
     }
-    return dniStr;
+    return -1;
 }
 
-
-
-/*Socio ArchivoSocios::buscarRegistro(const char *dni){
-    Socio obj;
-    int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++){
-        obj = leerRegistro(i);
-        if(strcmp(obj.getDni(), dni) == 0){
-            return obj;
+string ArchivoSocios::buscarDniRegistro(const char *dni){
+        int pos = buscarRegistro(dni);
+        if (pos == -1) {
+            return "DNI NO ENCONTRADO.";
         }
-    }
-    //return obj;
-}*/
+
+        Socio obj = leerRegistro(pos);
+        return string(obj.getDni());
+}
