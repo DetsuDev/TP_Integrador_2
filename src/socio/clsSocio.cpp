@@ -3,6 +3,7 @@
 #include "socio/clsSocio.h"
 #include "funciones.h"
 
+#include "socio/clsArchSocio.h"
 using namespace std;
 
 void Socio::Cargar(){
@@ -20,14 +21,46 @@ void Socio::Cargar(){
     cargarCadena(email, 39);
 }
 
+
+/*
+
+
+
+
+cout << "║  [0] Volver                          ║\n";
+cout << "╚══════════════════════════════════════╝\n";
+
+
+
+cout << "╟──────────────────────────────────────╣\n";
+cout << "║                                      ║\n";
+cout << "║  DNI: " << dni << "\n";
+cout << "║  DNI: " << dni << "\n";
+cout << "║                                      ║\n";
+cout << "╟──────────────────────────────────────╣\n";
+*/
+
 void Socio::Mostrar(){
-    cout<<"DNI: "<<dni<<endl;
-    cout<<"NOMBRE: "<<apellido<<", "<<nombre<<endl;
-    cout<<"FECHA DE NACIMIENTO: ";
+    cout << " DNI: "<<dni<<endl;
+    cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
+    cout << " FECHA DE NACIMIENTO: ";
     fechaNacimiento.Mostrar();
-    cout<<"DOMICILIO: "<<endl;
+    cout << " DOMICILIO: "<<endl;
     domicilio.Mostrar();
-    cout<<"EMAIL: "<<email<<endl;
+    cout << " EMAIL: "<<email<<endl;
+    cout << "────────────────────────────────────────";
+}
+
+void Socio::MostrarBusqueda()
+{
+    char dni[9];
+    cout << ">> Ingrese DNI socio: ";
+    cin >> dni;
+
+    ArchivoSocios arcSoc;
+    Socio obj = arcSoc.buscarRegistro(dni);
+    obj.Mostrar();
+
 }
 
 void Socio::setEmail(const char *e){ strcpy(email, e); }

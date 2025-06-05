@@ -9,10 +9,12 @@ class ArchivoSocios{
     public:
         ArchivoSocios(const char *n="FILES/current/Socios.dat");
         Socio leerRegistro(int);
+        Socio buscarRegistro(const char *dni);
         bool grabarRegistro(Socio);
         bool modificarRegistro(Socio, int);
         int contarRegistros();
-        int buscarRegistro(const char *dni);
+
+        //void buscarRegistro();
 };
 
 #endif // CLSARCHSOCIOS_H_INCLUDED

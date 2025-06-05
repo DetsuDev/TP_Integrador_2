@@ -23,6 +23,7 @@ public:
     void setEmail(const char *);
     void Cargar();
     void Mostrar();
+    void MostrarBusqueda();
 };
 
 #endif // CLSSOCIO_H_INCLUDED

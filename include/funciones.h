@@ -3,7 +3,6 @@ void menuPrincipal();
 
 void registrarSocio();
 void listarSocio();
-void buscarSocio();
 
 
 void registrarLibro();

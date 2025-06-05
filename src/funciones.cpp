@@ -87,18 +87,23 @@ void menuPrincipal()
                         system("pause");
                         break;
                     case 2:
+                        cout << "╔══════════════════════════════════════╗\n";
+                        cout << "║   LISTA DE SOCIOS                    ║\n";
+                        cout << "╚══════════════════════════════════════╝\n";
+
                         listarSocio();
                         system("pause");
                         break;
                     case 3:
-                        buscarSocio();
+                        Socio obj;
+                        obj.MostrarBusqueda();
                         system("pause");
                         break;
-                    case 0:
+                    /*case 0:
                         opc = -1;
                         subMenu=false;
                         //menuPrincipal();
-                        break;
+                        break;*/
                     }
                 }
             /// LIBROS ------------------------------
@@ -299,30 +304,6 @@ void listarSocio()
         obj.Mostrar();
         cout << endl;
     }
-}
-
-void buscarSocio()
-{
-
-    char dni[9];
-    cout << ">> Ingrese DNI socio: ";
-    cin >> dni;
-
-    ArchivoSocios arcSoc;
-    int pos = arcSoc.buscarRegistro(dni);
-
-    if (pos == -1)
-    {
-        cout << "Socio no encontrado." << endl;
-    }
-    else
-    {
-        Socio obj = arcSoc.leerRegistro(pos);
-        obj.Mostrar();
-    }
-
-    system("pause");
-
 }
 
 // esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
