@@ -35,7 +35,9 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/clsDomicilio.h" />
+		<Unit filename="include/clsExporte.h" />
 		<Unit filename="include/clsFecha.h" />
+		<Unit filename="include/clsImporte.h" />
 		<Unit filename="include/cuota/clsArchCuota.h" />
 		<Unit filename="include/cuota/clsCuota.h" />
 		<Unit filename="include/funciones.h" />
