@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "prestamo/clsPrestamo.h"
+#include "prestamo/clsArchPrestamo.h"
 #include "funciones.h"
 #include <cstdlib>
 #include <ctime>
@@ -29,6 +30,34 @@ void Prestamo::Mostrar() {
     fechaPrestamo.Mostrar();
     cout << "FECHA DEVOLUCIÓN: ";
     fechaDevolucion.Mostrar();
+}
+
+
+void Prestamo::registrarPrestamo()
+{
+    Prestamo prest;
+    ArchivoPrestamo archPrest;
+
+    prest.Cargar();
+    archPrest.grabarRegistro(prest);
+}
+
+void Prestamo::listarPrestamo()
+{
+    ArchivoPrestamo archPrest;
+    Prestamo prest;
+
+
+    int cantReg = archPrest.contarRegistros();
+
+    for(int i=0; i<cantReg; i++)
+    {
+        prest = archPrest.leerRegistro(i);
+        prest.Mostrar();
+        cout << endl;
+    }
+
+
 }
 
 void Prestamo::setIdPrestamo(int id) { idPrestamo = id; }

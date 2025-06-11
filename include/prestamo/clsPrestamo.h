@@ -26,6 +26,12 @@ public:
     const char* getISBN();
     Fecha getFechaPrestamo();
     Fecha getFechaDevolucion();
+
+    void registrarPrestamo();
+    void listarPrestamo();
+
+
+
 };
 
 #endif // CLSPRESTAMO_H

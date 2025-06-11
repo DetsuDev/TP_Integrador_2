@@ -24,6 +24,8 @@ public:
     void Cargar();
     void Mostrar();
     void MostrarBusqueda();
+    void registrarSocio();
+    void listarSocio();
 };
 
 #endif // CLSSOCIO_H_INCLUDED

@@ -1,5 +1,8 @@
 #include <iostream>
+#include <cstring>
 #include "cuota/clsCuota.h"
+#include "cuota/clsArchCuota.h"
+#include "funciones.h"
 
 using namespace std;
 
@@ -27,6 +30,37 @@ void Cuota::Mostrar() {
     cout << "IMPORTE: $" << importe << endl;
     cout << "MES: " << mes << " - AÑO: " << anio << endl;
 }
+
+
+
+
+void Cuota::registrarCuota()
+{
+
+    Cuota cuota;
+    ArchivoCuotas archCuot;
+
+    cuota.Cargar();
+    archCuot.grabarRegistro(cuota);
+}
+
+void Cuota::listarCuota()
+{
+
+    ArchivoCuotas archCuot;
+    Cuota cuota;
+
+    int cantReg = archCuot.contarRegistros();
+
+    for(int i=0; i<cantReg; i++)
+    {
+        cuota = archCuot.leerRegistro(i);
+        cuota.Mostrar();
+        cout << endl;
+    }
+
+}
+
 
 // Getters
 int Cuota::getNumeroSocio() { return numeroSocio; }

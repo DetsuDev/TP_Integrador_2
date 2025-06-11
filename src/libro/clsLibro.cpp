@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "libro/clsLibro.h"
+#include "libro/clsArchLibro.h"
 #include "funciones.h"
 
 using namespace std;
@@ -26,6 +27,32 @@ void Libro::Mostrar()
     cout << "AUTOR: " << autor << endl;
     cout << "AÑO DE PUBLICACIÓN: " << anioPublicacion << endl;
     cout << "CANTIDAD DE EJEMPLARES: " << cantidadEjemplares << endl;
+}
+
+// esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
+void Libro::registrarLibro()
+{
+    Libro libr;
+    libr.Cargar();
+    ArchivoLibros ArcLibr;
+    ArcLibr.grabarRegistro(libr);
+
+}
+
+// lee el archivo de libros y los muestra en pantalla
+void Libro::listarLibro()
+{
+    ArchivoLibros arcLibr;
+    Libro libr;
+    //libr.Cargar();
+    int cantReg = arcLibr.contarRegistros();
+    for(int i=0; i<cantReg; i++)
+    {
+        libr = arcLibr.leerRegistro(i);
+        libr.Mostrar();
+        cout << endl;
+    }
+
 }
 
 void Libro::setISBN(const char *i) { strcpy(isbn, i); }

@@ -28,6 +28,9 @@ public:
     void setImporte(float imp);
     void setMes(int m);
     void setAnio(int a);
+
+    void registrarCuota();
+    void listarCuota();
 };
 
 #endif // CLSCUOTA_H_INCLUDED

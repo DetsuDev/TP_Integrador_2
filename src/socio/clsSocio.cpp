@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include "socio/clsSocio.h"
+#include "socio/clsArchSocio.h"
 #include "funciones.h"
 
-#include "socio/clsArchSocio.h"
 using namespace std;
 
 void Socio::Cargar(){
@@ -59,6 +59,33 @@ void Socio::MostrarBusqueda()
     cout << endl;
     //obj.Mostrar();
 
+}
+
+// esta funcion crea el objeto obj, luego ejecuta el metodo "Cargar()", luego crea el objeto "obj" y graba los registros en el archivo de socios
+
+void Socio::registrarSocio()
+{
+    Socio obj;
+    ArchivoSocios arc;
+
+    obj.Cargar();
+    arc.grabarRegistro(obj);
+}
+
+// lee el archivo de socios y los muestra en pantalla
+
+
+void Socio::listarSocio()
+{
+    ArchivoSocios arcSoc;
+    Socio obj;
+    int cantReg = arcSoc.contarRegistros();
+    for(int i=0; i<cantReg; i++)
+    {
+        obj = arcSoc.leerRegistro(i);
+        obj.Mostrar();
+        cout << endl;
+    }
 }
 
 void Socio::setEmail(const char *e){ strcpy(email, e); }

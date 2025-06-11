@@ -25,6 +25,10 @@ public:
     const char* getAutor();
     int getAnioPublicacion();
     int getCantidadEjemplares();
+
+    void registrarLibro();
+    void listarLibro();
+
 };
 
 #endif // CLSLIBRO_H
