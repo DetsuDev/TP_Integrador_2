@@ -12,7 +12,7 @@ private:
     char cuotaFile[30] = {"FILES\current\Socios.dat"};
 public:
 
-    void leerArchivo(char nombreArchivo[30]){
+    void exportarArchivo(char nombreArchivo[30]){
 
         switch(nombreArchivo){
         case socioFile:
