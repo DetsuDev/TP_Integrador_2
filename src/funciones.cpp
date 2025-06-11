@@ -98,9 +98,11 @@ void menuPrincipal()
                     cout << "║   BUSCAR SOCIO                       ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
                     obj.MostrarBusqueda();
+                    break;
+
+                case 0:
                     opc =-1;
                     subMenu=false;
-                    break;
                 }
             }
         /// LIBROS ------------------------------
