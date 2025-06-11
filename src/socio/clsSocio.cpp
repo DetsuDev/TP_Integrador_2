@@ -22,33 +22,15 @@ void Socio::Cargar(){
 }
 
 
-/*
-
-
-
-
-cout << "║  [0] Volver                          ║\n";
-cout << "╚══════════════════════════════════════╝\n";
-
-
-
-cout << "╟──────────────────────────────────────╣\n";
-cout << "║                                      ║\n";
-cout << "║  DNI: " << dni << "\n";
-cout << "║  DNI: " << dni << "\n";
-cout << "║                                      ║\n";
-cout << "╟──────────────────────────────────────╣\n";
-*/
-
 void Socio::Mostrar(){
-    cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
-    /*cout << " DNI: "<<dni<<endl;
+    //cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
+    cout << " DNI: "<<dni<<endl;
     cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
     cout << " FECHA DE NACIMIENTO: ";
     fechaNacimiento.Mostrar();
     cout << " DOMICILIO: "<<endl;
     domicilio.Mostrar();
-    cout << " EMAIL: "<<email<<endl;*/
+    cout << " EMAIL: "<<email<<endl;
     cout << "────────────────────────────────────────";
 }
 
