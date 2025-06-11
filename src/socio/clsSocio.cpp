@@ -33,30 +33,47 @@ bool Socio::Cargar(ArchivoSocios &arcSoc)
     }
 
 }
-/*
+
 void Socio::EliminarSocio()
 {
     cout << "INGRESE DNI A ELIMINAR: ";
     cargarCadena(dni,9);
-    //char* aux[9] = {dni};
-
     ArchivoSocios arcSoc;
-    if (arcSoc.buscarRegistro(dni) == -1)
+    //arcSoc.buscarRegistro(dni)
+
+    char buffer[50] = {};
+
+    int pos = arcSoc.buscarRegistro(dni);
+    if (pos > -1)
     {
-    } else
-    {
+        Socio obj = arcSoc.leerRegistro(pos);
+        obj.setDni(buffer);
+        obj.setNombre(buffer);
+        obj.setApellido(buffer);
+        obj.setEmail(buffer);
+
+        Fecha fechaVacia(0, 0, 0);
+        obj.setFechaNacimiento(fechaVacia);
+
+        obj.getDomicilio().setAltura(0);
+        obj.getDomicilio().setCalle(buffer);
+        obj.getDomicilio().setCodPostal(buffer);
+        obj.getDomicilio().setPartido(buffer);
+        obj.setEstado(false);
+        arcSoc.modificarRegistro(obj, pos);
+
 
         cout << "SOCIO [" << dni << "] ELIMINADO" << endl;
-        arcSoc.buscarRegistro(dni)
-        setDni("0");
+    }
+    else
+    {
+        cout << "DNI NO ENCONTRADO." << endl;
     }
 
-
-}*/
+}
 
 void Socio::Mostrar()
 {
-    //cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
     cout << " DNI: "<<dni<<endl;
     cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
     cout << " FECHA DE NACIMIENTO: ";
@@ -65,14 +82,16 @@ void Socio::Mostrar()
     domicilio.Mostrar();
     cout << " EMAIL: "<<email<<endl;
     cout << "────────────────────────────────────────";
+    //cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
+
 }
 
 
 void Socio::MostrarBusqueda()
 {
-    char dni[9];
+    //char dni[9];
     cout << ">> Ingrese DNI socio: ";
-    cin >> dni;
+    cargarCadena(dni,9);
 
     ArchivoSocios arcSoc;
     string dniReg = arcSoc.buscarDniRegistro(dni);
@@ -108,22 +127,61 @@ void Socio::listarSocio()
     int cantReg = arcSoc.contarRegistros();
     for(int i=0; i<cantReg; i++)
     {
+
         obj = arcSoc.leerRegistro(i);
-        obj.Mostrar();
-        cout << endl;
+        if (obj.getEstado())
+        {
+            obj.Mostrar();
+            cout << endl;
+        }
     }
 }
 
-void Socio::setEmail(const char *e)
+void Socio::setEstado(bool e)
 {
-    strcpy(email, e);
+    estado = e;
+}
+
+bool Socio::getEstado()
+{
+    return estado;
 }
 
 void Socio::setDni(const char *i)
 {
     strcpy(dni, i);
 }
+void Socio::setNombre(const char *e)
+{
+    strcpy(nombre, e);
+}
+void Socio::setApellido(const char *e)
+{
+    strcpy(apellido, e);
+}
+void Socio::setEmail(const char *e)
+{
+    strcpy(email, e);
+}
 
+void Socio::setFechaNacimiento(Fecha f)
+{
+    fechaNacimiento = f;
+}
+void Socio::setDomicilio(Domicilio d)
+{
+    domicilio = d;
+}
+
+Domicilio& Socio::getDomicilio()
+{
+    return domicilio;
+}
+
+Fecha& Socio::getFechaNacimiento()
+{
+    return fechaNacimiento;
+}
 const char* Socio::getDni()
 {
     return dni;

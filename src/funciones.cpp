@@ -107,6 +107,7 @@ void menuPrincipal()
                     cout << "╚══════════════════════════════════════╝\n";
                     obj.EliminarSocio();
                     system("pause");
+                    break;
                 case 0:
                     opc =-1;
                     subMenu=false;
