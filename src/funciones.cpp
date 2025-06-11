@@ -69,6 +69,7 @@ void menuPrincipal()
                 cout << "║  [1] Registrar Socio                 ║\n";
                 cout << "║  [2] Mostrar Lista de Socios         ║\n";
                 cout << "║  [3] Buscar Socio                    ║\n";
+                cout << "║  [4] Eliminar Socio                  ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -100,7 +101,12 @@ void menuPrincipal()
                     obj.MostrarBusqueda();
                     system("pause");
                     break;
-
+                case 4:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   ELIMINAR SOCIO                     ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.EliminarSocio();
+                    system("pause");
                 case 0:
                     opc =-1;
                     subMenu=false;

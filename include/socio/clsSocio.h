@@ -3,8 +3,9 @@
 
 #include "clsFecha.h"
 #include "clsDomicilio.h"
-#include "clsSocio.h"
 #include <cstring>
+
+class ArchivoSocios;
 
 class Socio
 {
@@ -21,7 +22,8 @@ public:
     const char* getDni();
     void setDni(const char *);
     void setEmail(const char *);
-    bool Cargar();
+    bool Cargar(ArchivoSocios&);
+    void EliminarSocio();
     void Mostrar();
     void MostrarBusqueda();
     void registrarSocio();

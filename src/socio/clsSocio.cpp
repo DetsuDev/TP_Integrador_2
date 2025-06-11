@@ -1,4 +1,3 @@
-
 #include "clsFecha.h"
 #include "clsDomicilio.h"
 #include "socio/clsSocio.h"
@@ -7,9 +6,8 @@
 
 using namespace std;
 
-bool Socio::Cargar()
+bool Socio::Cargar(ArchivoSocios &arcSoc)
 {
-    ArchivoSocios arcSoc;
     cout<<"INGRESE EL DNI: ";
     cargarCadena(dni,9);
 
@@ -35,7 +33,26 @@ bool Socio::Cargar()
     }
 
 }
+/*
+void Socio::EliminarSocio()
+{
+    cout << "INGRESE DNI A ELIMINAR: ";
+    cargarCadena(dni,9);
+    //char* aux[9] = {dni};
 
+    ArchivoSocios arcSoc;
+    if (arcSoc.buscarRegistro(dni) == -1)
+    {
+    } else
+    {
+
+        cout << "SOCIO [" << dni << "] ELIMINADO" << endl;
+        arcSoc.buscarRegistro(dni)
+        setDni("0");
+    }
+
+
+}*/
 
 void Socio::Mostrar()
 {
@@ -49,18 +66,6 @@ void Socio::Mostrar()
     cout << " EMAIL: "<<email<<endl;
     cout << "────────────────────────────────────────";
 }
-
-/*cout << "╔══════════════════════════════════════╗\n";
-cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
-cout << "╠══════════════════════════════════════╣\n";
-cout << "╟── GESTION ───────────────────────────╣\n";
-cout << "║                                      ║\n";
-cout << "║  [1] Restaurar BACKUP                ║\n";
-cout << "║  [2] Generar BACKUP                  ║\n";
-cout << "║                                      ║\n";
-cout << "╟──────────────────────────────────────╣\n";
-cout << "║  [0] Volver                          ║\n";
-cout << "╚══════════════════════════════════════╝\n";*/
 
 
 void Socio::MostrarBusqueda()
@@ -83,13 +88,13 @@ void Socio::registrarSocio()
 {
     Socio obj;
     ArchivoSocios arcSoc;
-    if (obj.Cargar())
+    if (obj.Cargar(arcSoc))
     {
         arcSoc.grabarRegistro(obj);
     }
     else
     {
-        obj.Cargar();
+        obj.Cargar(arcSoc);
     }
 }
 

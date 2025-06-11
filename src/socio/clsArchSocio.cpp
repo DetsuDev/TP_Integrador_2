@@ -41,6 +41,9 @@ bool ArchivoSocios::modificarRegistro(Socio obj, int pos){
     return escribio;
 }
 
+
+
+
 int ArchivoSocios::contarRegistros(){
     FILE *p = fopen(nombre, "rb");
     if(p == nullptr){
