@@ -21,7 +21,7 @@ public:
     const char* getDni();
     void setDni(const char *);
     void setEmail(const char *);
-    void Cargar();
+    bool Cargar();
     void Mostrar();
     void MostrarBusqueda();
     void registrarSocio();

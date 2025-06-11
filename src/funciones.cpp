@@ -98,6 +98,7 @@ void menuPrincipal()
                     cout << "║   BUSCAR SOCIO                       ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
                     obj.MostrarBusqueda();
+                    system("pause");
                     break;
 
                 case 0:

@@ -6,20 +6,33 @@
 
 using namespace std;
 
-void Socio::Cargar()
+bool Socio::Cargar()
 {
+    ArchivoSocios arcSoc;
     cout<<"INGRESE EL DNI: ";
     cargarCadena(dni,9);
-    cout<<"INGRESE EL NOMBRE: ";
-    cargarCadena(nombre,29);
-    cout<<"INGRESE EL APELLIDO: ";
-    cargarCadena(apellido,29);
-    cout<<"INGRESE LA FECHA DE NACIMIENTO: "<<endl;
-    fechaNacimiento.Cargar();
-    cout<<"INGRESE EL DOMICILIO: "<<endl;
-    domicilio.Cargar();
-    cout<<"INGRESE EL EMAIL: ";
-    cargarCadena(email, 39);
+
+    if (arcSoc.buscarRegistro(dni) == -1)
+    {
+
+        cout<<"INGRESE EL NOMBRE: ";
+        cargarCadena(nombre,29);
+        cout<<"INGRESE EL APELLIDO: ";
+        cargarCadena(apellido,29);
+        cout<<"INGRESE LA FECHA DE NACIMIENTO: "<<endl;
+        fechaNacimiento.Cargar();
+        cout<<"INGRESE EL DOMICILIO: "<<endl;
+        domicilio.Cargar();
+        cout<<"INGRESE EL EMAIL: ";
+        cargarCadena(email, 39);
+        return true;
+    }
+    else
+    {
+        cout << "DNI: [" << dni << "] YA EXISTENTE." << endl;
+        return false;
+    }
+
 }
 
 
@@ -68,18 +81,15 @@ void Socio::MostrarBusqueda()
 void Socio::registrarSocio()
 {
     Socio obj;
-    ArchivoSocios arc;
-    if (arc.buscarRegistro() == -1)
+    ArchivoSocios arcSoc;
+    if (obj.Cargar())
     {
-        obj.Cargar();
-        arc.grabarRegistro(obj);
-
+        arcSoc.grabarRegistro(obj);
     }
     else
     {
-        cout << "DNI: [" << dni << "] YA EXISTENTE." << endl;
+        obj.Cargar();
     }
-
 }
 
 // lee el archivo de socios y los muestra en pantalla
