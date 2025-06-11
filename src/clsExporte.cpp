@@ -18,7 +18,9 @@ void Exporte::archExportar(std::string claseCls)
         for(int i=0; i<cantReg; i++)
         {
             obj = arcSoc.leerRegistro(i);
+            if(obj.getEstado() == true){
             file << obj.getDni() <<"," << obj.getNombre() << "\n";
+            }
         }
         file.close();
 
