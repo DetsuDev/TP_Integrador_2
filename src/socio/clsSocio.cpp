@@ -1,5 +1,6 @@
-#include <iostream>
-#include <cstring>
+
+#include "clsFecha.h"
+#include "clsDomicilio.h"
 #include "socio/clsSocio.h"
 #include "socio/clsArchSocio.h"
 #include "funciones.h"

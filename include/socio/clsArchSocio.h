@@ -1,6 +1,7 @@
 #ifndef CLSARCHSOCIOS_H_INCLUDED
 #define CLSARCHSOCIOS_H_INCLUDED
-
+#include <iostream>
+#include <cstring>
 #include "socio/clsSocio.h"
 
 class ArchivoSocios{
