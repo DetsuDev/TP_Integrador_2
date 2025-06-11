@@ -261,6 +261,7 @@ void menuPrincipal()
 
 // Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
 
+
 void cargarCadena(char *palabra, int tamano)
 {
     int i=0;
@@ -275,10 +276,10 @@ void cargarCadena(char *palabra, int tamano)
         }
     }
 
-     while (i < tamano) {
+    /* while (i < tamano) {
         palabra[i] = ' ';
         i++;
-    }
+    }*/
 
     palabra[i]='\0';
     fflush(stdin);
