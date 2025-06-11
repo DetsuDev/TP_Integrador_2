@@ -44,7 +44,7 @@ void menuPrincipal()
         cout << "╟── SISTEMA ───────────────────────────╣\n";
         cout << "║                                      ║\n";
         cout << "║  [8] RESTAURACION                    ║\n";
-        cout << "║  [9] EXPORTAR/IMPORTAR               ║\n";
+        cout << "║  [9] EXPORTAR REPORTES               ║\n";
         cout << "║                                      ║\n";
         cout << "╟──────────────────────────────────────╣\n";
         cout << "║  [0] Salir                           ║\n";
@@ -269,8 +269,8 @@ void menuPrincipal()
                 cout << "╠══════════════════════════════════════╣\n";
                 cout << "╟── GESTION ───────────────────────────╣\n";
                 cout << "║                                      ║\n";
-                cout << "║  [1] Restaurar BACKUP                ║\n";
-                cout << "║  [2] Generar BACKUP                  ║\n";
+                cout << "║  [1] Generar reporte socios          ║\n";
+                cout << "║  [2]                                 ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
