@@ -6,7 +6,8 @@
 
 using namespace std;
 
-void Socio::Cargar(){
+void Socio::Cargar()
+{
     cout<<"INGRESE EL DNI: ";
     cargarCadena(dni,9);
     cout<<"INGRESE EL NOMBRE: ";
@@ -22,7 +23,8 @@ void Socio::Cargar(){
 }
 
 
-void Socio::Mostrar(){
+void Socio::Mostrar()
+{
     //cout << dni << "| " << apellido << "| " << nombre << "| " << email << endl;
     cout << " DNI: "<<dni<<endl;
     cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
@@ -34,17 +36,17 @@ void Socio::Mostrar(){
     cout << "────────────────────────────────────────";
 }
 
-                    /*cout << "╔══════════════════════════════════════╗\n";
-                    cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
-                    cout << "╠══════════════════════════════════════╣\n";
-                    cout << "╟── GESTION ───────────────────────────╣\n";
-                    cout << "║                                      ║\n";
-                    cout << "║  [1] Restaurar BACKUP                ║\n";
-                    cout << "║  [2] Generar BACKUP                  ║\n";
-                    cout << "║                                      ║\n";
-                    cout << "╟──────────────────────────────────────╣\n";
-                    cout << "║  [0] Volver                          ║\n";
-                    cout << "╚══════════════════════════════════════╝\n";*/
+/*cout << "╔══════════════════════════════════════╗\n";
+cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+cout << "╠══════════════════════════════════════╣\n";
+cout << "╟── GESTION ───────────────────────────╣\n";
+cout << "║                                      ║\n";
+cout << "║  [1] Restaurar BACKUP                ║\n";
+cout << "║  [2] Generar BACKUP                  ║\n";
+cout << "║                                      ║\n";
+cout << "╟──────────────────────────────────────╣\n";
+cout << "║  [0] Volver                          ║\n";
+cout << "╚══════════════════════════════════════╝\n";*/
 
 
 void Socio::MostrarBusqueda()
@@ -67,9 +69,17 @@ void Socio::registrarSocio()
 {
     Socio obj;
     ArchivoSocios arc;
+    if (arc.buscarRegistro() == -1)
+    {
+        obj.Cargar();
+        arc.grabarRegistro(obj);
 
-    obj.Cargar();
-    arc.grabarRegistro(obj);
+    }
+    else
+    {
+        cout << "DNI: [" << dni << "] YA EXISTENTE." << endl;
+    }
+
 }
 
 // lee el archivo de socios y los muestra en pantalla
@@ -88,8 +98,17 @@ void Socio::listarSocio()
     }
 }
 
-void Socio::setEmail(const char *e){ strcpy(email, e); }
+void Socio::setEmail(const char *e)
+{
+    strcpy(email, e);
+}
 
-void Socio::setDni(const char *i) { strcpy(dni, i); }
+void Socio::setDni(const char *i)
+{
+    strcpy(dni, i);
+}
 
-const char* Socio::getDni(){ return dni; }
+const char* Socio::getDni()
+{
+    return dni;
+}
