@@ -21,6 +21,7 @@ private:
 
 public:
     const char* getDni();
+    const char* getNombre();
     Fecha& getFechaNacimiento();
     Domicilio& getDomicilio();
     void setEstado(bool);

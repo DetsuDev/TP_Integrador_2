@@ -186,3 +186,8 @@ const char* Socio::getDni()
 {
     return dni;
 }
+
+const char* Socio::getNombre()
+{
+    return nombre;
+}

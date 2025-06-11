@@ -16,6 +16,8 @@
 
 #include "funciones.h"
 
+#include "clsExporte.h"
+
 
 using namespace std;
 void menuPrincipal()
@@ -257,8 +259,42 @@ void menuPrincipal()
                     subMenu=false;
                     break;
                 }
-
             }
+        case 9:
+            while(subMenu)
+            {
+                system("cls");
+                cout << "╔══════════════════════════════════════╗\n";
+                cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
+                cout << "╠══════════════════════════════════════╣\n";
+                cout << "╟── GESTION ───────────────────────────╣\n";
+                cout << "║                                      ║\n";
+                cout << "║  [1] Restaurar BACKUP                ║\n";
+                cout << "║  [2] Generar BACKUP                  ║\n";
+                cout << "║                                      ║\n";
+                cout << "╟──────────────────────────────────────╣\n";
+                cout << "║  [0] Volver                          ║\n";
+                cout << "╚══════════════════════════════════════╝\n";
+                cout << ">> Ingrese opción: ";
+
+                cin >> opc;
+                cout << endl;
+                switch (opc)
+                {
+                case 1:
+                    Exporte exp;
+                        exp.archExportar("Socio");
+                    break;
+
+                case 2:
+                    break;
+                case 0:
+                    opc =-1;
+                    subMenu=false;
+                    break;
+                }
+            }
+
         case 0:
             if(opc !=-1)
             {

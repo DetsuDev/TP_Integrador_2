@@ -1,50 +1,26 @@
-/*#include <iostream>
-using namespace std;
+#include <iostream>
 #include "clsExporte.h"
 #include <fstream>
+#include "socio/clsSocio.h"
 
-class Exporte{
+#include "socio/clsArchSocio.h"
+void Exporte::archExportar(std::string claseCls){
 
-private:
-    char socioFile[30] = {"FILES\current\Socios.dat"};
-    char libroFile[30] = {"FILES\current\Socios.dat"};
-    char prestamoFile[30] = {"FILES\current\Socios.dat"};
-    char cuotaFile[30] = {"FILES\current\Socios.dat"};
-public:
-
-    void exportarArchivo(char nombreArchivo[30]){
-
-        switch(nombreArchivo){
-        case socioFile:
+            if(claseCls == "Socio"){
+            ArchivoSocios arcSoc;
             Socio obj;
-            ArchivosSocios arcSoc;
-            ofstream file("CSV\Socios.csv");
+            std::ofstream file("CSV/Socios.csv");
 
             int cantReg = arcSoc.contarRegistros();
+            file << "DNI" << "\n";
             for(int i=0; i<cantReg; i++)
             {
                 obj = arcSoc.leerRegistro(i);
-                file << obj;
-                cout << endl;
+                file << obj.getDni() <<"," << obj.getNombre() << "\n";
             }
-
-
-            break;
-
-        case libroFile:
-            break;
-
-        case prestamoFile:
-            break;
-
-        case cuotaFile:
-            break;
-
+            file.close();
 
         }
 
 
    }
-
-
-};*/
