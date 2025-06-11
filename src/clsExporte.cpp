@@ -13,7 +13,6 @@ private:
 public:
 
     void leerArchivo(char nombreArchivo[30]){
-        fread(nombreArchivo[]);
 
         switch(nombreArchivo){
         case socioFile:
@@ -25,6 +24,7 @@ public:
             for(int i=0; i<cantReg; i++)
             {
                 obj = arcSoc.leerRegistro(i);
+                file << obj;
                 cout << endl;
             }
 
