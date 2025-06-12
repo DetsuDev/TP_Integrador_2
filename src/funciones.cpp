@@ -18,6 +18,8 @@
 
 #include "clsExporte.h"
 
+#include "clsBackup.h"
+
 
 using namespace std;
 void menuPrincipal()
@@ -253,6 +255,8 @@ void menuPrincipal()
                 case 1:
                     break;
                 case 2:
+                    BackupManager backup;
+                    backup.backupGeneral();
                     break;
                 case 0:
                     opc =-1;
