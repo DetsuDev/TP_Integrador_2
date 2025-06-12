@@ -270,7 +270,8 @@ void menuPrincipal()
                 cout << "╟── GESTION ───────────────────────────╣\n";
                 cout << "║                                      ║\n";
                 cout << "║  [1] Generar reporte socios          ║\n";
-                cout << "║  [2]                                 ║\n";
+                cout << "║  [2] Generar reporte libros          ║\n";
+                cout << "║  [3] Generar reporte prestamos       ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -283,10 +284,22 @@ void menuPrincipal()
                 {
                 case 1:
                     Exporte exp;
-                        exp.archExportar("Socio");
+                    exp.archExportar("Socio");
                     break;
 
                 case 2:
+                    Exporte exp2;
+                    exp2.archExportar("Libro");
+                    break;
+
+                case 3:
+                    Exporte exp3;
+                    exp3.archExportar("Prestamo");
+                    break;
+
+                case 4:
+                    Exporte exp4;
+                    exp4.archExportar("Cuota");
                     break;
                 case 0:
                     opc =-1;
