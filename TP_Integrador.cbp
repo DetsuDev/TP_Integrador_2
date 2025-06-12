@@ -34,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/clsBackup.h" />
 		<Unit filename="include/clsDomicilio.h" />
 		<Unit filename="include/clsExporte.h" />
 		<Unit filename="include/clsFecha.h" />
@@ -48,6 +49,7 @@
 		<Unit filename="include/socio/clsArchSocio.h" />
 		<Unit filename="include/socio/clsSocio.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/clsBackup.cpp" />
 		<Unit filename="src/clsDomicilio.cpp" />
 		<Unit filename="src/clsExporte.cpp" />
 		<Unit filename="src/clsFecha.cpp" />

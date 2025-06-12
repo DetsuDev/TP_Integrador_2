@@ -47,18 +47,7 @@ void Socio::EliminarSocio()
     if (pos > -1)
     {
         Socio obj = arcSoc.leerRegistro(pos);
-        obj.setDni(buffer);
-        obj.setNombre(buffer);
-        obj.setApellido(buffer);
-        obj.setEmail(buffer);
 
-        Fecha fechaVacia(0, 0, 0);
-        obj.setFechaNacimiento(fechaVacia);
-
-        obj.getDomicilio().setAltura(0);
-        obj.getDomicilio().setCalle(buffer);
-        obj.getDomicilio().setCodPostal(buffer);
-        obj.getDomicilio().setPartido(buffer);
         obj.setEstado(false);
         arcSoc.modificarRegistro(obj, pos);
 
