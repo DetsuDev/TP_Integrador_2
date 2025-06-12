@@ -2,7 +2,6 @@
 #include "clsExporte.h"
 #include <fstream>
 #include "socio/clsSocio.h"
-
 #include "socio/clsArchSocio.h"
 void Exporte::archExportar(std::string claseCls)
 {
@@ -18,11 +17,27 @@ void Exporte::archExportar(std::string claseCls)
         for(int i=0; i<cantReg; i++)
         {
             obj = arcSoc.leerRegistro(i);
-            if(obj.getEstado() == true){
-            file << obj.getDni() <<"," << obj.getNombre() << "\n";
+            if(obj.getEstado() == true)
+            {
+                file << obj.getDni() <<"," << obj.getNombre() << "\n";
             }
         }
         file.close();
+
+    }
+
+    if(claseCls == "Libro")
+    {
+
+    }
+
+    if(claseCls == "Prestamo")
+    {
+
+    }
+
+    if(claseCls == "Cuota")
+    {
 
     }
     cout << "Hecho." << endl;
