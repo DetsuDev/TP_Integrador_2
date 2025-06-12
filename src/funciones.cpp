@@ -265,6 +265,7 @@ void menuPrincipal()
                 }
             }
         case 9:
+            Exporte exp;
             while(subMenu)
             {
                 system("cls");
@@ -287,23 +288,19 @@ void menuPrincipal()
                 switch (opc)
                 {
                 case 1:
-                    Exporte exp;
                     exp.archExportar("Socio");
                     break;
 
                 case 2:
-                    Exporte exp2;
-                    exp2.archExportar("Libro");
+                    exp.archExportar("Libro");
                     break;
 
                 case 3:
-                    Exporte exp3;
-                    exp3.archExportar("Prestamo");
+                    exp.archExportar("Prestamo");
                     break;
 
                 case 4:
-                    Exporte exp4;
-                    exp4.archExportar("Cuota");
+                    exp.archExportar("Cuota");
                     break;
                 case 0:
                     opc =-1;
