@@ -116,8 +116,8 @@ void Prestamo::Mostrar() {
 
 void ArchivoPrestamo::RegistrarPrestamo() {
     Prestamo obj;
-
     if (obj.Cargar(*this)) {
+        obj.setEstado(true);
         grabarRegistro(obj);
     }
 }

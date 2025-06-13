@@ -5,11 +5,13 @@
 
 using namespace std;
 
-ArchivoLibros::ArchivoLibros(const char *n) {
+ArchivoLibros::ArchivoLibros(const char *n)
+{
     strcpy(nombre, n);
 }
 
-Libro ArchivoLibros::leerRegistro(int pos) {
+Libro ArchivoLibros::leerRegistro(int pos)
+{
     Libro obj;
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
@@ -18,9 +20,11 @@ Libro ArchivoLibros::leerRegistro(int pos) {
     return obj;
 }
 
-bool ArchivoLibros::grabarRegistro(Libro obj) {
+bool ArchivoLibros::grabarRegistro(Libro obj)
+{
     FILE *p = fopen(nombre, "ab");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return false;
     }
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
@@ -28,10 +32,12 @@ bool ArchivoLibros::grabarRegistro(Libro obj) {
     return escribio;
 }
 
-bool ArchivoLibros::modificarRegistro(Libro obj, int pos) {
+bool ArchivoLibros::modificarRegistro(Libro obj, int pos)
+{
     FILE *p;
     p = fopen(nombre, "rb+");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return false;
     }
     fseek(p, pos * sizeof obj, 0);
@@ -40,9 +46,11 @@ bool ArchivoLibros::modificarRegistro(Libro obj, int pos) {
     return escribio;
 }
 
-int ArchivoLibros::contarRegistros() {
+int ArchivoLibros::contarRegistros()
+{
     FILE *p = fopen(nombre, "rb");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return -1;
     }
     fseek(p, 0, 2);
@@ -51,12 +59,15 @@ int ArchivoLibros::contarRegistros() {
     return tam/sizeof (Libro);
 }
 
-int ArchivoLibros::buscarRegistro(const char *isbn) {
+int ArchivoLibros::buscarRegistro(const char *isbn)
+{
     Libro obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
+    for(int i=0; i<cantReg; i++)
+    {
         obj = leerRegistro(i);
-        if(strcmp(obj.getISBN(), isbn) == 0) {
+        if(strcmp(obj.getISBN(), isbn) == 0)
+        {
             //if(obj.getISBN() == isbn){
             return i;
         }
@@ -64,10 +75,12 @@ int ArchivoLibros::buscarRegistro(const char *isbn) {
     return -1;
 }
 
-bool Libro::Cargar(ArchivoLibros &arcLibro) {
+bool Libro::Cargar(ArchivoLibros &arcLibro)
+{
     cout << "INGRESE ISBN: ";
     cargarCadena(isbn, 19);
-    if (arcLibro.buscarRegistro(isbn) == -1) {
+    if (arcLibro.buscarRegistro(isbn) == -1)
+    {
         cout << "INGRESE TÍTULO: ";
         cargarCadena(titulo, 49);
         cout << "INGRESE AUTOR: ";
@@ -77,13 +90,16 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
         cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
         cin >> cantidadEjemplares;
         return true;
-    } else {
+    }
+    else
+    {
         cout << "ISBN: [" << isbn << "] YA EXISTENTE." << endl;
         return false;
     }
 }
 
-void Libro::Mostrar() {
+void Libro::Mostrar()
+{
     cout << "ISBN: " << isbn << endl;
     cout << "TÍTULO: " << titulo << endl;
     cout << "AUTOR: " << autor << endl;
@@ -92,20 +108,27 @@ void Libro::Mostrar() {
 }
 
 // esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
-void ArchivoLibros::RegistrarLibro() {
+void ArchivoLibros::RegistrarLibro()
+{
     Libro obj;
-    if (obj.Cargar(*this)) {
+    if (obj.Cargar(*this))
+    {
+        obj.setEstado(true);
+
         grabarRegistro(obj);
     }
 }
 
 // lee el archivo de libros y los muestra en pantalla
-void ArchivoLibros::ListarLibro() {
+void ArchivoLibros::ListarLibro()
+{
     Libro obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
+    for(int i=0; i<cantReg; i++)
+    {
         obj = leerRegistro(i);
-        if (obj.getEstado()) {
+        if (obj.getEstado())
+        {
             obj.Mostrar();
             cout << endl;
         }

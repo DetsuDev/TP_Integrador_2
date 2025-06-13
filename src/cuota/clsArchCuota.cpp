@@ -5,11 +5,13 @@
 
 using namespace std;
 
-ArchivoCuotas::ArchivoCuotas(const char *n) {
+ArchivoCuotas::ArchivoCuotas(const char *n)
+{
     strcpy(nombre, n);
 }
 
-Cuota ArchivoCuotas::leerRegistro(int pos) {
+Cuota ArchivoCuotas::leerRegistro(int pos)
+{
     Cuota obj;
     FILE *p = fopen(nombre, "rb");
     if (p == nullptr) return obj;
@@ -19,7 +21,8 @@ Cuota ArchivoCuotas::leerRegistro(int pos) {
     return obj;
 }
 
-bool ArchivoCuotas::grabarRegistro(Cuota obj) {
+bool ArchivoCuotas::grabarRegistro(Cuota obj)
+{
     FILE *p = fopen(nombre, "ab");
     if (p == nullptr) return false;
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
@@ -27,7 +30,8 @@ bool ArchivoCuotas::grabarRegistro(Cuota obj) {
     return escribio;
 }
 
-bool ArchivoCuotas::modificarRegistro(Cuota obj, int pos) {
+bool ArchivoCuotas::modificarRegistro(Cuota obj, int pos)
+{
     FILE *p = fopen(nombre, "rb+");
     if (p == nullptr) return false;
     fseek(p, pos * sizeof obj, SEEK_SET);
@@ -36,7 +40,8 @@ bool ArchivoCuotas::modificarRegistro(Cuota obj, int pos) {
     return escribio;
 }
 
-int ArchivoCuotas::contarRegistros() {
+int ArchivoCuotas::contarRegistros()
+{
     FILE *p = fopen(nombre, "rb");
     if (p == nullptr) return 0;
     fseek(p, 0, SEEK_END);
@@ -45,23 +50,28 @@ int ArchivoCuotas::contarRegistros() {
     return tam / sizeof(Cuota);
 }
 
-int ArchivoCuotas::buscarRegistro(int numeroSocio) {
+int ArchivoCuotas::buscarRegistro(int numeroSocio)
+{
     Cuota obj;
     int cant = contarRegistros();
-    for (int i = 0; i < cant; i++) {
+    for (int i = 0; i < cant; i++)
+    {
         obj = leerRegistro(i);
-        if (obj.getNumeroSocio() == numeroSocio) {
+        if (obj.getNumeroSocio() == numeroSocio)
+        {
             return i;
         }
     }
     return -1;
 }
 
-bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
+bool Cuota::Cargar(ArchivoCuotas &arcCuot)
+{
     cout << "INGRESE NÚMERO DE SOCIO: ";
     cin >> numeroSocio;
 
-    if (arcCuot.buscarRegistro(numeroSocio) == -1) {
+    if (arcCuot.buscarRegistro(numeroSocio) == -1)
+    {
         cout << "INGRESE FECHA DE PAGO: " << endl;
         fechaPago.Cargar();
 
@@ -74,13 +84,16 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
         cout << "INGRERE AÑO: ";
         cin >> anio;
         return true;
-    } else {
+    }
+    else
+    {
         cout << "NUMERO SOCIO: [" << numeroSocio << "] YA EXISTENTE." << endl;
         return false;
     }
 }
 
-void Cuota::Mostrar() {
+void Cuota::Mostrar()
+{
     cout << "NÚMERO DE SOCIO: " << numeroSocio << endl;
     cout << "FECHA DE PAGO: ";
     fechaPago.Mostrar();
@@ -91,20 +104,27 @@ void Cuota::Mostrar() {
 
 
 
-void ArchivoCuotas::RegistrarCuota() {
+void ArchivoCuotas::RegistrarCuota()
+{
 
     Cuota obj;
-    if (obj.Cargar(*this)) {
+    if (obj.Cargar(*this))
+    {
+        obj.setEstado(true);
+
         grabarRegistro(obj);
     }
 }
 
-void ArchivoCuotas::ListarCuota() {
+void ArchivoCuotas::ListarCuota()
+{
     Cuota obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
+    for(int i=0; i<cantReg; i++)
+    {
         obj = leerRegistro(i);
-        if (obj.getEstado()) {
+        if (obj.getEstado())
+        {
             obj.Mostrar();
             cout << endl;
         }
