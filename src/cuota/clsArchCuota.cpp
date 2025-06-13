@@ -67,7 +67,7 @@ int ArchivoCuotas::buscarRegistro(int numeroSocio)
 
 bool Cuota::Cargar(ArchivoCuotas &arcCuot)
 {
-    cout << "INGRESE NÚMERO DE SOCIO: ";
+    cout << "INGRESE NÃšMERO DE SOCIO: ";
     cin >> numeroSocio;
 
     if (arcCuot.buscarRegistro(numeroSocio) == -1)
@@ -81,7 +81,7 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot)
         cout << "INGRESE MES: ";
         cin >> mes;
 
-        cout << "INGRERE AÑO: ";
+        cout << "INGRERE AÃ‘O: ";
         cin >> anio;
         return true;
     }
@@ -94,11 +94,11 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot)
 
 void Cuota::Mostrar()
 {
-    cout << "NÚMERO DE SOCIO: " << numeroSocio << endl;
+    cout << "NÃšMERO DE SOCIO: " << numeroSocio << endl;
     cout << "FECHA DE PAGO: ";
     fechaPago.Mostrar();
     cout << "IMPORTE: $" << importe << endl;
-    cout << "MES: " << mes << " - AÑO: " << anio << endl;
+    cout << "MES: " << mes << " - AÃ‘O: " << anio << endl;
 }
 
 
