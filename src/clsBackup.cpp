@@ -8,7 +8,7 @@ bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivo
     ofstream destino(archivoBackup, ios::binary);
 
     if (!origen || !destino) {
-        cout << "❌ Error al abrir archivos para backup: " << archivoOriginal << endl;
+        cout << "Error al abrir archivos para backup: " << archivoOriginal << endl;
         return false;
     }
 
@@ -26,8 +26,8 @@ void BackupManager::backupGeneral() {
     ok &= hacerBackup("FILES/current/Prestamos.dat", "FILES/backup/Prestamos.bkp");
     ok &= hacerBackup("FILES/current/Cuotas.dat", "FILES/backup/Cuotas.bkp");
 
-    if (ok) cout << "✅ Backup general completado correctamente." << endl;
-    else cout << "⚠️ Ocurrieron errores durante el backup." << endl;
+    if (ok) cout << "Backup general completado correctamente." << endl;
+    else cout << "Ocurrieron errores durante el backup." << endl;
 
     system("pause");
 }
