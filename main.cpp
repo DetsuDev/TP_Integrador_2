@@ -5,8 +5,7 @@
 using namespace std;
 
 
-int main()
-{
+int main() {
     menuPrincipal();
     return 0;
 }

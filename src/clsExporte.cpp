@@ -7,22 +7,18 @@
 #include "libro/clsArchLibro.h"
 #include "prestamo/clsPrestamo.h"
 #include "prestamo/clsArchPrestamo.h"
-void Exporte::archExportar(std::string claseCls)
-{
+void Exporte::archExportar(std::string claseCls) {
 
-    if(claseCls == "Socio")
-    {
+    if(claseCls == "Socio") {
         ArchivoSocios arcSoc;
         Socio obj;
         std::ofstream file("CSV/Socios.csv");
 
         int cantReg = arcSoc.contarRegistros();
         file << "DNI" << "," <<"NOMBRE " << "\n";
-        for(int i=0; i<cantReg; i++)
-        {
+        for(int i=0; i<cantReg; i++) {
             obj = arcSoc.leerRegistro(i);
-            if(obj.getEstado() == true)
-            {
+            if(obj.getEstado() == true) {
                 file << obj.getDni() <<"," << obj.getNombre() << "\n";
             }
         }
@@ -30,16 +26,14 @@ void Exporte::archExportar(std::string claseCls)
 
     }
 
-    if(claseCls == "Libro")
-    {
+    if(claseCls == "Libro") {
         ArchivoLibros arcLibr;
         Libro obj;
         std::ofstream file("CSV/Libros.csv");
 
         int cantReg = arcLibr.contarRegistros();
         file << "ISBN" << "," <<"NOMBRE LIBRO " << "\n";
-        for(int i=0; i<cantReg; i++)
-        {
+        for(int i=0; i<cantReg; i++) {
             obj = arcLibr.leerRegistro(i);
             //if(obj.getEstado() == true)
             //  {
@@ -51,8 +45,7 @@ void Exporte::archExportar(std::string claseCls)
 
     }
 
-    if(claseCls == "Prestamo")
-    {
+    if(claseCls == "Prestamo") {
 
         ArchivoPrestamo arcPrest;
         Prestamo obj;
@@ -60,8 +53,7 @@ void Exporte::archExportar(std::string claseCls)
 
         int cantReg = arcPrest.contarRegistros();
         file << "DNI" << "," <<"ISBN" << ","<< "FECHA PREST" <<"\n";
-        for(int i=0; i<cantReg; i++)
-        {
+        for(int i=0; i<cantReg; i++) {
             obj = arcPrest.leerRegistro(i);
             //if(obj.getEstado() == true)
             //  {
@@ -72,8 +64,7 @@ void Exporte::archExportar(std::string claseCls)
 
     }
 
-    if(claseCls == "Cuota")
-    {
+    if(claseCls == "Cuota") {
 
     }
     cout << "Hecho." << endl;

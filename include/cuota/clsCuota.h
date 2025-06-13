@@ -3,6 +3,7 @@
 
 #include "clsFecha.h"
 
+class ArchivoCuotas;
 class Cuota {
 private:
     int numeroSocio;
@@ -11,26 +12,26 @@ private:
     int mes;
     int anio;
 
-public:
-    void Cargar();
-    void Mostrar();
+    bool estado = false;
 
-    // Getters
+public:
+    void setEstado(bool);
+    bool getEstado();
+
     int getNumeroSocio();
     Fecha getFechaPago();
     float getImporte();
     int getMes();
     int getAnio();
 
-    // Setters
     void setNumeroSocio(int num);
     void setFechaPago(Fecha f);
     void setImporte(float imp);
     void setMes(int m);
     void setAnio(int a);
 
-    void registrarCuota();
-    void listarCuota();
+    bool Cargar(ArchivoCuotas&);
+    void Mostrar();
 };
 
 #endif // CLSCUOTA_H_INCLUDED

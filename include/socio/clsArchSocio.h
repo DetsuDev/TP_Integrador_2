@@ -4,19 +4,24 @@
 #include <cstring>
 #include "socio/clsSocio.h"
 
-class ArchivoSocios{
-    private:
-        char nombre[30];
-    public:
-        ArchivoSocios(const char *n="FILES/current/Socios.dat");
-        Socio leerRegistro(int);
-        int buscarRegistro(const char *dni);
-        std::string buscarDniRegistro(const char *dni);
-        bool grabarRegistro(Socio);
-        bool modificarRegistro(Socio, int);
-        int contarRegistros();
+class ArchivoSocios {
+private:
+    char nombre[30];
+public:
+    ArchivoSocios(const char *n="FILES/current/Socios.dat");
+    Socio leerRegistro(int pos);
+    bool grabarRegistro(Socio obj);
+    bool modificarRegistro(Socio obj, int pos);
+    int contarRegistros();
+    int buscarRegistro(const char* dni);
 
-        //void buscarRegistro();
+    // Lógica de negocio
+    void RegistrarSocio();
+    void EliminarSocio();
+    void ListarSocios();
+    void MostrarBusqueda();
+
+    //void buscarRegistro();
 };
 
 #endif // CLSARCHSOCIOS_H_INCLUDED

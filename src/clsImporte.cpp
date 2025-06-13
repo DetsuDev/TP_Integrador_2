@@ -2,7 +2,7 @@
 using namespace std;
 #include "clsImporte.h"
 
-class Importe{
+class Importe {
 
 private:
 

@@ -4,6 +4,7 @@
 #include "cuota/clsCuota.h"
 
 class ArchivoCuotas {
+
 private:
     char nombre[30];
 public:
@@ -12,7 +13,10 @@ public:
     bool grabarRegistro(Cuota obj);
     bool modificarRegistro(Cuota obj, int pos);
     int contarRegistros();
-    int buscarRegistroPorSocio(int numeroSocio); // Opcional
+    int buscarRegistro(int numeroSocio); // Opcional
+    void RegistrarCuota();
+    void ListarCuota();
+
 };
 
 #endif // CLSARCHCUOTAS_H

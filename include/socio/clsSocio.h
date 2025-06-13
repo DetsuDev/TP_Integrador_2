@@ -1,43 +1,39 @@
-#ifndef CLSSOCIO_H_INCLUDED
-#define CLSSOCIO_H_INCLUDED
+#ifndef CLS_SOCIO_H
+#define CLS_SOCIO_H
 
 #include "clsFecha.h"
 #include "clsDomicilio.h"
-#include <cstring>
 
-class ArchivoSocios;
+class ArchivoSocios;  // Declaración adelantada
 
-class Socio
-{
-
+class Socio {
 private:
     char dni[10];
     char nombre[30];
     char apellido[30];
     char email[40];
-    bool estado = true;
     Fecha fechaNacimiento;
     Domicilio domicilio;
+    bool estado = false;
 
 public:
+    void setEstado(bool);
+    bool getEstado();
+
+    void setDni(const char*);
+    void setNombre(const char*);
+    void setApellido(const char*);
+    void setEmail(const char*);
+    void setFechaNacimiento(Fecha);
+    void setDomicilio(Domicilio);
+
     const char* getDni();
     const char* getNombre();
     Fecha& getFechaNacimiento();
     Domicilio& getDomicilio();
-    void setEstado(bool);
-    bool getEstado();
-    void setDni(const char *);
-    void setNombre(const char *);
-    void setApellido(const char *);
-    void setEmail(const char *);
-    void setFechaNacimiento(Fecha f);
-    void setDomicilio(Domicilio d);
-    bool Cargar(ArchivoSocios&);
-    void EliminarSocio();
+
+    bool Cargar(ArchivoSocios &);
     void Mostrar();
-    void MostrarBusqueda();
-    void registrarSocio();
-    void listarSocio();
 };
 
-#endif // CLSSOCIO_H_INCLUDED
+#endif // CLS_SOCIO_H

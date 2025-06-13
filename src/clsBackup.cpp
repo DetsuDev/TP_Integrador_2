@@ -1,15 +1,15 @@
- #include "clsBackup.h"
- #include <fstream>
- #include <iostream>
- using namespace std;
+#include "clsBackup.h"
+#include <fstream>
+#include <iostream>
+using namespace std;
 
- bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivoBackup) {
-     ifstream origen(archivoOriginal, ios::binary);
-      ofstream destino(archivoBackup, ios::binary);
+bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivoBackup) {
+    ifstream origen(archivoOriginal, ios::binary);
+    ofstream destino(archivoBackup, ios::binary);
 
-     if (!origen || !destino) {
-         cout << "Error al abrir archivos para backup: " << archivoOriginal << endl;
-         return false;
+    if (!origen || !destino) {
+        cout << "Error al abrir archivos para backup: " << archivoOriginal << endl;
+        return false;
     }
 
     destino << origen.rdbuf();  // Copia todo el contenido

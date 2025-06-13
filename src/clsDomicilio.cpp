@@ -6,7 +6,7 @@
 
 using namespace std;
 
-void Domicilio::Cargar(){
+void Domicilio::Cargar() {
     cout << "INGRESE LA CALLE: ";
     cargarCadena(calle, 29);
     cout << "INGRESE LA ALTURA: ";
@@ -19,7 +19,7 @@ void Domicilio::Cargar(){
     cargarCadena(codigoPostal,5);
 }
 
-void Domicilio::Mostrar(){
+void Domicilio::Mostrar() {
     cout << " DIRECCION: "<<calle<<" "<<altura<<endl;
     cout << " LOCALIDAD: "<<localidad<<endl;
     cout << " PARTIDO: "<<partido<<endl;

@@ -1,8 +1,9 @@
 #ifndef CLSLIBRO_H
 #define CLSLIBRO_H
 
-class Libro
-{
+class ArchivoLibros;
+class Libro {
+
 private:
     char isbn[20];
     char titulo[50];
@@ -10,9 +11,11 @@ private:
     int anioPublicacion;
     int cantidadEjemplares;
 
+    bool estado = false;
+
 public:
-    void Cargar();
-    void Mostrar();
+    void setEstado(bool);
+    bool getEstado();
 
     void setISBN(const char *);
     void setTitulo(const char *);
@@ -26,9 +29,9 @@ public:
     int getAnioPublicacion();
     int getCantidadEjemplares();
 
-    void registrarLibro();
-    void listarLibro();
 
+    bool Cargar(ArchivoLibros&);
+    void Mostrar();
 };
 
 #endif // CLSLIBRO_H

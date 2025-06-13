@@ -3,6 +3,8 @@
 
 #include "clsFecha.h"
 
+class ArchivoPrestamo;
+
 class Prestamo {
 private:
     int idPrestamo;
@@ -11,9 +13,11 @@ private:
     Fecha fechaPrestamo;
     Fecha fechaDevolucion;
 
+    bool estado = false;
+
 public:
-    void Cargar();
-    void Mostrar();
+    void setEstado(bool);
+    bool getEstado();
 
     void setIdPrestamo(int);
     void setDniSocio(const char *);
@@ -27,9 +31,8 @@ public:
     Fecha getFechaPrestamo();
     Fecha getFechaDevolucion();
 
-    void registrarPrestamo();
-    void listarPrestamo();
-
+    bool Cargar(ArchivoPrestamo&);
+    void Mostrar();
 
 
 };

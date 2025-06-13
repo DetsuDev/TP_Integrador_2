@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cstring>
 #include "cuota/clsArchCuota.h"
+#include "funciones.h"
+
+using namespace std;
 
 ArchivoCuotas::ArchivoCuotas(const char *n) {
     strcpy(nombre, n);
@@ -42,7 +45,7 @@ int ArchivoCuotas::contarRegistros() {
     return tam / sizeof(Cuota);
 }
 
-int ArchivoCuotas::buscarRegistroPorSocio(int numeroSocio) {
+int ArchivoCuotas::buscarRegistro(int numeroSocio) {
     Cuota obj;
     int cant = contarRegistros();
     for (int i = 0; i < cant; i++) {
@@ -53,3 +56,59 @@ int ArchivoCuotas::buscarRegistroPorSocio(int numeroSocio) {
     }
     return -1;
 }
+
+bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
+    cout << "INGRESE NÚMERO DE SOCIO: ";
+    cin >> numeroSocio;
+
+    if (arcCuot.buscarRegistro(numeroSocio) == -1) {
+        cout << "INGRESE FECHA DE PAGO: " << endl;
+        fechaPago.Cargar();
+
+        cout << "INGRESE IMPORTE: ";
+        cin >> importe;
+
+        cout << "INGRESE MES: ";
+        cin >> mes;
+
+        cout << "INGRERE AÑO: ";
+        cin >> anio;
+        return true;
+    } else {
+        cout << "NUMERO SOCIO: [" << numeroSocio << "] YA EXISTENTE." << endl;
+        return false;
+    }
+}
+
+void Cuota::Mostrar() {
+    cout << "NÚMERO DE SOCIO: " << numeroSocio << endl;
+    cout << "FECHA DE PAGO: ";
+    fechaPago.Mostrar();
+    cout << "IMPORTE: $" << importe << endl;
+    cout << "MES: " << mes << " - AÑO: " << anio << endl;
+}
+
+
+
+
+void ArchivoCuotas::RegistrarCuota() {
+
+    Cuota obj;
+    if (obj.Cargar(*this)) {
+        grabarRegistro(obj);
+    }
+}
+
+void ArchivoCuotas::ListarCuota() {
+    Cuota obj;
+    int cantReg = contarRegistros();
+    for(int i=0; i<cantReg; i++) {
+        obj = leerRegistro(i);
+        if (obj.getEstado()) {
+            obj.Mostrar();
+            cout << endl;
+        }
+    }
+
+}
+

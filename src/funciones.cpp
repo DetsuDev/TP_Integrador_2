@@ -6,13 +6,13 @@
 #include <iostream>
 #include <cstring>
 
-#include "socio/clsSocio.h"
+#include "socio/clsArchSocio.h"
 
-#include "libro/clsLibro.h"
+#include "libro/clsArchLibro.h"
 
-#include "prestamo/clsPrestamo.h"
+#include "prestamo/clsArchPrestamo.h"
 
-#include "cuota/clsCuota.h"
+#include "cuota/clsArchCuota.h"
 
 #include "funciones.h"
 
@@ -22,16 +22,14 @@
 
 
 using namespace std;
-void menuPrincipal()
-{
+void menuPrincipal() {
     system("chcp 65001 > nul");
     int opc = 0;
 
     bool menu=true;
     bool subMenu=true;
 
-    while(menu)
-    {
+    while(menu) {
         system("cls");
         cout << "╔══════════════════════════════════════╗\n";
         cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -58,12 +56,10 @@ void menuPrincipal()
         subMenu=true;
         system("cls");
 
-        switch (opc)
-        {
+        switch (opc) {
         /// SOCIOS ------------------------------
         case 1:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -81,21 +77,20 @@ void menuPrincipal()
                 cout << ">> Ingrese opción: ";
                 cin >> opc;
                 cout << endl;
-                Socio obj;
-                switch (opc)
-                {
+                ArchivoSocios obj;
+                switch (opc) {
                 case 1:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR SOCIO                    ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.registrarSocio();
+                    obj.RegistrarSocio();
                     system("pause");
                     break;
                 case 2:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   LISTA DE SOCIOS                    ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.listarSocio();
+                    obj.ListarSocios();
                     system("pause");
                     break;
                 case 3:
@@ -119,8 +114,7 @@ void menuPrincipal()
             }
         /// LIBROS ------------------------------
         case 2:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -135,17 +129,16 @@ void menuPrincipal()
                 cout << "╚══════════════════════════════════════╝\n";
                 cout << ">> Ingrese opción: ";
 
-                Libro obj;
+                ArchivoLibros obj;
                 cin >> opc;
                 cout << endl;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
-                    obj.registrarLibro();
+                    obj.RegistrarLibro();
                     system("pause");
                     break;
                 case 2:
-                    obj.listarLibro();
+                    obj.ListarLibro();
                     system("pause");
                     break;
                 case 0:
@@ -157,8 +150,7 @@ void menuPrincipal()
             }
         /// PRESTAMOS ------------------------------
         case 3:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -175,15 +167,14 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
-                Prestamo obj;
-                switch (opc)
-                {
+                ArchivoPrestamo obj;
+                switch (opc) {
                 case 1:
-                    obj.registrarPrestamo();
+                    obj.RegistrarPrestamo();
                     system("pause");
                     break;
                 case 2:
-                    obj.listarPrestamo();
+                    obj.ListarPrestamo();
                     system("pause");
                     break;
                 case 0:
@@ -195,8 +186,7 @@ void menuPrincipal()
             }
         /// CUOTA ------------------------------
         case 4:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -213,15 +203,14 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
-                Cuota obj;
-                switch (opc)
-                {
+                ArchivoCuotas obj;
+                switch (opc) {
                 case 1:
-                    obj.registrarCuota();
+                    obj.RegistrarCuota();
                     system("pause");
                     break;
                 case 2:
-                    obj.listarCuota();
+                    obj.ListarCuota();
                     system("pause");
                     break;
                 case 0:
@@ -232,8 +221,7 @@ void menuPrincipal()
 
             }
         case 8:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -250,8 +238,7 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     break;
                 case 2:
@@ -266,8 +253,7 @@ void menuPrincipal()
             }
         case 9:
             Exporte exp;
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -285,8 +271,7 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     exp.archExportar("Socio");
                     break;
@@ -310,8 +295,7 @@ void menuPrincipal()
             }
 
         case 0:
-            if(opc !=-1)
-            {
+            if(opc !=-1) {
                 menu = false;
             }
             break;
@@ -323,25 +307,16 @@ void menuPrincipal()
 // Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
 
 
-void cargarCadena(char *palabra, int tamano)
-{
+void cargarCadena(char *palabra, int tamano) {
     int i=0;
 
     fflush(stdin);
-    for (i=0; i<tamano; i++)
-    {
+    for (i=0; i<tamano; i++) {
         palabra[i]=cin.get();
-        if (palabra[i]=='\n')
-        {
+        if (palabra[i]=='\n') {
             break;
         }
     }
-
-    /* while (i < tamano) {
-        palabra[i] = ' ';
-        i++;
-    }*/
-
     palabra[i]='\0';
     fflush(stdin);
 }
