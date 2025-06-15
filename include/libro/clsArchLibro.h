@@ -14,8 +14,12 @@ public:
     int contarRegistros();
     int buscarRegistro(const char *isbn);
 
-    void RegistrarLibro();
-    void ListarLibro();
+    void Mostrar();
+    void Registrar();
+    void Eliminar();
+    void Listar();
+    Libro Buscar();
+    void MostrarHeader();
 };
 
 #endif // CLSARCHLIBRO_H_INCLUDED

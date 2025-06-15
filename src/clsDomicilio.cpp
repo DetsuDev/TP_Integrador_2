@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 
+#include <cstdio>
 #include "clsDomicilio.h"
 #include "funciones.h"
 
@@ -20,17 +21,12 @@ void Domicilio::Cargar() {
 }
 
 void Domicilio::Mostrar() {
-    //cout << "────────────┼────────────┼────────────┼────────────┼────────────┼\n"
-    /*cout << calle << espaciarTexto(calle) << "│ " << altura << endl;
-    cout << localidad << espaciarTexto(localidad) << endl;
-    cout << partido << espaciarTexto(partido) << "│ " << codigoPostal << endl;*/
-    cout << " DIRECCION: "<<calle<<" "<<altura<<endl;
-    cout << " LOCALIDAD: "<<localidad<<endl;
-    cout << " PARTIDO: "<<partido<<endl;
-    cout << " CODIGO POSTAL: "<<codigoPostal<<endl;
+    char alturaStr[10];
+    sprintf(alturaStr, "%d", altura);
+    cout << calle << espaciarTexto(calle, 11) << "│ " << altura << espaciarTexto(alturaStr, 7) << "│ " << localidad << espaciarTexto(localidad, 10)
+         << "│ " << partido << espaciarTexto(partido, 15) << "│ " << codigoPostal << espaciarTexto(codigoPostal, 7);
 }
 
-// Setters
 void Domicilio::setCalle(const char *e) {
     strcpy(calle, e);
 }
@@ -51,7 +47,6 @@ void Domicilio::setCodPostal(const char *e) {
     strcpy(codigoPostal, e);
 }
 
-// Getters
 const char* Domicilio::getCalle() {
     return calle;
 }

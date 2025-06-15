@@ -16,10 +16,12 @@ public:
     int buscarRegistro(const char* dni);
 
     // Lógica de negocio
-    void RegistrarSocio();
-    void EliminarSocio();
-    void ListarSocios();
-    void MostrarBusqueda();
+    void Mostrar();
+    void Registrar();
+    void Eliminar();
+    void Listar();
+    Socio Buscar();
+    void MostrarHeader();
 
     //void buscarRegistro();
 };

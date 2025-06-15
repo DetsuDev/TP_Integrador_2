@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 #include "socio/clsArchSocio.h"
 #include "socio/clsSocio.h"
 #include "clsFecha.h"
@@ -69,104 +70,93 @@ int ArchivoSocios::buscarRegistro(const char *dni) {
     return -1;
 }
 
-
-
 bool Socio::Cargar(ArchivoSocios &arcSoc) {
     cout<<"INGRESE EL DNI: ";
     cargarCadena(dni,9);
 
-    if (arcSoc.buscarRegistro(dni) == -1) {
-        cout<<"INGRESE EL NOMBRE: ";
-        cargarCadena(nombre,29);
-        cout<<"INGRESE EL APELLIDO: ";
-        cargarCadena(apellido,29);
-        cout<<"INGRESE LA FECHA DE NACIMIENTO: "<<endl;
-        fechaNacimiento.Cargar();
-        cout<<"INGRESE EL DOMICILIO: "<<endl;
-        domicilio.Cargar();
-        cout<<"INGRESE EL EMAIL: ";
-        cargarCadena(email, 39);
-        estado=true;
-        return true;
-    } else {
-        cout << "DNI: [" << dni << "] YA EXISTENTE." << endl;
-        return false;
-    }
+        int pos = arcSoc.buscarRegistro(dni);
+        bool estadoPos = arcSoc.leerRegistro(pos).getEstado();
+        if (estadoPos==false) {
+
+            cout<<"INGRESE EL NOMBRE: ";
+            cargarCadena(nombre,29);
+            cout<<"INGRESE EL APELLIDO: ";
+            cargarCadena(apellido,29);
+            cout<<"INGRESE LA FECHA DE NACIMIENTO: "<<endl;
+            fechaNacimiento.Cargar();
+            cout<<"INGRESE EL DOMICILIO: "<<endl;
+            domicilio.Cargar();
+            cout<<"INGRESE EL EMAIL: ";
+            cargarCadena(email, 39);
+            estado=true;
+            return true;
+        } else {
+            cout << "DNI: [" << dni << "] YA EXISTENTE." << endl;
+            return false;
+        }
+}
+
+void ArchivoSocios::MostrarHeader() {
+    cout << "                                                   ┌───────────────────────────────────────────────────────────┐\n";
+    cout << "                                                   │ DOMICLIO                                                  │\n";
+    cout << "┌────────────┬────────────┬────────────┬───────────┼────────────┬────────┬───────────┬────────────────┬────────┼──────────────────────────────┐\n";
+    cout << "│ DNI        │ NOMBRE     │ APELLIDO   │ F. NAC    │ DIRECCION  │ ALTURA │ lOCALIDAD │ PARTIDO        │ CP     │ EMAIL                        │\n";
+    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┼────────┼───────────┼────────────────┼────────┼──────────────────────────────┤\n";
 }
 
 void Socio::Mostrar() {
-
-    char nombreCompleto[60];
-
-    strcpy(nombreCompleto, nombre);
-    strcat(nombreCompleto, ", ");
-    strcat(nombreCompleto, apellido);
-
-
-/*
-    char domCompleto[60];
-
-    strcpy(domCompleto, domicilio.getCalle());
-    strcat(domCompleto, ", ");
-    strcat(domCompleto, domicilio.getAltura());
-    strcat(domCompleto, ", ");
-    strcat(domCompleto, domicilio.getLocalidad());
-    strcat(domCompleto, ", ");
-    strcat(domCompleto, domicilio.getPartido());*/
-
-    //string nombreCompleto = string(nombre) + ", " + string(apellido);
-    cout << " " << dni << espaciarTexto(dni, 10) << "│ " << nombreCompleto << espaciarTexto(nombreCompleto, 20) << "│ "; fechaNacimiento.Mostrar(); cout << "│ " << email << endl;
-
-    cout << "───────────┼─────────────────────┼───────────┼───────────────────";
-    //domicilio.Mostrar();
+    cout << "│ " << dni << espaciarTexto(dni, 11) << "│ " << nombre << espaciarTexto(nombre, 11) << "│ " << apellido << espaciarTexto(apellido, 11) << "│ ";
+    fechaNacimiento.Mostrar();
+    cout << "│ ";
+    domicilio.Mostrar();
+    cout << "│ " << email << espaciarTexto(email, 29) << "│" << endl;
+    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┼────────┼───────────┼────────────────┼────────┼──────────────────────────────┤\n";
 }
-void ArchivoSocios::EliminarSocio() {
-    char dni[10];
-    cout << "INGRESE DNI A ELIMINAR: ";
-    cargarCadena(dni,9);
-    int pos = buscarRegistro(dni);
-    if (pos > -1) {
-        Socio obj = leerRegistro(pos);
+
+void ArchivoSocios::Eliminar() {
+    Socio obj = Buscar();
+    cout << endl;
+    cout << "ELIMINAR ESTE SOCIO? (S/N): ";
+    char opc;
+    cin >> opc;
+    if (opc == 'S' || opc == 's') {
+
         obj.setEstado(false);
-        modificarRegistro(obj, pos);
-        cout << "SOCIO [" << dni << "] ELIMINADO" << endl;
-    } else {
-        cout << "DNI NO ENCONTRADO." << endl;
+        modificarRegistro(obj, buscarRegistro(obj.getDni()));
+        cout << "SOCIO [" << obj.getDni() << "] ELIMINADO" << endl;
     }
 }
-void ArchivoSocios::MostrarBusqueda() {
+Socio ArchivoSocios::Buscar() {
     char dni[10];
     cout << ">> Ingrese DNI socio: ";
     cargarCadena(dni,9);
     int pos = buscarRegistro(dni);
     if(pos != -1) {
         Socio obj = leerRegistro(pos);
+        MostrarHeader();
         obj.Mostrar();
-        cout << endl;
+        return obj;
     } else {
         cout << "DNI NO ENCONTRADO." << endl;
     }
 }
-
-void ArchivoSocios::RegistrarSocio() {
+void ArchivoSocios::Registrar() {
     Socio obj;
     if (obj.Cargar(*this)) {
         grabarRegistro(obj);
     }
 }
 
-void ArchivoSocios::ListarSocios() {
+void ArchivoSocios::Listar() {
 
-    cout << " DNI       │ NOMBRE              │ F. NAC    │ EMAIL       \n";
-    cout << "───────────┼─────────────────────┼───────────┼───────────────────\n";
+    MostrarHeader();
     Socio obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
         if (obj.getEstado()) {
             obj.Mostrar();
-            cout << endl;
         }
     }
-    //cout << "╚════════════╩══════════════╩══════════════╩════════════════════╩════════════════════╝\n";
 }
+

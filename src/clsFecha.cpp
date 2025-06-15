@@ -2,6 +2,9 @@
 #include <cstring>
 #include "clsFecha.h"
 
+#include "funciones.h"
+
+
 using namespace std;
 
 Fecha::Fecha(int d, int m, int a) {
@@ -36,5 +39,20 @@ void Fecha::Cargar() {
     cin>>anio;
 }
 void Fecha::Mostrar() {
-    cout<<dia<<"/"<<mes<<"/"<<anio << " ";
+    char diaStr[3];
+    char mesStr[3];
+    char anioStr[5];
+    sprintf(diaStr, "%d", dia);
+    sprintf(mesStr, "%d", mes);
+    sprintf(anioStr, "%d", anio);
+
+    char fechaCompleta[11];
+    strcpy(fechaCompleta, diaStr);
+    strcat(fechaCompleta, "/");
+    strcat(fechaCompleta, mesStr);
+    strcat(fechaCompleta, "/");
+    strcat(fechaCompleta, anioStr);
+
+
+    cout << fechaCompleta << espaciarTexto(fechaCompleta, 10);
 }

@@ -23,6 +23,7 @@
 
 using namespace std;
 void menuPrincipal() {
+    system("mode con: cols=143 lines=30");
     system("chcp 65001 > nul");
     int opc = 0;
 
@@ -83,33 +84,34 @@ void menuPrincipal() {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR SOCIO                    ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.RegistrarSocio();
+                    obj.Registrar();
                     system("pause");
                     break;
                 case 2:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   LISTA DE SOCIOS                    ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.ListarSocios();
+                    obj.Listar();
                     system("pause");
                     break;
                 case 3:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   BUSCAR SOCIO                       ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.MostrarBusqueda();
+                    obj.Buscar();
                     system("pause");
                     break;
                 case 4:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR SOCIO                     ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.EliminarSocio();
+                    obj.Eliminar();
                     system("pause");
                     break;
                 case 0:
                     opc =-1;
                     subMenu=false;
+                    break;
                 }
             }
         /// LIBROS ------------------------------
@@ -123,6 +125,8 @@ void menuPrincipal() {
                 cout << "║                                      ║\n";
                 cout << "║  [1] Registrar Libro                 ║\n";
                 cout << "║  [2] Mostrar Lista de Libros         ║\n";
+                cout << "║  [3] Buscar Libro                    ║\n";
+                cout << "║  [4] Eliminar libro                  ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -134,11 +138,31 @@ void menuPrincipal() {
                 cout << endl;
                 switch (opc) {
                 case 1:
-                    obj.RegistrarLibro();
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   REGISTRAR LIBRO                    ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.Registrar();
                     system("pause");
                     break;
                 case 2:
-                    obj.ListarLibro();
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   LISTA DE LIBROS                    ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.Listar();
+                    system("pause");
+                    break;
+                case 3:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   BUSCAR LIBRO                       ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.Buscar();
+                    system("pause");
+                    break;
+                case 4:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   ELIMINAR LIBRO                     ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.Eliminar();
                     system("pause");
                     break;
                 case 0:
@@ -159,6 +183,8 @@ void menuPrincipal() {
                 cout << "║                                      ║\n";
                 cout << "║  [1] Registrar Prestamo              ║\n";
                 cout << "║  [2] Mostrar Lista de Prestamos      ║\n";
+                cout << "║  [3] Buscar Prestamo                 ║\n";
+                cout << "║  [4] Eliminar Prestamo               ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -195,6 +221,8 @@ void menuPrincipal() {
                 cout << "║                                      ║\n";
                 cout << "║  [1] Registrar Cuota                 ║\n";
                 cout << "║  [2] Mostrar Lista de Cuotas         ║\n";
+                cout << "║  [3] Buscar Cuota                    ║\n";
+                cout << "║  [4] Eliminar Cuota                  ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -304,7 +332,7 @@ void menuPrincipal() {
     }
 }
 
-// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
+
 string espaciarTexto(char *pal, int ancho)
 {
     int espacio = ancho-strlen(pal);
@@ -312,6 +340,7 @@ string espaciarTexto(char *pal, int ancho)
     return string(espacio, ' ');
 }
 
+// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
 void cargarCadena(char *palabra, int tamano) {
     int i=0;
 
