@@ -94,18 +94,32 @@ bool Socio::Cargar(ArchivoSocios &arcSoc) {
     }
 }
 
-
 void Socio::Mostrar() {
-    cout << " DNI: "<<dni<<endl;
-    cout << " NOMBRE: "<<apellido<<", "<<nombre<<endl;
-    cout << " FECHA DE NACIMIENTO: ";
-    fechaNacimiento.Mostrar();
-    cout << " DOMICILIO: "<<endl;
-    domicilio.Mostrar();
-    cout << " EMAIL: "<<email<<endl;
-    cout << "────────────────────────────────────────";
-}
 
+    char nombreCompleto[60];
+
+    strcpy(nombreCompleto, nombre);
+    strcat(nombreCompleto, ", ");
+    strcat(nombreCompleto, apellido);
+
+
+/*
+    char domCompleto[60];
+
+    strcpy(domCompleto, domicilio.getCalle());
+    strcat(domCompleto, ", ");
+    strcat(domCompleto, domicilio.getAltura());
+    strcat(domCompleto, ", ");
+    strcat(domCompleto, domicilio.getLocalidad());
+    strcat(domCompleto, ", ");
+    strcat(domCompleto, domicilio.getPartido());*/
+
+    //string nombreCompleto = string(nombre) + ", " + string(apellido);
+    cout << " " << dni << espaciarTexto(dni, 10) << "│ " << nombreCompleto << espaciarTexto(nombreCompleto, 20) << "│ "; fechaNacimiento.Mostrar(); cout << "│ " << email << endl;
+
+    cout << "───────────┼─────────────────────┼───────────┼───────────────────";
+    //domicilio.Mostrar();
+}
 void ArchivoSocios::EliminarSocio() {
     char dni[10];
     cout << "INGRESE DNI A ELIMINAR: ";
@@ -128,6 +142,7 @@ void ArchivoSocios::MostrarBusqueda() {
     if(pos != -1) {
         Socio obj = leerRegistro(pos);
         obj.Mostrar();
+        cout << endl;
     } else {
         cout << "DNI NO ENCONTRADO." << endl;
     }
@@ -141,6 +156,9 @@ void ArchivoSocios::RegistrarSocio() {
 }
 
 void ArchivoSocios::ListarSocios() {
+
+    cout << " DNI       │ NOMBRE              │ F. NAC    │ EMAIL       \n";
+    cout << "───────────┼─────────────────────┼───────────┼───────────────────\n";
     Socio obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
@@ -150,4 +168,5 @@ void ArchivoSocios::ListarSocios() {
             cout << endl;
         }
     }
+    //cout << "╚════════════╩══════════════╩══════════════╩════════════════════╩════════════════════╝\n";
 }

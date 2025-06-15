@@ -20,6 +20,10 @@ void Domicilio::Cargar() {
 }
 
 void Domicilio::Mostrar() {
+    //cout << "────────────┼────────────┼────────────┼────────────┼────────────┼\n"
+    /*cout << calle << espaciarTexto(calle) << "│ " << altura << endl;
+    cout << localidad << espaciarTexto(localidad) << endl;
+    cout << partido << espaciarTexto(partido) << "│ " << codigoPostal << endl;*/
     cout << " DIRECCION: "<<calle<<" "<<altura<<endl;
     cout << " LOCALIDAD: "<<localidad<<endl;
     cout << " PARTIDO: "<<partido<<endl;

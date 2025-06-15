@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "clsFecha.h"
 
 using namespace std;
@@ -35,5 +36,5 @@ void Fecha::Cargar() {
     cin>>anio;
 }
 void Fecha::Mostrar() {
-    cout<<dia<<"/"<<mes<<"/"<<anio<<endl;
+    cout<<dia<<"/"<<mes<<"/"<<anio << " ";
 }
