@@ -39,6 +39,8 @@ void Fecha::Cargar() {
     cin>>anio;
 }
 void Fecha::Mostrar() {
+
+    /// Convierte los INT a CHAR
     char diaStr[3];
     char mesStr[3];
     char anioStr[5];
@@ -46,6 +48,7 @@ void Fecha::Mostrar() {
     sprintf(mesStr, "%d", mes);
     sprintf(anioStr, "%d", anio);
 
+    /// Los concatena para crear la fecha completa
     char fechaCompleta[11];
     strcpy(fechaCompleta, diaStr);
     strcat(fechaCompleta, "/");

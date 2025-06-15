@@ -73,9 +73,9 @@ int ArchivoSocios::buscarRegistro(const char *dni) {
 bool Socio::Cargar(ArchivoSocios &arcSoc) {
     cout<<"INGRESE EL DNI: ";
     cargarCadena(dni,9);
-
         int pos = arcSoc.buscarRegistro(dni);
         bool estadoPos = arcSoc.leerRegistro(pos).getEstado();
+        /// Verifica si el objeto de esa posicon esta inactivo/libre
         if (estadoPos==false) {
 
             cout<<"INGRESE EL NOMBRE: ";
@@ -88,6 +88,7 @@ bool Socio::Cargar(ArchivoSocios &arcSoc) {
             domicilio.Cargar();
             cout<<"INGRESE EL EMAIL: ";
             cargarCadena(email, 39);
+            /// Cambia a true cuando se registra
             estado=true;
             return true;
         } else {
@@ -114,6 +115,7 @@ void Socio::Mostrar() {
 }
 
 void ArchivoSocios::Eliminar() {
+    /// Llama la opcion de buscar y asi obtener el objeto
     Socio obj = Buscar();
     cout << endl;
     cout << "ELIMINAR ESTE SOCIO? (S/N): ";
@@ -122,6 +124,7 @@ void ArchivoSocios::Eliminar() {
     if (opc == 'S' || opc == 's') {
 
         obj.setEstado(false);
+        /// "buscarRegistro(obj.getDni())": Obtiene el objeto, consigue su dni, y se lo manda a la funcion de buscar para obtener su posicion.
         modificarRegistro(obj, buscarRegistro(obj.getDni()));
         cout << "SOCIO [" << obj.getDni() << "] ELIMINADO" << endl;
     }
@@ -130,11 +133,14 @@ Socio ArchivoSocios::Buscar() {
     char dni[10];
     cout << ">> Ingrese DNI socio: ";
     cargarCadena(dni,9);
+    /// Busca el dni en el registro y obtiene la posicione
     int pos = buscarRegistro(dni);
     if(pos != -1) {
         Socio obj = leerRegistro(pos);
         MostrarHeader();
+        /// Muestra el objeto de esa posicon
         obj.Mostrar();
+        /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
         return obj;
     } else {
         cout << "DNI NO ENCONTRADO." << endl;
@@ -154,6 +160,7 @@ void ArchivoSocios::Listar() {
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
+        /// Verifica si el objeto a mostrar esta activo
         if (obj.getEstado()) {
             obj.Mostrar();
         }

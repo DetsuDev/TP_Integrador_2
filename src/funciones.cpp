@@ -332,15 +332,20 @@ void menuPrincipal() {
     }
 }
 
-
+/// La funcion obitene la palabra y el ancho deseado, similar la funcion de cargarCadena
 string espaciarTexto(char *pal, int ancho)
 {
+    /// Toma el ancho deseado, y le resta el largo de la palabra
     int espacio = ancho-strlen(pal);
-    if (espacio < 0) espacio = 1;
+    /// Si el espacio es negativo, pondra uno
+    if (espacio < 0) {
+            espacio = 1;
+    }
+    /// Devuelve un string de ' '
     return string(espacio, ' ');
 }
 
-// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
+/// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
 void cargarCadena(char *palabra, int tamano) {
     int i=0;
 
