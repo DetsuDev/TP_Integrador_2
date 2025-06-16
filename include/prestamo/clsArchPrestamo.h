@@ -16,9 +16,11 @@ public:
     int contarRegistros();
     int buscarRegistro(int idPrestamo);
     void Eliminar();
+    void MostrarHeader();
+
 
     void RegistrarPrestamo();
-    void ListarPrestamo();
+    void Listar();
 };
 
 #endif // CLSARCHIVOPRESTAMO_H_INCLUDED

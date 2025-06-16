@@ -8,11 +8,13 @@
 
 using namespace std;
 
-ArchivoPrestamo::ArchivoPrestamo(const char *n) {
+ArchivoPrestamo::ArchivoPrestamo(const char *n)
+{
     strcpy(nombre, n);
 }
 
-Prestamo ArchivoPrestamo::leerRegistro(int pos) {
+Prestamo ArchivoPrestamo::leerRegistro(int pos)
+{
     Prestamo obj;
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
@@ -21,9 +23,11 @@ Prestamo ArchivoPrestamo::leerRegistro(int pos) {
     return obj;
 }
 
-bool ArchivoPrestamo::grabarRegistro(Prestamo obj) {
+bool ArchivoPrestamo::grabarRegistro(Prestamo obj)
+{
     FILE *p = fopen(nombre, "ab");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return false;
     }
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
@@ -31,10 +35,12 @@ bool ArchivoPrestamo::grabarRegistro(Prestamo obj) {
     return escribio;
 }
 
-bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos) {
+bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos)
+{
     FILE *p;
     p = fopen(nombre, "rb+");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return false;
     }
     fseek(p, pos * sizeof obj, 0);
@@ -43,9 +49,11 @@ bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos) {
     return escribio;
 }
 
-int ArchivoPrestamo::contarRegistros() {
+int ArchivoPrestamo::contarRegistros()
+{
     FILE *p = fopen(nombre, "rb");
-    if(p == nullptr) {
+    if(p == nullptr)
+    {
         return -1;
     }
     fseek(p, 0, 2);
@@ -54,19 +62,23 @@ int ArchivoPrestamo::contarRegistros() {
     return tam/sizeof (Prestamo);
 }
 
-int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
+int ArchivoPrestamo::buscarRegistro(int idPrestamo)
+{
     Prestamo obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
+    for(int i=0; i<cantReg; i++)
+    {
         obj = leerRegistro(i);
-        if(obj.getIdPrestamo() == idPrestamo) {
+        if(obj.getIdPrestamo() == idPrestamo)
+        {
             return i;
         }
     }
     return -1;
 }
 
-bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
+bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
+{
     ArchivoSocios arcSoc;
     ArchivoLibros arcLibr;
 
@@ -78,12 +90,14 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     cout << socioPos;
 
 
-    if (socioPos != -1) {
+    if (socioPos != -1)
+    {
         cout << "ISBN DEL LIBRO: ";
         cargarCadena(isbn, 19);
 
         int isbnPos = arcLibr.buscarRegistro(isbn);
-        if (isbnPos != -1) { // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
+        if (isbnPos != -1)   // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
+        {
             cout << "FECHA DEL PRÉSTAMO: ";
             fechaPrestamo.Cargar();
             cout << "FECHA DE DEVOLUCIÓN: ";
@@ -92,18 +106,23 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
             srand(time(0));
             idPrestamo = rand() % 100000 + 1;
             return true;
-        } else {
+        }
+        else
+        {
             cout << "ISBN NO EXISTENTE" << endl;
             return false;
         }
-    } else {
+    }
+    else
+    {
         cout << "DNI NO EXISTENTE" << endl;
         return false;
     }
 
 }
 
-void Prestamo::Mostrar() {
+/*void Prestamo::Mostrar()
+{
     cout << "ID PRÉSTAMO: " << idPrestamo << endl;
     cout << "DNI SOCIO: " << dniSocio << endl;
     cout << "ISBN LIBRO: " << isbn << endl;
@@ -111,30 +130,49 @@ void Prestamo::Mostrar() {
     fechaPrestamo.Mostrar();
     cout << "FECHA DEVOLUCIÓN: ";
     fechaDevolucion.Mostrar();
+}*/
+
+void Prestamo::Mostrar() {
+    cout << "│ " << idPrestamo
+         << "│ " << dniSocio << espaciarTexto(dniSocio, 11)
+         << "│ " << isbn
+         << "│ ";
+    fechaPrestamo.Mostrar();
+    cout << "│ ";
+    fechaDevolucion.Mostrar();
+    cout << "\n";
+    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
 }
 
-void ArchivoPrestamo::RegistrarPrestamo() {
+void ArchivoPrestamo::MostrarHeader() {
     Prestamo obj;
-    if (obj.Cargar(*this)) {
-        grabarRegistro(obj);
-    }
-}
-
-void ArchivoPrestamo::ListarPrestamo() {
-    Prestamo obj;
-    int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
-        obj = leerRegistro(i);
-        if (obj.getIdPrestamo() != -1) {
-            obj.Mostrar();
-            cout << endl;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (leerRegistro(i).getIdPrestamo() != -1) {
+        cout << "┌────────────┬────────────┬────────────┬───────────┬────────────┐\n";
+        cout << "│ ID PREST.  │ DNI SOCIO  │ ISBN       │ FECHA PR. │ FECHA DEV. │\n";
+        cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
+        break;
         }
     }
 }
 
-void ArchivoPrestamo::Eliminar() {
+
+
+void ArchivoPrestamo::RegistrarPrestamo()
+{
     Prestamo obj;
-        /// Llama la opcion de buscar y asi obtener el objeto
+    if (obj.Cargar(*this))
+    {
+        grabarRegistro(obj);
+    }
+}
+
+
+
+void ArchivoPrestamo::Eliminar()
+{
+    Prestamo obj;
+    /// Llama la opcion de buscar y asi obtener el objeto
     //int idPrestamo;
     cout << "INGRESE EL ID del PRESTAMO: ";
     int idPrestamo;
@@ -143,11 +181,13 @@ void ArchivoPrestamo::Eliminar() {
     obj = leerRegistro(pos);
     cout << endl;
 
-    if (obj.getIdPrestamo() != -1) {
+    if (obj.getIdPrestamo() != -1)
+    {
         cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
         char opc;
         cin >> opc;
-        if (opc == 'S' || opc == 's') {
+        if (opc == 'S' || opc == 's')
+        {
             /// Busca la posicion en el regsitro del DNI
             int pos = buscarRegistro(obj.getIdPrestamo());
             obj.setIdPrestamo(-1);
@@ -159,4 +199,18 @@ void ArchivoPrestamo::Eliminar() {
     }
 
 
+}
+
+void ArchivoPrestamo::Listar() {
+
+    MostrarHeader();
+    Prestamo obj;
+    int cantReg = contarRegistros();
+    for(int i=0; i<cantReg; i++) {
+        obj = leerRegistro(i);
+        /// Verifica si esta ocupada la direccion para mostrarla
+        if (leerRegistro(i).getIdPrestamo() != -1){
+            obj.Mostrar();
+        }
+    }
 }

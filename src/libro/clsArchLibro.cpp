@@ -164,7 +164,7 @@ Libro ArchivoLibros::Buscar() {
         /// Crea un objeto auxiliar
         Libro aux;
         /// Setea el estado en false
-        aux.setEstado(false);
+        aux.setISBN("-1");
         return aux;
     }
 }

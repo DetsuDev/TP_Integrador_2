@@ -264,7 +264,7 @@ void menuPrincipal()
                     system("pause");
                     break;
                 case 2:
-                    obj.ListarPrestamo();
+                    obj.Listar();
                     system("pause");
                     break;
 
