@@ -13,7 +13,6 @@ private:
     Fecha fechaPrestamo;
     Fecha fechaDevolucion;
 
-    bool estado = false;
 
 public:
     void setEstado(bool);

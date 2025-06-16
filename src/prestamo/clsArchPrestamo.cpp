@@ -54,12 +54,12 @@ int ArchivoPrestamo::contarRegistros() {
     return tam/sizeof (Prestamo);
 }
 
-int ArchivoPrestamo::buscarRegistro(const char *idPrestamo) {
+int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
     Prestamo obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
-        if(obj.getIdPrestamo() == *idPrestamo) {
+        if(obj.getIdPrestamo() == idPrestamo) {
             return i;
         }
     }
@@ -76,19 +76,17 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     // IMPLEMENTACION USANDO EL ESTADO
     int socioPos = arcSoc.buscarRegistro(dniSocio);
     cout << socioPos;
-    bool socioExiste = arcSoc.leerRegistro(socioPos).getEstado();
-    cout << socioExiste;
-/*
-    if (socioExiste /*&& socioPos > -1) {
+
+
+    if (socioPos != -1) {
         cout << "ISBN DEL LIBRO: ";
         cargarCadena(isbn, 19);
 
         int isbnPos = arcLibr.buscarRegistro(isbn);
-        bool isbnExiste = arcSoc.leerRegistro(isbnPos).getEstado();
-        if (isbnExiste) { // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
-            cout << "FECHA DEL PRÉSTAMO: ";
+        if (isbnPos != -1) { // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
+            cout << "FECHA DEL PRÃ‰STAMO: ";
             fechaPrestamo.Cargar();
-            cout << "FECHA DE DEVOLUCIÓN: ";
+            cout << "FECHA DE DEVOLUCIÃ“N: ";
             fechaDevolucion.Cargar();
 
             srand(time(0));
@@ -102,23 +100,22 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
         cout << "DNI NO EXISTENTE" << endl;
         return false;
     }
-    */
+
 }
 
 void Prestamo::Mostrar() {
-    cout << "ID PRÉSTAMO: " << idPrestamo << endl;
+    cout << "ID PRÃ‰STAMO: " << idPrestamo << endl;
     cout << "DNI SOCIO: " << dniSocio << endl;
     cout << "ISBN LIBRO: " << isbn << endl;
-    cout << "FECHA PRÉSTAMO: ";
+    cout << "FECHA PRÃ‰STAMO: ";
     fechaPrestamo.Mostrar();
-    cout << "FECHA DEVOLUCIÓN: ";
+    cout << "FECHA DEVOLUCIÃ“N: ";
     fechaDevolucion.Mostrar();
 }
 
 void ArchivoPrestamo::RegistrarPrestamo() {
     Prestamo obj;
     if (obj.Cargar(*this)) {
-        obj.setEstado(true);
         grabarRegistro(obj);
     }
 }
@@ -128,9 +125,38 @@ void ArchivoPrestamo::ListarPrestamo() {
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
-        if (obj.getEstado()) {
+        if (obj.getIdPrestamo() != -1) {
             obj.Mostrar();
             cout << endl;
         }
     }
+}
+
+void ArchivoPrestamo::Eliminar() {
+    Prestamo obj;
+        /// Llama la opcion de buscar y asi obtener el objeto
+    //int idPrestamo;
+    cout << "INGRESE EL ID del PRESTAMO: ";
+    int idPrestamo;
+    cin >> idPrestamo;
+    int pos = buscarRegistro(idPrestamo);
+    obj = leerRegistro(pos);
+    cout << endl;
+
+    if (obj.getIdPrestamo() != -1) {
+        cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
+        char opc;
+        cin >> opc;
+        if (opc == 'S' || opc == 's') {
+            /// Busca la posicion en el regsitro del DNI
+            int pos = buscarRegistro(obj.getIdPrestamo());
+            obj.setIdPrestamo(-1);
+
+            /// Modifica el objeto en esa posicion
+            modificarRegistro(obj, pos);
+            cout << "PRESTAMO ELIMINADO" << endl;
+        }
+    }
+
+
 }

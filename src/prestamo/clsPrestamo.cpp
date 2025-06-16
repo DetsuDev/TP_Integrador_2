@@ -2,13 +2,7 @@
 #include <cstring>
 #include "prestamo/clsPrestamo.h"
 
-void Prestamo::setEstado(bool e) {
-    estado = e;
-}
 
-bool Prestamo::getEstado() {
-    return estado;
-}
 
 void Prestamo::setIdPrestamo(int id) {
     idPrestamo = id;

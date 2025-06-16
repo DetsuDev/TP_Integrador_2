@@ -267,6 +267,13 @@ void menuPrincipal()
                     obj.ListarPrestamo();
                     system("pause");
                     break;
+
+                case 4:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   ELIMINAR PRESTAMO                  ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.Eliminar();
+                    break;
                 case 0:
                     opc =-1;
                     subMenu=false;

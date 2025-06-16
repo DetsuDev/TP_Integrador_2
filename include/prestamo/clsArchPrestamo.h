@@ -14,7 +14,8 @@ public:
     bool grabarRegistro(Prestamo);
     bool modificarRegistro(Prestamo, int);
     int contarRegistros();
-    int buscarRegistro(const char *idPrestamo);
+    int buscarRegistro(int idPrestamo);
+    void Eliminar();
 
     void RegistrarPrestamo();
     void ListarPrestamo();
