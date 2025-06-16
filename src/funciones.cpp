@@ -21,8 +21,10 @@
 #include "clsExporte.h"
 
 #include "clsBackup.h"
+#define IDI_APP_ICON 101
 
-void fijarTamanioConsola(int ancho, int alto) {
+void fijarTamanioConsola(int ancho, int alto)
+{
     HWND consola = GetConsoleWindow();
     if (consola == NULL) return;
 
@@ -33,22 +35,34 @@ void fijarTamanioConsola(int ancho, int alto) {
     LONG style = GetWindowLong(consola, GWL_STYLE);
     style &= ~(WS_MAXIMIZEBOX | WS_SIZEBOX); // Quitar botón maximizar y redimensionamiento
     SetWindowLong(consola, GWL_STYLE, style);
-    SetWindowPos(consola, NULL, 0, 0, 0, 0,
-        SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+
+
+    // Para setear el icono en la ventana mientras corre el programa
+    HICON hIcon = LoadIcon(GetModuleHandle(NULL), MAKEINTRESOURCE(IDI_APP_ICON));
+    SendMessage(consola, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+    SendMessage(consola, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+
+    // para cambiar el color de la consola, para cambiar el background se multiplica x16 el codigo de color, y para cambiar el texto, se le suma
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, 5 * 16 + 15);
+
+
 }
 
 using namespace std;
-void menuPrincipal() {
+void menuPrincipal()
+{
     fijarTamanioConsola(143,30);
 
-    system("title PROYECTO");
+    system("title GESTION DE BIBLIOTECA");
     system("chcp 65001 > nul");
     int opc = 0;
 
     bool menu=true;
     bool subMenu=true;
 
-    while(menu) {
+    while(menu)
+    {
         system("cls");
         cout << "╔══════════════════════════════════════╗\n";
         cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -75,10 +89,12 @@ void menuPrincipal() {
         subMenu=true;
         system("cls");
 
-        switch (opc) {
+        switch (opc)
+        {
         /// SOCIOS ------------------------------
         case 1:
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -97,7 +113,8 @@ void menuPrincipal() {
                 cin >> opc;
                 cout << endl;
                 ArchivoSocios obj;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR SOCIO                    ║\n";
@@ -162,7 +179,8 @@ void menuPrincipal() {
             }
         /// LIBROS ------------------------------
         case 2:
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -182,7 +200,8 @@ void menuPrincipal() {
                 ArchivoLibros obj;
                 cin >> opc;
                 cout << endl;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR LIBRO                    ║\n";
@@ -217,7 +236,8 @@ void menuPrincipal() {
             }
         /// PRESTAMOS ------------------------------
         case 3:
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -237,7 +257,8 @@ void menuPrincipal() {
                 cin >> opc;
                 cout << endl;
                 ArchivoPrestamo obj;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     obj.RegistrarPrestamo();
                     system("pause");
@@ -255,7 +276,8 @@ void menuPrincipal() {
             }
         /// CUOTA ------------------------------
         case 4:
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -275,7 +297,8 @@ void menuPrincipal() {
                 cin >> opc;
                 cout << endl;
                 ArchivoCuotas obj;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     obj.RegistrarCuota();
                     system("pause");
@@ -292,7 +315,8 @@ void menuPrincipal() {
 
             }
         case 8:
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -309,7 +333,8 @@ void menuPrincipal() {
 
                 cin >> opc;
                 cout << endl;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     break;
                 case 2:
@@ -324,7 +349,8 @@ void menuPrincipal() {
             }
         case 9:
             Exporte exp;
-            while(subMenu) {
+            while(subMenu)
+            {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -342,7 +368,8 @@ void menuPrincipal() {
 
                 cin >> opc;
                 cout << endl;
-                switch (opc) {
+                switch (opc)
+                {
                 case 1:
                     exp.archExportar("Socio");
                     break;
@@ -366,7 +393,8 @@ void menuPrincipal() {
             }
 
         case 0:
-            if(opc !=-1) {
+            if(opc !=-1)
+            {
                 menu = false;
             }
             break;
@@ -381,21 +409,25 @@ string espaciarTexto(char *pal, int ancho)
     /// Toma el ancho deseado, y le resta el largo de la palabra
     int espacio = ancho-strlen(pal);
     /// Si el espacio es negativo, pondra uno
-    if (espacio < 0) {
-            espacio = 1;
+    if (espacio < 0)
+    {
+        espacio = 1;
     }
     /// Devuelve un string de ' '
     return string(espacio, ' ');
 }
 
 /// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
-void cargarCadena(char *palabra, int tamano) {
+void cargarCadena(char *palabra, int tamano)
+{
     int i=0;
 
     fflush(stdin);
-    for (i=0; i<tamano; i++) {
+    for (i=0; i<tamano; i++)
+    {
         palabra[i]=cin.get();
-        if (palabra[i]=='\n') {
+        if (palabra[i]=='\n')
+        {
             break;
         }
     }
