@@ -115,9 +115,37 @@ void menuPrincipal() {
                 case 3:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   BUSCAR SOCIO                       ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║                                      ║\n";
+                    cout << "║  [1] Buscar por DNI                  ║\n";
+                    cout << "║  [2] Buscar por Nombre y Apellido    ║\n";
+                    cout << "║                                      ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                    obj.Buscar();
-                    system("pause");
+                    cin >> opc;
+                    switch (opc)
+                    {
+                    case 1:
+                        char dni[10];
+                        cout << ">> Ingrese DNI socio a buscar: ";
+                        cargarCadena(dni,9);
+                        obj.Buscar(dni, "-1");
+                        system("pause");
+                        break;
+                    case 2:
+                        char nombre[29];
+                        cout << ">> Ingrese nombre: ";
+                        cargarCadena(nombre,29);
+                        char apellido[29];
+                        cout << "Ingrese apellido: ";
+                        cargarCadena(apellido,29);
+                        obj.Buscar(nombre, apellido);
+                        system("pause");
+                        break;
+                    case 0:
+                        break;
+                    }
                     break;
                 case 4:
                     cout << "╔══════════════════════════════════════╗\n";
@@ -170,9 +198,6 @@ void menuPrincipal() {
                     system("pause");
                     break;
                 case 3:
-                    cout << "╔══════════════════════════════════════╗\n";
-                    cout << "║   BUSCAR LIBRO                       ║\n";
-                    cout << "╚══════════════════════════════════════╝\n";
                     obj.Buscar();
                     system("pause");
                     break;

@@ -78,8 +78,8 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     cout << socioPos;
     bool socioExiste = arcSoc.leerRegistro(socioPos).getEstado();
     cout << socioExiste;
-
-    if (socioExiste /*&& socioPos > -1*/) {
+/*
+    if (socioExiste /*&& socioPos > -1) {
         cout << "ISBN DEL LIBRO: ";
         cargarCadena(isbn, 19);
 
@@ -102,6 +102,7 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
         cout << "DNI NO EXISTENTE" << endl;
         return false;
     }
+    */
 }
 
 void Prestamo::Mostrar() {

@@ -79,8 +79,8 @@ bool Libro::Cargar(ArchivoLibros &arcLibro)
 {
     cout << "INGRESE ISBN: ";
     cargarCadena(isbn, 19);
-    if (arcLibro.buscarRegistro(isbn) == -1)
-    {
+
+    if (arcLibro.buscarRegistro(isbn) == -1) {
         cout << "INGRESE TÍTULO: ";
         cargarCadena(titulo, 49);
         cout << "INGRESE AUTOR: ";
@@ -89,7 +89,7 @@ bool Libro::Cargar(ArchivoLibros &arcLibro)
         cin >> anioPublicacion;
         cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
         cin >> cantidadEjemplares;
-        return true;
+            return true;
     }
     else
     {
@@ -104,42 +104,68 @@ void Libro::Mostrar()
     sprintf(anioStr, "%d", anioPublicacion);
     char cantEjStr[10];
     sprintf(cantEjStr, "%d", cantidadEjemplares);
-    cout << "│ " << isbn << espaciarTexto(isbn, 11) << "│ " << titulo << espaciarTexto(titulo, 11) << "│ " << autor << espaciarTexto(autor, 11) << "│ " << anioStr << espaciarTexto(anioStr, 10) << "│ " << cantEjStr << espaciarTexto(cantEjStr, 11) << "│\n";
+    cout << "│ " << isbn << espaciarTexto(isbn, 11)
+    << "│ " << titulo << espaciarTexto(titulo, 11)
+    << "│ " << autor << espaciarTexto(autor, 11)
+    << "│ " << anioStr << espaciarTexto(anioStr, 10)
+    << "│ " << cantEjStr << espaciarTexto(cantEjStr, 11) << "│\n";
     cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
 }
 
 void ArchivoLibros::MostrarHeader() {
-    cout << "┌────────────┬────────────┬────────────┬───────────┬────────────┐\n";
-    cout << "│ ISBN       │ TITULO     │ AUTOR      │ AÑO PUBL  │ EJEMPLARES │\n";
-    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
-
+    Libro obj;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getISBN(), "-1") != 0) {
+        cout << "┌────────────┬────────────┬────────────┬───────────┬────────────┐\n";
+        cout << "│ ISBN       │ TITULO     │ AUTOR      │ AÑO PUBL  │ EJEMPLARES │\n";
+        cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
+        break;
+        }
+    }
 }
 
 void ArchivoLibros::Eliminar() {
+    /// Llama la opcion de buscar y asi obtener el objeto
     Libro obj = Buscar();
     cout << endl;
+
+    if (strcmp(obj.getISBN(), "-1") != 0) {
     cout << "ELIMINAR ESTE LIBRO? (S/N): ";
     char opc;
     cin >> opc;
     if (opc == 'S' || opc == 's'){
-        obj.setEstado(false);
-        modificarRegistro(obj, buscarRegistro(obj.getISBN()));
-        cout << "LIBRO [" << obj.getISBN() << "] ELIMINADO" << endl;
+            /// Busca la posicion en el regsitro del DNI
+            int pos = buscarRegistro(obj.getISBN());
+            obj.setISBN("-1");
+
+            /// Modifica el objeto en esa posicion
+        modificarRegistro(obj, pos);
+            cout << "LIBRO ELIMINADO " << endl;
+    }
     }
 }
 
 Libro ArchivoLibros::Buscar() {
+
     char isbn[10];
     cout << ">> Ingrese ISBN libro: ";
     cargarCadena(isbn,9);
+    /// Busca el isbn en el registro y obtiene la posicione
     int pos = buscarRegistro(isbn);
     if(pos != -1) {
         Libro obj = leerRegistro(pos);
         MostrarHeader();
+        /// Muestra el objeto de esa posicon
         obj.Mostrar();
+        /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
         return obj;
     } else {
-        cout << "DNI NO ENCONTRADO." << endl;
+        cout << "LIBRO NO ENCONTRADO." << endl;
+        /// Crea un objeto auxiliar
+        Libro aux;
+        /// Setea el estado en false
+        aux.setEstado(false);
+        return aux;
     }
 }
 // esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros

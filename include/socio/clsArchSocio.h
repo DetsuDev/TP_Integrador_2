@@ -20,7 +20,7 @@ public:
     void Registrar();
     void Eliminar();
     void Listar();
-    Socio Buscar();
+    Socio Buscar(const char* pal1, const char* pal2);
     void MostrarHeader();
 
     //void buscarRegistro();

@@ -51,3 +51,7 @@ const char* Socio::getDni() {
 const char* Socio::getNombre() {
     return nombre;
 }
+
+const char* Socio::getApellido() {
+    return apellido;
+}
