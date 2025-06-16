@@ -5,6 +5,8 @@
 
 #include <iostream>
 #include <cstring>
+#include <windows.h>
+
 
 #include "socio/clsArchSocio.h"
 
@@ -20,10 +22,26 @@
 
 #include "clsBackup.h"
 
+void fijarTamanioConsola(int ancho, int alto) {
+    HWND consola = GetConsoleWindow();
+    if (consola == NULL) return;
+
+    // Establecer tamaño fijo
+    system(("mode con: cols=" + std::to_string(ancho) + " lines=" + std::to_string(alto)).c_str());
+
+    // Evitar redimensionamiento
+    LONG style = GetWindowLong(consola, GWL_STYLE);
+    style &= ~(WS_MAXIMIZEBOX | WS_SIZEBOX); // Quitar botón maximizar y redimensionamiento
+    SetWindowLong(consola, GWL_STYLE, style);
+    SetWindowPos(consola, NULL, 0, 0, 0, 0,
+        SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+}
 
 using namespace std;
 void menuPrincipal() {
-    system("mode con: cols=143 lines=30");
+    fijarTamanioConsola(143,30);
+
+    system("title PROYECTO");
     system("chcp 65001 > nul");
     int opc = 0;
 

@@ -118,16 +118,20 @@ void ArchivoSocios::Eliminar() {
     /// Llama la opcion de buscar y asi obtener el objeto
     Socio obj = Buscar();
     cout << endl;
-    cout << "ELIMINAR ESTE SOCIO? (S/N): ";
-    char opc;
-    cin >> opc;
-    if (opc == 'S' || opc == 's') {
+    if (obj.getEstado())
+    {
+        cout << "ELIMINAR ESTE SOCIO? (S/N): ";
+        char opc;
+        cin >> opc;
+        if (opc == 'S' || opc == 's') {
 
-        obj.setEstado(false);
-        /// "buscarRegistro(obj.getDni())": Obtiene el objeto, consigue su dni, y se lo manda a la funcion de buscar para obtener su posicion.
-        modificarRegistro(obj, buscarRegistro(obj.getDni()));
-        cout << "SOCIO [" << obj.getDni() << "] ELIMINADO" << endl;
+            obj.setEstado(false);
+            /// "buscarRegistro(obj.getDni())": Obtiene el objeto, consigue su dni, y se lo manda a la funcion de buscar para obtener su posicion.
+            modificarRegistro(obj, buscarRegistro(obj.getDni()));
+            cout << "SOCIO [" << obj.getDni() << "] ELIMINADO" << endl;
+        }
     }
+
 }
 Socio ArchivoSocios::Buscar() {
     char dni[10];
@@ -144,6 +148,11 @@ Socio ArchivoSocios::Buscar() {
         return obj;
     } else {
         cout << "DNI NO ENCONTRADO." << endl;
+        /// Crea un objeto auxiliar
+        Socio aux;
+        /// Setea el estado en false
+        aux.setEstado(false);
+        return aux;
     }
 }
 void ArchivoSocios::Registrar() {
