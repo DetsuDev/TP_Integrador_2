@@ -21,9 +21,9 @@
 #include "clsExporte.h"
 
 #include "clsBackup.h"
-#define IDI_APP_ICON 101
+#define IDI_APP_ICON 101 // define el recurso ICON para tener el icono
 
-void fijarTamanioConsola(int ancho, int alto)
+void ajustesConsola(int ancho, int alto)
 {
     HWND consola = GetConsoleWindow();
     if (consola == NULL) return;
@@ -52,7 +52,7 @@ void fijarTamanioConsola(int ancho, int alto)
 using namespace std;
 void menuPrincipal()
 {
-    fijarTamanioConsola(143,30);
+    ajustesConsola(143,30);
 
     system("title GESTION DE BIBLIOTECA");
     system("chcp 65001 > nul");

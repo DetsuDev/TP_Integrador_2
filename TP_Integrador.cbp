@@ -38,7 +38,6 @@
 		<Unit filename="include/clsDomicilio.h" />
 		<Unit filename="include/clsExporte.h" />
 		<Unit filename="include/clsFecha.h" />
-		<Unit filename="include/clsImporte.h" />
 		<Unit filename="include/cuota/clsArchCuota.h" />
 		<Unit filename="include/cuota/clsCuota.h" />
 		<Unit filename="include/funciones.h" />
@@ -49,11 +48,13 @@
 		<Unit filename="include/socio/clsArchSocio.h" />
 		<Unit filename="include/socio/clsSocio.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="resources.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="src/clsBackup.cpp" />
 		<Unit filename="src/clsDomicilio.cpp" />
 		<Unit filename="src/clsExporte.cpp" />
 		<Unit filename="src/clsFecha.cpp" />
-		<Unit filename="src/clsImporte.cpp" />
 		<Unit filename="src/cuota/clsArchCuota.cpp" />
 		<Unit filename="src/cuota/clsCuota.cpp" />
 		<Unit filename="src/funciones.cpp" />
