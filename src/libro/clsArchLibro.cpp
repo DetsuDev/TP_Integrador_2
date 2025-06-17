@@ -145,8 +145,19 @@ void ArchivoLibros::Eliminar() {
     }
 }
 
-Libro ArchivoLibros::Buscar() {
+Libro ArchivoLibros::modificarLibros(){
+    Libro obj;
+    int ejemplares;
+    cout << "Ingrese la nueva cantidad de ejemplares: ";
+    cin >> ejemplares;
+    obj.setCantidadEjemplares(ejemplares);
 
+    return obj;
+}
+
+
+Libro ArchivoLibros::Buscar() {
+    string opc;
     char isbn[10];
     cout << ">> Ingrese ISBN libro: ";
     cargarCadena(isbn,9);
@@ -158,7 +169,14 @@ Libro ArchivoLibros::Buscar() {
         /// Muestra el objeto de esa posicon
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
-        return obj;
+        cout << endl;
+        cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
+        cin >> opc;
+        if(opc == "s" || opc == "S"){
+        }
+        else{
+            return obj;
+        }
     } else {
         cout << "LIBRO NO ENCONTRADO." << endl;
         /// Crea un objeto auxiliar

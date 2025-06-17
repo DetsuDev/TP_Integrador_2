@@ -9,6 +9,7 @@ private:
 public:
     ArchivoLibros(const char *n="FILES/current/Libros.dat");
     Libro leerRegistro(int);
+    Libro modificarLibros();
     bool grabarRegistro(Libro);
     bool modificarRegistro(Libro, int);
     int contarRegistros();
