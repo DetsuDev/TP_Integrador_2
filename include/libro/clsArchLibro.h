@@ -19,7 +19,11 @@ public:
     void Registrar();
     void Eliminar();
     void Listar();
-    Libro Buscar();
+    Libro MostrarBusqueda(int pos);
+    void BuscarISBN(const char* isbn);
+    void BuscarTitulo(const char* titulo);
+    void BuscarAutor(const char* autor);
+    void BuscarCantEjemp(int cantidad);
     void MostrarHeader();
 };
 

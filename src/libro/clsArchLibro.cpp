@@ -126,7 +126,12 @@ void ArchivoLibros::MostrarHeader() {
 
 void ArchivoLibros::Eliminar() {
     /// Llama la opcion de buscar y asi obtener el objeto
-    Libro obj = Buscar();
+    char isbn[20];
+    cout << ">> Ingrese ISBN del libro a eliminar: ";
+    cargarCadena(isbn,19);
+    int pos = buscarRegistro(isbn);
+
+    Libro obj = MostrarBusqueda(pos);
     cout << endl;
 
     if (strcmp(obj.getISBN(), "-1") != 0) {
@@ -137,6 +142,9 @@ void ArchivoLibros::Eliminar() {
             /// Busca la posicion en el regsitro del DNI
             int pos = buscarRegistro(obj.getISBN());
             obj.setISBN("-1");
+            obj.setAutor(" ");
+            obj.setTitulo("0");
+            obj.setCantidadEjemplares(0);
 
             /// Modifica el objeto en esa posicion
         modificarRegistro(obj, pos);
@@ -156,14 +164,65 @@ Libro ArchivoLibros::modificarLibros(){
 }
 
 
-Libro ArchivoLibros::Buscar() {
-    string opc;
-    char isbn[10];
-    cout << ">> Ingrese ISBN libro: ";
-    cargarCadena(isbn,9);
-    /// Busca el isbn en el registro y obtiene la posicione
+
+void ArchivoLibros::BuscarISBN(const char* isbn) {
+    bool encontrado = false;
+    /// Busca el isbn en el registro y obtiene su posicion
     int pos = buscarRegistro(isbn);
+
+    if (pos != -1) {
+        Libro obj = MostrarBusqueda(pos);
+    } else {
+        cout << "ISBN NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarTitulo(const char* titulo) {
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0) {
+            MostrarBusqueda(i);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "TÍTULO NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarAutor(const char* autor) {
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getAutor(),autor) == 0) {
+            MostrarBusqueda(i);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "AUTOR NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarCantEjemp(int cant) {
+
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (leerRegistro(i).getCantidadEjemplares() > cant) {
+            /// Consigue la posicion en el registro gracias al ISBN
+            MostrarBusqueda(i);
+        }
+    }
+    if (!encontrado) {
+        cout << "NO HAY DISPONIBILIDAD" << endl;
+    }
+}
+
+Libro ArchivoLibros::MostrarBusqueda(int pos) {
     if(pos != -1) {
+        char opc;
         Libro obj = leerRegistro(pos);
         MostrarHeader();
         /// Muestra el objeto de esa posicon
@@ -172,16 +231,16 @@ Libro ArchivoLibros::Buscar() {
         cout << endl;
         cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
         cin >> opc;
-        if(opc == "s" || opc == "S"){
+        if(opc == 's' || opc == 'S') {
+
         }
         else{
             return obj;
         }
     } else {
-        cout << "LIBRO NO ENCONTRADO." << endl;
         /// Crea un objeto auxiliar
         Libro aux;
-        /// Setea el estado en false
+        /// Setea el ISBN en -1
         aux.setISBN("-1");
         return aux;
     }
@@ -189,26 +248,37 @@ Libro ArchivoLibros::Buscar() {
 // esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
 void ArchivoLibros::Registrar()
 {
-    Libro obj;
-    if (obj.Cargar(*this))
-    {
-        obj.setEstado(true);
-
-        grabarRegistro(obj);
+        Libro obj;
+    if (obj.Cargar(*this)) {
+        int posLibre = -1;
+        for (int i = 0; i < contarRegistros(); i++) {
+                /// Busca la posicion libre (ISBN = -1) y la guarda en una variable
+            if (strcmp(leerRegistro(i).getISBN(), "-1") == 0) {
+                posLibre = i;
+                break;
+            }
+        }
+        /// Verifica si existe posicion libre
+        if (posLibre != -1) {
+        /// Escribe en esa posicion
+            modificarRegistro(obj, posLibre);
+        } else {
+        /// Si no la encuentra, guarda en una nueva posicion
+            grabarRegistro(obj);
+        }
     }
 }
 
 // lee el archivo de libros y los muestra en pantalla
 void ArchivoLibros::Listar()
 {
+     MostrarHeader();
     Libro obj;
-    MostrarHeader();
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++)
-    {
+    for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
-        if (obj.getEstado())
-        {
+        /// Verifica si esta ocupada la direccion para mostrarla
+        if (strcmp(leerRegistro(i).getISBN(), "-1") != 0){
             obj.Mostrar();
         }
     }

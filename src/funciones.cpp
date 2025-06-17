@@ -147,7 +147,7 @@ void menuPrincipal()
                         char dni[10];
                         cout << ">> Ingrese DNI socio a buscar: ";
                         cargarCadena(dni,9);
-                        obj.Buscar(dni, "-1");
+                        obj.BuscarDni(dni);
                         system("pause");
                         break;
                     case 2:
@@ -157,7 +157,7 @@ void menuPrincipal()
                         char apellido[29];
                         cout << "Ingrese apellido: ";
                         cargarCadena(apellido,29);
-                        obj.Buscar(nombre, apellido);
+                        obj.BuscarNombre(nombre, apellido);
                         system("pause");
                         break;
                     case 0:
@@ -254,9 +254,9 @@ void menuPrincipal()
         }
         case 4: {
             int disponible;
-            cout << ">> Ingrese 1 para Disponible, 0 para No disponible: ";
+            cout << ">> Ingrese cantidad solicitada: ";
             cin >> disponible;
-            obj.BuscarPorDisponibilidad(disponible == 1);
+            obj.BuscarCantEjemp(disponible);
             break;
         }
     }

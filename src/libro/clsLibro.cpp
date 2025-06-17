@@ -17,14 +17,6 @@ void Libro::setAnioPublicacion(int a) {
 void Libro::setCantidadEjemplares(int c) {
     cantidadEjemplares = c;
 }
-void Libro::setEstado(bool e) {
-    estado = e;
-}
-
-bool Libro::getEstado() {
-    return estado;
-}
-
 const char* Libro::getISBN() {
     return isbn;
 }

@@ -11,8 +11,6 @@ private:
     int anioPublicacion;
     int cantidadEjemplares;
 
-    bool estado = false;
-
 public:
     void setEstado(bool);
     bool getEstado();

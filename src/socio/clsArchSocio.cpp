@@ -125,7 +125,7 @@ void ArchivoSocios::Eliminar() {
     cout << ">> Ingrese DNI socio a eliminar: ";
     cargarCadena(dni,9);
     int pos = buscarRegistro(dni);
-    Socio obj = Buscar(dni, "-1");
+    Socio obj = MostrarBusqueda(pos);
     cout << endl;
 
     if (strcmp(obj.getDni(), "-1") != 0) {
@@ -136,6 +136,8 @@ void ArchivoSocios::Eliminar() {
             /// Busca la posicion en el regsitro del DNI
             int pos = buscarRegistro(obj.getDni());
             obj.setDni("-1");
+            obj.setNombre(" ");
+            obj.setApellido(" ");
 
             /// Modifica el objeto en esa posicion
             modificarRegistro(obj, pos);
@@ -144,23 +146,26 @@ void ArchivoSocios::Eliminar() {
     }
 }
 
-Socio ArchivoSocios::Buscar(const char* pal1, const char* pal2) {
-    int pos=-1;
-
-    if (strcmp(pal1, "-1") != 0 && strcmp(pal2, "-1") == 0 )
-    {
-        pos = buscarRegistro(pal1);
+void ArchivoSocios::BuscarDni(const char* dni) {
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+    pos = buscarRegistro(dni);
+    MostrarBusqueda(pos);
     }
-    else if (strcmp(pal1, "-1") != 0 || strcmp(pal2, "-1") != 0)
-    {
-        for (int i=0; i < contarRegistros(); i++) {
-            if (strcmp(leerRegistro(i).getNombre(),pal1) == 0 && strcmp(leerRegistro(i).getApellido(),pal2) == 0) {
-                /// Consigue la posicion en el registro gracias al DNI
-                pos = buscarRegistro(leerRegistro(i).getDni());
-                break;
-            }
+}
+
+void ArchivoSocios::BuscarNombre(const char* nombre, const char* apellido) {
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getNombre(),nombre) == 0 && strcmp(leerRegistro(i).getApellido(),apellido) == 0) {
+            /// Consigue la posicion en el registro gracias al DNI
+            pos = buscarRegistro(leerRegistro(i).getDni());
+            MostrarBusqueda(pos);
         }
     }
+}
+
+Socio ArchivoSocios::MostrarBusqueda(int pos) {
     /// Busca el dni o el nombre en el registro y obtiene la posicione
     if(pos != -1) {
         Socio obj = leerRegistro(pos);
@@ -178,32 +183,6 @@ Socio ArchivoSocios::Buscar(const char* pal1, const char* pal2) {
         aux.setDni("-1");
         return aux;
     }
-/*
-    int pos=-1;
-    /// opc = 1, Buscar por dni
-    /// opc = 2, Buscar por Nombre
-    if (opc == 1) {
-        char dni[10];
-        cout << ">> Ingrese DNI socio: ";
-        cargarCadena(dni,9);
-        pos = buscarRegistro(dni);
-    } else {
-        char nombre[29];
-        cout << ">> Ingrese Nombre socio: ";
-        cargarCadena(nombre,29);
-        char apellido[29];
-        cout << "Ingrese apellido: ";
-        cargarCadena(apellido,29);
-        /// Busca en todos los registros si coinciden nombre y apellido
-        for (int i=0; i < contarRegistros(); i++) {
-            if (strcmp(leerRegistro(i).getNombre(),nombre) == 0 && strcmp(leerRegistro(i).getApellido(),apellido) == 0) {
-                /// Consigue la posicion en el registro gracias al DNI
-                pos = buscarRegistro(leerRegistro(i).getDni());
-                break;
-            }
-        }
-
-    }*/
 }
 void ArchivoSocios::Registrar() {
     Socio obj;
