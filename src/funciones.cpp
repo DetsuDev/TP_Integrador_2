@@ -58,7 +58,7 @@ void ajustesConsola(int ancho, int alto) {
 
 using namespace std;
 void menuPrincipal() {
-    ajustesConsola(143,30);
+    ajustesConsola(180,30); //143
 
     system("title GESTION DE BIBLIOTECA");
     system("chcp 65001 > nul");
@@ -217,7 +217,6 @@ void menuPrincipal() {
                     system("pause");
                     break;
                 case 3:
-<<<<<<< Updated upstream
     cout << "╔══════════════════════════════════════╗\n";
     cout << "║   BUSCAR LIBRO                       ║\n";
     cout << "╟──────────────────────────────────────╣\n";
@@ -230,20 +229,6 @@ void menuPrincipal() {
     cout << "╚══════════════════════════════════════╝\n";
     cout << ">> Ingrese opción: ";
     cin >> opc;
-=======
-                    cout << "╔══════════════════════════════════════╗\n";
-                    cout << "║   BUSCAR LIBRO                      ║\n";
-                    cout << "╟──────────────────────────────────────╣\n";
-                    cout << "║  [1] Buscar por ISBN                ║\n";
-                    cout << "║  [2] Buscar por Título              ║\n";
-                    cout << "║  [3] Buscar por Autor               ║\n";
-                    cout << "║  [4] Buscar por Disponibilidad      ║\n";
-                    cout << "╟──────────────────────────────────────╣\n";
-                    cout << "║  [0] Volver                         ║\n";
-                    cout << "╚══════════════════════════════════════╝\n";
-                    cout << ">> Ingrese opción: ";
-                    cin >> opc;
->>>>>>> Stashed changes
 
                     switch (opc) {
                     case 1: {
@@ -392,13 +377,9 @@ void menuPrincipal() {
 
                 cin >> opc;
                 cout << endl;
-<<<<<<< Updated upstream
                     BackupManager backup;
                 switch (opc)
                 {
-=======
-                switch (opc) {
->>>>>>> Stashed changes
                 case 1:
                     backup.restaurarGeneral();
                     break;

@@ -6,7 +6,7 @@
 #include "clsFecha.h"
 #include "clsDomicilio.h"
 #include "funciones.h"
-
+#include <vector>
 using namespace std;
 
 ArchivoSocios::ArchivoSocios(const char *n) {
@@ -91,32 +91,131 @@ bool Socio::Cargar(ArchivoSocios &arcSoc) {
         return false;
     }
 }
+vector<int> ArchivoSocios::BuscarMasLargo() {
+    int MasLargoDNI = strlen("DNI");
+    int MasLargoNombre = strlen("NOMBRE");
+    int MasLargoApellido = strlen("APELLIDO");
+    int MasLargoEmail = strlen("EMAIL");
 
-void ArchivoSocios::MostrarHeader() {
-    Socio obj;
-    for (int i=0; i < contarRegistros(); i++) {
-        if (strcmp(leerRegistro(i).getDni(), "-1") != 0) {
-            cout << "                                                   ┌───────────────────────────────────────────────────────────┐\n";
-            cout << "                                                   │ DOMICLIO                                                  │\n";
-            cout << "┌────────────┬────────────┬────────────┬───────────┼────────────┬────────┬───────────┬────────────────┬────────┼──────────────────────────────┐\n";
-            cout << "│ DNI        │ NOMBRE     │ APELLIDO   │ F. NAC    │ DIRECCION  │ ALTURA │ LOCALIDAD │ PARTIDO        │ CP     │ EMAIL                        │\n";
-            cout << "├────────────┼────────────┼────────────┼───────────┼────────────┼────────┼───────────┼────────────────┼────────┼──────────────────────────────┤\n";
-            break;
+    int MasLargoCalle = strlen("CALLE");
+    int MasLargoAltura = strlen("ALTURA");
+    int MasLargoLocalidad = strlen("LOCALIDAD");
+    int MasLargoPartido = strlen("PARTIDO");
+    int MasLargoCodPostal = strlen("CP");
+
+    for (int i = 0; i < contarRegistros(); i++) {
+        Socio reg = leerRegistro(i);
+
+        int lenDNI = strlen(reg.getDni());
+        int lenNombre = strlen(reg.getNombre());
+        int lenApellido = strlen(reg.getApellido());
+        int lenEmail = strlen(reg.getEmail());
+
+        int lenCalle = strlen(reg.getDomicilio().getCalle());
+        char alturaStr[12];
+        sprintf(alturaStr, "%d", reg.getDomicilio().getAltura());
+        int lenAltura = strlen(alturaStr);
+        int lenLocalidad = strlen(reg.getDomicilio().getLocalidad());
+        int lenPartido = strlen(reg.getDomicilio().getPartido());
+        int lenCodPostal = strlen(reg.getDomicilio().getCodPostal());
+
+        if (lenDNI > MasLargoDNI) {
+            MasLargoDNI = lenDNI;
+        }
+        if (lenNombre > MasLargoNombre) {
+            MasLargoNombre = lenNombre;
+        }
+        if (lenApellido > MasLargoApellido) {
+            MasLargoApellido = lenApellido;
+        }
+        if (lenEmail > MasLargoEmail) {
+            MasLargoEmail = lenEmail;
+        }
+
+        if (lenCalle > MasLargoCalle) {
+            MasLargoCalle = lenCalle;
+        }
+        if (lenAltura > MasLargoAltura) {
+            MasLargoAltura = lenAltura;
+        }
+        if (lenLocalidad > MasLargoLocalidad) {
+            MasLargoLocalidad = lenLocalidad;
+        }
+        if (lenPartido > MasLargoPartido) {
+            MasLargoPartido = lenPartido;
+        }
+        if (lenCodPostal > MasLargoCodPostal) {
+            MasLargoCodPostal = lenCodPostal;
         }
     }
+
+    return {
+        MasLargoDNI, MasLargoNombre, MasLargoApellido,
+        MasLargoCalle, MasLargoAltura, MasLargoLocalidad, MasLargoPartido, MasLargoCodPostal, MasLargoEmail};
+}
+
+
+
+void ArchivoSocios::MostrarHeader() {
+    vector<int> largos = BuscarMasLargo();
+
+    int MasLargoDNI = largos[0];
+    int MasLargoNombre = largos[1];
+    int MasLargoApellido = largos[2];
+    int MasLargoCalle = largos[3];
+    int MasLargoAltura = largos[4];
+    int MasLargoLocalidad = largos[5];
+    int MasLargoPartido = largos[6];
+    int MasLargoCodPostal = largos[7];
+    int MasLargoEmail = largos[8];
+
+    char dni[] = "DNI";
+    char nombre[] = "NOMBRE";
+    char apellido[] = "APELLIDO";
+    char email[] = "EMAIL";
+    char calle[] = "CALLE";
+    char altura[] = "ALTURA";
+    char localidad[] = "LOCALIDAD";
+    char partido[] = "PARTIDO";
+    char CodigoPostal[] = "CP";
+
+    cout << " " << espaciarTexto(dni, MasLargoDNI)
+         << " │ " << espaciarTexto(nombre, MasLargoNombre)
+         << " │ " << espaciarTexto(apellido, MasLargoApellido)
+         << " │ " << espaciarTexto(calle, MasLargoCalle)
+         << " │ " << espaciarTexto(altura, MasLargoAltura)
+         << " │ " << espaciarTexto(localidad, MasLargoLocalidad)
+         << " │ " << espaciarTexto(partido, MasLargoPartido)
+         << " │ " << espaciarTexto(CodigoPostal, MasLargoCodPostal)
+         << " │ " << espaciarTexto(email, MasLargoEmail)  << "\n";
 }
 
 void Socio::Mostrar() {
+    ArchivoSocios arcSoc;
+    vector<int> largos = arcSoc.BuscarMasLargo();
 
-    cout << "│ " << dni << espaciarTexto(dni, 11)
-         << "│ " << nombre << espaciarTexto(nombre, 11)
-         << "│ " << apellido << espaciarTexto(apellido, 11)
-         << "│ ";
-    fechaNacimiento.Mostrar();
-    cout << "│ ";
-    domicilio.Mostrar();
-    cout << "│ " << email << espaciarTexto(email, 29) << "│" << endl;
-    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┼────────┼───────────┼────────────────┼────────┼──────────────────────────────┤\n";
+    int MasLargoDNI = largos[0];
+    int MasLargoNombre = largos[1];
+    int MasLargoApellido = largos[2];
+    int MasLargoCalle = largos[3];
+    int MasLargoAltura = largos[4];
+    int MasLargoLocalidad = largos[5];
+    int MasLargoPartido = largos[6];
+    int MasLargoCodPostal = largos[7];
+    int MasLargoEmail = largos[8];
+
+    char altura[10];
+    sprintf(altura, "%d", domicilio.getAltura());
+
+    cout << " " << espaciarTexto(dni, MasLargoDNI)
+         << " │ " << espaciarTexto(nombre, MasLargoNombre)
+         << " │ " << espaciarTexto(apellido, MasLargoApellido)
+         << " │ " << espaciarTexto(domicilio.getCalle(), MasLargoCalle)
+         << " │ " << espaciarTexto(altura, MasLargoAltura)
+         << " │ " << espaciarTexto(domicilio.getLocalidad(), MasLargoLocalidad)
+         << " │ " << espaciarTexto(domicilio.getPartido(), MasLargoPartido)
+         << " │ " << espaciarTexto(domicilio.getCodPostal(), MasLargoCodPostal)
+         << " │ " << espaciarTexto(email, MasLargoEmail) << "\n";
 }
 
 void ArchivoSocios::Eliminar() {
@@ -149,8 +248,8 @@ void ArchivoSocios::Eliminar() {
 void ArchivoSocios::BuscarDni(const char* dni) {
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
-    pos = buscarRegistro(dni);
-    MostrarBusqueda(pos);
+        pos = buscarRegistro(dni);
+        MostrarBusqueda(pos);
     }
 }
 
@@ -189,7 +288,7 @@ void ArchivoSocios::Registrar() {
     if (obj.Cargar(*this)) {
         int posLibre = -1;
         for (int i = 0; i < contarRegistros(); i++) {
-                /// Busca la posicion libre (DNI = -1) y la guarda en una variable
+            /// Busca la posicion libre (DNI = -1) y la guarda en una variable
             if (strcmp(leerRegistro(i).getDni(), "-1") == 0) {
                 posLibre = i;
                 break;
@@ -197,10 +296,10 @@ void ArchivoSocios::Registrar() {
         }
         /// Verifica si existe posicion libre
         if (posLibre != -1) {
-        /// Escribe en esa posicion
+            /// Escribe en esa posicion
             modificarRegistro(obj, posLibre);
         } else {
-        /// Si no la encuentra, guarda en una nueva posicion
+            /// Si no la encuentra, guarda en una nueva posicion
             grabarRegistro(obj);
         }
     }
@@ -214,7 +313,7 @@ void ArchivoSocios::Listar() {
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
         /// Verifica si esta ocupada la direccion para mostrarla
-        if (strcmp(leerRegistro(i).getDni(), "-1") != 0){
+        if (strcmp(leerRegistro(i).getDni(), "-1") != 0) {
             obj.Mostrar();
         }
     }

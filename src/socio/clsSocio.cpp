@@ -28,6 +28,11 @@ void Socio::setEmail(const char *e) {
     strcpy(email, e);
 }
 
+
+const char* Socio::getEmail() {
+    return email;
+}
+
 void Socio::setFechaNacimiento(Fecha f) {
     fechaNacimiento = f;
 }

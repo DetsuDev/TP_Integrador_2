@@ -24,8 +24,11 @@ void Domicilio::Mostrar() {
     /// Convierte la altura (int) a char
     char alturaStr[10];
     sprintf(alturaStr, "%d", altura);
-    cout << calle << espaciarTexto(calle, 11) << "│ " << altura << espaciarTexto(alturaStr, 7) << "│ " << localidad << espaciarTexto(localidad, 10)
-         << "│ " << partido << espaciarTexto(partido, 15) << "│ " << codigoPostal << espaciarTexto(codigoPostal, 7);
+    cout << espaciarTexto(calle, 11)
+         << "│ " << espaciarTexto(alturaStr, 7)
+         << " │ " << espaciarTexto(localidad, 10)
+         << " │ " << espaciarTexto(partido, 15)
+         << " │ " << espaciarTexto(codigoPostal, 7);
 }
 
 void Domicilio::setCalle(const char *e) {

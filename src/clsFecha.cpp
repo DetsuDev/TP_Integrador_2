@@ -57,5 +57,5 @@ void Fecha::Mostrar() {
     strcat(fechaCompleta, anioStr);
 
 
-    cout << fechaCompleta << espaciarTexto(fechaCompleta, 10);
+    cout << espaciarTexto(fechaCompleta, 10);
 }

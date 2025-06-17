@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstring>
 #include "socio/clsSocio.h"
+#include <vector>
+using namespace std;
 
 class ArchivoSocios {
 private:
@@ -16,6 +18,8 @@ public:
     int buscarRegistro(const char* dni);
 
     // Lógica de negocio
+
+    vector<int> BuscarMasLargo();
     void Mostrar();
     void Registrar();
     void Eliminar();

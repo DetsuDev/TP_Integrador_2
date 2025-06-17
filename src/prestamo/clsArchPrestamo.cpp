@@ -5,6 +5,7 @@
 #include "libro/clsArchLibro.h"
 #include "funciones.h"
 #include <ctime>
+#include <vector>
 
 using namespace std;
 
@@ -121,6 +122,42 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
     }
 
 }
+/*vector<int> ArchivoLibros::BuscarMasLargo() {
+
+
+    int MarLargoID = strlen("ID PREST.");
+    int MasLargoDNI = strlen("DNI SOCIO");
+    int MasLargoISBN = strlen("ISBN");
+
+    for (int i=0; i < contarRegistros(); i++) {
+        for (int i = 0; i < contarRegistros(); i++) {
+            Libro libReg = leerRegistro(i);
+            Socio socRreg = leerRegistro(i);
+            char idStr[10];
+            sprintf(cantStr, "%d", reg.getCantidadEjemplares());
+            int lenID = strlen(reg.get);
+            int lenDNI = strlen(socReg.getTitulo());
+            int lenISBN = strlen(libReg.getISBN());
+
+
+            int lenCant = strlen(cantStr);
+
+            if (lenISBN > MasLargoISBN) {
+                MasLargoISBN = lenISBN;
+            }
+            if (lenAutor > MasLargoAutor) {
+                MasLargoAutor = lenAutor;
+            }
+            if (lenTitulo > MasLargoTitulo) {
+                MasLargoTitulo = lenTitulo;
+            }
+            if (lenCant > MasLargoCant) {
+                MasLargoCant = lenCant;
+            }
+        }
+    }
+    return {MasLargoISBN, MasLargoTitulo, MasLargoAutor, MasLargoCant};
+}*/
 
 void Prestamo::Mostrar() {
     cout << "│ " << idPrestamo
@@ -135,15 +172,22 @@ void Prestamo::Mostrar() {
 }
 
 void ArchivoPrestamo::MostrarHeader() {
-    Prestamo obj;
-    for (int i=0; i < contarRegistros(); i++) {
-        if (leerRegistro(i).getIdPrestamo() != -1) {
-        cout << "┌────────────┬────────────┬────────────┬───────────┬────────────┐\n";
-        cout << "│ ID PREST.  │ DNI SOCIO  │ ISBN       │ FECHA PR. │ FECHA DEV. │\n";
-        cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
-        break;
-        }
-    }
+/*    vector<int> largos = BuscarMasLargo();
+    int MarLargoID = largos[0];
+    int MasLargoDNI = largos[1];
+    int MasLargoISBN = largos[2];
+    char id[] = "ID PREST.";
+    char dni[] = "DNI SOCIO";
+    char isbn[] = "ISBN";
+    char fechaPr[] = "FECHA PR.";
+    char fechaDev[] = "FECHA DEV.";
+
+    cout << " " << espaciarTexto(id, MarLargoID)
+         << " │ " << espaciarTexto(dni, MasLargoDNI)
+         << " │ " << espaciarTexto(isbn, MasLargoISBN)
+         << " │ AÑO PUBL"
+         << " │ " << espaciarTexto(fechaPr, 9) << "\n";
+         << " │ " << espaciarTexto(fechaDev, 9) << "\n";*/
 }
 
 

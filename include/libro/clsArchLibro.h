@@ -24,7 +24,7 @@ public:
     void Listar();
 
 
-    vector<int> BuscarMayor();
+    vector<int> BuscarMasLargo();
     Libro MostrarBusqueda(int pos);
     void BuscarISBN(const char* isbn);
     void BuscarTitulo(const char* titulo);

@@ -80,13 +80,8 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
         cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
         cin >> cantidadEjemplares;
         return true;
-<<<<<<< Updated upstream
     }
-    else
-    {
-=======
-    } else {
->>>>>>> Stashed changes
+    else {
         cout << "ISBN: [" << isbn << "] YA EXISTENTE." << endl;
         return false;
     }
@@ -95,7 +90,7 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
 
 void Libro::Mostrar() {
     ArchivoLibros arcLibros;
-    vector<int> largos = arcLibros.BuscarMayor();
+    vector<int> largos = arcLibros.BuscarMasLargo();
     int MasLargoISBN = largos[0];
     int MasLargoTitulo = largos[1];
     int MasLargoAutor = largos[2];
@@ -103,38 +98,19 @@ void Libro::Mostrar() {
     sprintf(anioStr, "%d", anioPublicacion);
     char cantEjStr[10];
     sprintf(cantEjStr, "%d", cantidadEjemplares);
-<<<<<<< Updated upstream
-    cout << "│ " << isbn << espaciarTexto(isbn, 11)
-         << "│ " << titulo << espaciarTexto(titulo, 11)
-         << "│ " << autor << espaciarTexto(autor, 11)
-         << "│ " << anioStr << espaciarTexto(anioStr, 10)
-         << "│ " << cantEjStr << espaciarTexto(cantEjStr, 11) << "│\n";
-    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
-}
-
-void ArchivoLibros::MostrarHeader()
-{
-    for (int i=0; i < contarRegistros(); i++)
-    {
-        if (strcmp(leerRegistro(i).getISBN(), "-1") != 0)
-        {
-            cout << "┌────────────┬────────────┬────────────┬───────────┬────────────┐\n";
-            cout << "│ ISBN       │ TITULO     │ AUTOR      │ AÑO PUBL  │ EJEMPLARES │\n";
-            cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
-=======
-    cout << "│ " << espaciarTexto(isbn, MasLargoISBN)
+    cout << " " << espaciarTexto(isbn, MasLargoISBN)
          << " │ " << espaciarTexto(titulo, MasLargoTitulo)
          << " │ " << espaciarTexto(autor, MasLargoAutor)
          << " │ " << espaciarTexto(anioStr, 8)
-         << " │ " << espaciarTexto(cantEjStr, 10) << " │\n";
+         << " │ " << espaciarTexto(cantEjStr, 10) << "\n";
 }
 
-vector<int> ArchivoLibros::BuscarMayor() {
+vector<int> ArchivoLibros::BuscarMasLargo() {
 
-    int MasLargoISBN = -1;
-    int MasLargoAutor = -1;
-    int MasLargoTitulo = -1;
-    int MasLargoCant = -1;
+    int MasLargoISBN = strlen("ISBN");
+    int MasLargoAutor = strlen("TITULO");
+    int MasLargoTitulo = strlen("AUTOR");
+    int MasLargoCant = strlen("EJEMPLARES");
 
 
     for (int i=0; i < contarRegistros(); i++) {
@@ -167,7 +143,7 @@ vector<int> ArchivoLibros::BuscarMayor() {
 }
 
 void ArchivoLibros::MostrarHeader() {
-    vector<int> largos = BuscarMayor();
+    vector<int> largos = BuscarMasLargo();
     int MasLargoISBN = largos[0];
     int MasLargoTitulo = largos[1];
     int MasLargoAutor = largos[2];
@@ -177,17 +153,11 @@ void ArchivoLibros::MostrarHeader() {
     char autor[] = "AUTOR";
     char ejempl[] = "EJEMPLARES";
 
-    for (int i = 0; i < contarRegistros(); i++) {
-        if (strcmp(leerRegistro(i).getISBN(), "-1") != 0) {
-            cout << "│ " << espaciarTexto(isbn, MasLargoISBN)
-                 << " │ " << espaciarTexto(titulo, MasLargoTitulo)
-                 << " │ " << espaciarTexto(autor, MasLargoAutor)
-                 << " │ AÑO PUBL"
-                 << " │ " << espaciarTexto(ejempl, MasLargoCant) << " │ \n";
->>>>>>> Stashed changes
-            break;
-        }
-    }
+    cout << " " << espaciarTexto(isbn, MasLargoISBN)
+         << " │ " << espaciarTexto(titulo, MasLargoTitulo)
+         << " │ " << espaciarTexto(autor, MasLargoAutor)
+         << " │ AÑO PUBL"
+         << " │ " << espaciarTexto(ejempl, MasLargoCant) << "\n";
 }
 
 void ArchivoLibros::Eliminar()
@@ -201,21 +171,11 @@ void ArchivoLibros::Eliminar()
     Libro obj = MostrarBusqueda(pos);
     cout << endl;
 
-<<<<<<< Updated upstream
-    if (strcmp(obj.getISBN(), "-1") != 0)
-    {
-        cout << "ELIMINAR ESTE LIBRO? (S/N): ";
-        char opc;
-        cin >> opc;
-        if (opc == 'S' || opc == 's')
-        {
-=======
     if (strcmp(obj.getISBN(), "-1") != 0) {
         cout << "ELIMINAR ESTE LIBRO? (S/N): ";
         char opc;
         cin >> opc;
         if (opc == 'S' || opc == 's') {
->>>>>>> Stashed changes
             /// Busca la posicion en el regsitro del DNI
             int pos = buscarRegistro(obj.getISBN());
             obj.setISBN("-1");
@@ -323,13 +283,7 @@ Libro ArchivoLibros::MostrarBusqueda(int pos)
             cin >> cantEjemp;
             obj.setCantidadEjemplares(cantEjemp);
             return obj;
-<<<<<<< Updated upstream
-        }
-        else
-        {
-=======
         } else {
->>>>>>> Stashed changes
             return obj;
         }
     }
@@ -343,19 +297,7 @@ Libro ArchivoLibros::MostrarBusqueda(int pos)
     }
 }
 // esta funcion crea el objeto libr, luego ejecuta el metodo "Cargar()", luego crea el objeto "ArcLibr" y graba los registros en el archivo de libros
-<<<<<<< Updated upstream
-void ArchivoLibros::Registrar()
-{
-    Libro obj;
-    if (obj.Cargar(*this))
-    {
-        int posLibre = -1;
-        for (int i = 0; i < contarRegistros(); i++)
-        {
-            /// Busca la posicion libre (ISBN = -1) y la guarda en una variable
-            if (strcmp(leerRegistro(i).getISBN(), "-1") == 0)
-            {
-=======
+
 void ArchivoLibros::Registrar() {
     Libro obj;
     if (obj.Cargar(*this)) {
@@ -363,26 +305,15 @@ void ArchivoLibros::Registrar() {
         for (int i = 0; i < contarRegistros(); i++) {
             /// Busca la posicion libre (ISBN = -1) y la guarda en una variable
             if (strcmp(leerRegistro(i).getISBN(), "-1") == 0) {
->>>>>>> Stashed changes
                 posLibre = i;
                 break;
             }
         }
         /// Verifica si existe posicion libre
-<<<<<<< Updated upstream
-        if (posLibre != -1)
-        {
-            /// Escribe en esa posicion
-            modificarRegistro(obj, posLibre);
-        }
-        else
-        {
-=======
         if (posLibre != -1) {
             /// Escribe en esa posicion
             modificarRegistro(obj, posLibre);
         } else {
->>>>>>> Stashed changes
             /// Si no la encuentra, guarda en una nueva posicion
             grabarRegistro(obj);
         }
@@ -390,12 +321,7 @@ void ArchivoLibros::Registrar() {
 }
 
 // lee el archivo de libros y los muestra en pantalla
-<<<<<<< Updated upstream
-void ArchivoLibros::Listar()
-{
-=======
 void ArchivoLibros::Listar() {
->>>>>>> Stashed changes
     MostrarHeader();
     Libro obj;
     int cantReg = contarRegistros();
@@ -403,12 +329,7 @@ void ArchivoLibros::Listar() {
     {
         obj = leerRegistro(i);
         /// Verifica si esta ocupada la direccion para mostrarla
-<<<<<<< Updated upstream
-        if (strcmp(leerRegistro(i).getISBN(), "-1") != 0)
-        {
-=======
         if (strcmp(leerRegistro(i).getISBN(), "-1") != 0) {
->>>>>>> Stashed changes
             obj.Mostrar();
         }
     }

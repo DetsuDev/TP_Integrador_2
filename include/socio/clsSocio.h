@@ -30,6 +30,7 @@ public:
     const char* getDni();
     const char* getNombre();
     const char* getApellido();
+    const char* getEmail();
     Fecha& getFechaNacimiento();
     Domicilio& getDomicilio();
 
