@@ -22,14 +22,13 @@ public:
     void Registrar();
     void Eliminar();
     void Listar();
-
-
+    void ModificarEjemplares();
     vector<int> BuscarMasLargo();
     Libro MostrarBusqueda(int pos);
     void BuscarISBN(const char* isbn);
     void BuscarTitulo(const char* titulo);
     void BuscarAutor(const char* autor);
-    void BuscarCantEjemp(int cantidad);
+    void BuscarCantEjemp();
     void MostrarHeader();
 };
 

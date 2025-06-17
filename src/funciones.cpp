@@ -25,7 +25,6 @@
 
 
 /// COSAS A HACER
-/// AL MOMENTO DE CARGAR UN LIBRO, VERIFICAR SI EXISTE EL LIBRO, SI EXISTE, SUMAR LA CANTIDAD.
 /// AL MOMENTO DE PEDIR UN PRESTAMO, VERIFICAR SI EXISTE, Y SI EXISTE RESTAR UNA CANTIDAD
 /// AL MOMENTO DE ELIMINAR UN PRESTAMO, SUMAR UNA CANTIDAD AL LIBRO
 /// TABLAS DINAMICAS
@@ -191,7 +190,8 @@ void menuPrincipal() {
                 cout << "║  [1] Registrar Libro                 ║\n";
                 cout << "║  [2] Mostrar Lista de Libros         ║\n";
                 cout << "║  [3] Buscar Libro                    ║\n";
-                cout << "║  [4] Eliminar libro                  ║\n";
+                cout << "║  [4] Modificar libro                 ║\n";
+                cout << "║  [5] Eliminar libro                  ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -217,18 +217,18 @@ void menuPrincipal() {
                     system("pause");
                     break;
                 case 3:
-                cout << "╔══════════════════════════════════════╗\n";
-                cout << "║   BUSCAR LIBRO                       ║\n";
-                cout << "╟──────────────────────────────────────╣\n";
-                cout << "║  [1] Buscar por ISBN                 ║\n";
-                cout << "║  [2] Buscar por Título               ║\n";
-                cout << "║  [3] Buscar por Autor                ║\n";
-                cout << "║  [4] Buscar por Disponibilidad       ║\n";
-                cout << "╟──────────────────────────────────────╣\n";
-                cout << "║  [0] Volver                          ║\n";
-                cout << "╚══════════════════════════════════════╝\n";
-                cout << ">> Ingrese opción: ";
-                cin >> opc;
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   BUSCAR LIBRO                       ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [1] Buscar por ISBN                 ║\n";
+                    cout << "║  [2] Buscar por Título               ║\n";
+                    cout << "║  [3] Buscar por Autor                ║\n";
+                    cout << "║  [4] Buscar por Disponibilidad       ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    cout << ">> Ingrese opción: ";
+                    cin >> opc;
 
                     switch (opc) {
                     case 1: {
@@ -236,6 +236,7 @@ void menuPrincipal() {
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
                         obj.BuscarISBN(isbn);
+                    system("pause");
                         break;
                     }
                     case 2: {
@@ -243,6 +244,7 @@ void menuPrincipal() {
                         cout << ">> Ingrese Título: ";
                         cargarCadena(titulo, 49);
                         obj.BuscarTitulo(titulo);
+                    system("pause");
                         break;
                     }
                     case 3: {
@@ -250,20 +252,29 @@ void menuPrincipal() {
                         cout << ">> Ingrese Autor: ";
                         cargarCadena(autor, 49);
                         obj.BuscarAutor(autor);
+                    system("pause");
                         break;
                     }
                     case 4: {
-                        int disponible;
-                        cout << ">> Ingrese cantidad solicitada: ";
-                        cin >> disponible;
-                        obj.BuscarCantEjemp(disponible);
+                        cout << "╔══════════════════════════════════════╗\n";
+                        cout << "║   LIBROS DISPONIBLES                 ║\n";
+                        cout << "╚══════════════════════════════════════╝\n";
+                        obj.BuscarCantEjemp();
+                    system("pause");
                         break;
                     }
+                    case 0:
+                        break;
                     }
+                    break;
+                case 4:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   MODIFICAR DE LIBROS                ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    obj.ModificarEjemplares();
                     system("pause");
                     break;
-
-                case 4:
+                case 5:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR LIBRO                     ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
@@ -377,9 +388,8 @@ void menuPrincipal() {
 
                 cin >> opc;
                 cout << endl;
-                    BackupManager backup;
-                switch (opc)
-                {
+                BackupManager backup;
+                switch (opc) {
                 case 1:
                     backup.restaurarGeneral();
                     break;
@@ -454,8 +464,8 @@ string espaciarTexto(const char *pal, int ancho) {
     if (espacio < 0) {
         espacio = 0;
     }
-        /// Devuelve un string de la palabra mas el relleno
-        return string(pal) + string(espacio, ' ');
+    /// Devuelve un string de la palabra mas el relleno
+    return string(pal) + string(espacio, ' ');
 
 }
 

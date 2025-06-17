@@ -69,8 +69,7 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
     cout << "INGRESE ISBN: ";
     cargarCadena(isbn, 19);
 
-    if (arcLibro.buscarRegistro(isbn) == -1)
-    {
+    if (arcLibro.buscarRegistro(isbn) == -1) {
         cout << "INGRESE TÍTULO: ";
         cargarCadena(titulo, 49);
         cout << "INGRESE AUTOR: ";
@@ -80,16 +79,7 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
         cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
         cin >> cantidadEjemplares;
         return true;
-    }
-    else {
-        /*cout << "Queire sumar una cantidad?: "
-        if (opc == 'S' || opc == 's') {
-            cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
-            cin >> cantidadEjemplares;
-            Libro libro = arcLibro.buscarRegistro(isbn);
-
-        }*/
-
+    } else {
         cout << "ISBN: [" << isbn << "] YA EXISTENTE." << endl;
         return false;
     }
@@ -119,7 +109,6 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
     int MasLargoAutor = strlen("TITULO");
     int MasLargoTitulo = strlen("AUTOR");
     int MasLargoCant = strlen("EJEMPLARES");
-
 
     for (int i=0; i < contarRegistros(); i++) {
         for (int i = 0; i < contarRegistros(); i++) {
@@ -168,8 +157,66 @@ void ArchivoLibros::MostrarHeader() {
          << " │ " << espaciarTexto(ejempl, MasLargoCant) << "\n";
 }
 
-void ArchivoLibros::Eliminar()
-{
+
+
+void ArchivoLibros::BuscarISBN(const char* isbn) {
+    /// Busca el isbn en el registro y obtiene su posicion
+    int pos = buscarRegistro(isbn);
+
+    if (pos != -1) {
+            MostrarBusqueda(pos);
+        Libro obj = leerRegistro(pos);
+        modificarRegistro(obj,pos);
+    } else {
+        cout << "ISBN NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarTitulo(const char* titulo) {
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0) {
+            MostrarBusqueda(i);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "TÍTULO NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarAutor(const char* autor) {
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (strcmp(leerRegistro(i).getAutor(),autor) == 0) {
+            MostrarBusqueda(i);
+            encontrado = true;
+        }
+    }
+    if (!encontrado) {
+        cout << "AUTOR NO ENCONTRADO" << endl;
+    }
+}
+
+void ArchivoLibros::BuscarCantEjemp() {
+    int cant = 0;
+    for (int i=0; i < contarRegistros(); i++) {
+        if (leerRegistro(i).getCantidadEjemplares() > 0) {
+            /// Consigue la posicion en el registro gracias al ISBN
+            MostrarBusqueda(i);
+            cant++;
+        }
+    }
+    cout << "Libros distintos en stock: " << cant << endl;
+    /*if (cant > 0) {
+        cout << "NO HAY DISPONIBILIDAD" << endl;
+    }*/
+}
+
+
+void ArchivoLibros::Eliminar() {
     /// Llama la opcion de buscar y asi obtener el objeto
     char isbn[20];
     cout << ">> Ingrese ISBN del libro a eliminar: ";
@@ -179,12 +226,12 @@ void ArchivoLibros::Eliminar()
     Libro obj = MostrarBusqueda(pos);
     cout << endl;
 
-    if (strcmp(obj.getISBN(), "-1") != 0) {
+    if (strcmp(isbn, "-1") != 0) {
         cout << "ELIMINAR ESTE LIBRO? (S/N): ";
         char opc;
         cin >> opc;
         if (opc == 'S' || opc == 's') {
-            /// Busca la posicion en el regsitro del DNI
+            /// Busca la posicion en el registro del DNI
             int pos = buscarRegistro(obj.getISBN());
             obj.setISBN("-1");
             obj.setAutor(" ");
@@ -195,86 +242,41 @@ void ArchivoLibros::Eliminar()
             modificarRegistro(obj, pos);
             cout << "LIBRO ELIMINADO " << endl;
         }
+    } else {
+        cout << "LIBRO INEXISTENTE." << endl;
     }
 }
 
-
-
-void ArchivoLibros::BuscarISBN(const char* isbn)
-{
-    bool encontrado = false;
-    /// Busca el isbn en el registro y obtiene su posicion
-    int pos = buscarRegistro(isbn);
-
-    if (pos != -1)
-    {
+void ArchivoLibros::ModificarEjemplares() {
+    char isbn[20];
+    int cantEjemp = 0;
+    cout << ">> Ingrese ISBN del libro a modificar: ";
+    cargarCadena(isbn,19);
+    if (strcmp(isbn, "-1") != 0) {
+        int pos = buscarRegistro(isbn);
         Libro obj = MostrarBusqueda(pos);
-        modificarRegistro(obj,pos);
-    }
-    else
-    {
-        cout << "ISBN NO ENCONTRADO" << endl;
-    }
-}
-
-void ArchivoLibros::BuscarTitulo(const char* titulo)
-{
-    bool encontrado = false;
-    int pos = -1;
-    for (int i=0; i < contarRegistros(); i++)
-    {
-        if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0)
-        {
-            MostrarBusqueda(i);
-            encontrado = true;
+        cout << endl;
+        cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
+        char opc;
+        cin >> opc;
+        if(opc == 's' || opc == 'S') {
+            cout << "ingrese cantidad de libros: ";
+            cin >> cantEjemp;
+            obj.setCantidadEjemplares(cantEjemp);
+            cout << "LIBRO MODIFICADO [" << isbn << "] \n";
+            /// Modifica el objeto en esa posicion
+            modificarRegistro(obj, pos);
+        } else {
+            cout << "Operacion cancelada.";
         }
+    } else {
+        cout << "LIBRO INEXISTENTE." << endl;
     }
-    if (!encontrado)
-    {
-        cout << "TÍTULO NO ENCONTRADO" << endl;
-    }
+
 }
 
-void ArchivoLibros::BuscarAutor(const char* autor)
-{
-    bool encontrado = false;
-    int pos = -1;
-    for (int i=0; i < contarRegistros(); i++)
-    {
-        if (strcmp(leerRegistro(i).getAutor(),autor) == 0)
-        {
-            MostrarBusqueda(i);
-            encontrado = true;
-        }
-    }
-    if (!encontrado)
-    {
-        cout << "AUTOR NO ENCONTRADO" << endl;
-    }
-}
-
-void ArchivoLibros::BuscarCantEjemp(int cant)
-{
-
-    bool encontrado = false;
-    for (int i=0; i < contarRegistros(); i++)
-    {
-        if (leerRegistro(i).getCantidadEjemplares() > cant)
-        {
-            /// Consigue la posicion en el registro gracias al ISBN
-            MostrarBusqueda(i);
-        }
-    }
-    if (!encontrado)
-    {
-        cout << "NO HAY DISPONIBILIDAD" << endl;
-    }
-}
-
-Libro ArchivoLibros::MostrarBusqueda(int pos)
-{
-    if(pos != -1)
-    {
+Libro ArchivoLibros::MostrarBusqueda(int pos) {
+    if(pos != -1) {
         char opc;
         int cantEjemp;
         Libro obj = leerRegistro(pos);
@@ -282,21 +284,10 @@ Libro ArchivoLibros::MostrarBusqueda(int pos)
         /// Muestra el objeto de esa posicon
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
+
         cout << endl;
-        cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
-        cin >> opc;
-        if(opc == 's' || opc == 'S')
-        {
-            cout << "ingrese cantidad de libros: ";
-            cin >> cantEjemp;
-            obj.setCantidadEjemplares(cantEjemp);
-            return obj;
-        } else {
-            return obj;
-        }
-    }
-    else
-    {
+        return obj;
+    } else {
         /// Crea un objeto auxiliar
         Libro aux;
         /// Setea el ISBN en -1
@@ -333,8 +324,7 @@ void ArchivoLibros::Listar() {
     MostrarHeader();
     Libro obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++)
-    {
+    for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
         /// Verifica si esta ocupada la direccion para mostrarla
         if (strcmp(leerRegistro(i).getISBN(), "-1") != 0) {
