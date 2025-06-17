@@ -217,18 +217,18 @@ void menuPrincipal() {
                     system("pause");
                     break;
                 case 3:
-    cout << "╔══════════════════════════════════════╗\n";
-    cout << "║   BUSCAR LIBRO                       ║\n";
-    cout << "╟──────────────────────────────────────╣\n";
-    cout << "║  [1] Buscar por ISBN                 ║\n";
-    cout << "║  [2] Buscar por Título               ║\n";
-    cout << "║  [3] Buscar por Autor                ║\n";
-    cout << "║  [4] Buscar por Disponibilidad       ║\n";
-    cout << "╟──────────────────────────────────────╣\n";
-    cout << "║  [0] Volver                          ║\n";
-    cout << "╚══════════════════════════════════════╝\n";
-    cout << ">> Ingrese opción: ";
-    cin >> opc;
+                cout << "╔══════════════════════════════════════╗\n";
+                cout << "║   BUSCAR LIBRO                       ║\n";
+                cout << "╟──────────────────────────────────────╣\n";
+                cout << "║  [1] Buscar por ISBN                 ║\n";
+                cout << "║  [2] Buscar por Título               ║\n";
+                cout << "║  [3] Buscar por Autor                ║\n";
+                cout << "║  [4] Buscar por Disponibilidad       ║\n";
+                cout << "╟──────────────────────────────────────╣\n";
+                cout << "║  [0] Volver                          ║\n";
+                cout << "╚══════════════════════════════════════╝\n";
+                cout << ">> Ingrese opción: ";
+                cin >> opc;
 
                     switch (opc) {
                     case 1: {
@@ -301,7 +301,7 @@ void menuPrincipal() {
                 ArchivoPrestamo obj;
                 switch (opc) {
                 case 1:
-                    obj.RegistrarPrestamo();
+                    obj.Registrar();
                     system("pause");
                     break;
                 case 2:

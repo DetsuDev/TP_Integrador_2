@@ -9,13 +9,11 @@
 
 using namespace std;
 
-ArchivoPrestamo::ArchivoPrestamo(const char *n)
-{
+ArchivoPrestamo::ArchivoPrestamo(const char *n) {
     strcpy(nombre, n);
 }
 
-Prestamo ArchivoPrestamo::leerRegistro(int pos)
-{
+Prestamo ArchivoPrestamo::leerRegistro(int pos) {
     Prestamo obj;
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
@@ -24,11 +22,9 @@ Prestamo ArchivoPrestamo::leerRegistro(int pos)
     return obj;
 }
 
-bool ArchivoPrestamo::grabarRegistro(Prestamo obj)
-{
+bool ArchivoPrestamo::grabarRegistro(Prestamo obj) {
     FILE *p = fopen(nombre, "ab");
-    if(p == nullptr)
-    {
+    if(p == nullptr) {
         return false;
     }
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
@@ -36,12 +32,10 @@ bool ArchivoPrestamo::grabarRegistro(Prestamo obj)
     return escribio;
 }
 
-bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos)
-{
+bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos) {
     FILE *p;
     p = fopen(nombre, "rb+");
-    if(p == nullptr)
-    {
+    if(p == nullptr) {
         return false;
     }
     fseek(p, pos * sizeof obj, 0);
@@ -50,11 +44,9 @@ bool ArchivoPrestamo::modificarRegistro(Prestamo obj, int pos)
     return escribio;
 }
 
-int ArchivoPrestamo::contarRegistros()
-{
+int ArchivoPrestamo::contarRegistros() {
     FILE *p = fopen(nombre, "rb");
-    if(p == nullptr)
-    {
+    if(p == nullptr) {
         return -1;
     }
     fseek(p, 0, 2);
@@ -63,15 +55,12 @@ int ArchivoPrestamo::contarRegistros()
     return tam/sizeof (Prestamo);
 }
 
-int ArchivoPrestamo::buscarRegistro(int idPrestamo)
-{
+int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
     Prestamo obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++)
-    {
+    for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
-        if(obj.getIdPrestamo() == idPrestamo)
-        {
+        if(obj.getIdPrestamo() == idPrestamo) {
             return i;
         }
     }
@@ -79,8 +68,7 @@ int ArchivoPrestamo::buscarRegistro(int idPrestamo)
 }
 
 
-bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
-{
+bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     ArchivoSocios arcSoc;
     ArchivoLibros arcLibr;
 
@@ -92,14 +80,12 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
     cout << socioPos;
 
 
-    if (socioPos != -1)
-    {
+    if (socioPos != -1) {
         cout << "ISBN DEL LIBRO: ";
         cargarCadena(isbn, 19);
 
         int isbnPos = arcLibr.buscarRegistro(isbn);
-        if (isbnPos != -1)   // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
-        {
+        if (isbnPos != -1) { // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
             cout << "FECHA DEL PRÉSTAMO: ";
             fechaPrestamo.Cargar();
             cout << "FECHA DE DEVOLUCIÓN: ";
@@ -108,58 +94,75 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
             srand(time(0));
             idPrestamo = rand() % 100000 + 1;
             return true;
-        }
-        else
-        {
+        } else {
             cout << "ISBN NO EXISTENTE" << endl;
             return false;
         }
-    }
-    else
-    {
+    } else {
         cout << "DNI NO EXISTENTE" << endl;
         return false;
     }
 
 }
-/*vector<int> ArchivoLibros::BuscarMasLargo() {
+vector<int> ArchivoPrestamo::BuscarMasLargo() {
 
-
-    int MarLargoID = strlen("ID PREST.");
+    int MasLargoID = strlen("ID PREST.");
     int MasLargoDNI = strlen("DNI SOCIO");
     int MasLargoISBN = strlen("ISBN");
 
     for (int i=0; i < contarRegistros(); i++) {
         for (int i = 0; i < contarRegistros(); i++) {
-            Libro libReg = leerRegistro(i);
-            Socio socRreg = leerRegistro(i);
+            Prestamo prest = leerRegistro(i);
             char idStr[10];
-            sprintf(cantStr, "%d", reg.getCantidadEjemplares());
-            int lenID = strlen(reg.get);
-            int lenDNI = strlen(socReg.getTitulo());
-            int lenISBN = strlen(libReg.getISBN());
+            sprintf(idStr, "%d", prest);
+            int lenID = strlen(idStr);
+            int lenDNI = strlen(prest.getDniSocio());
+            int lenISBN = strlen(prest.getISBN());
 
-
-            int lenCant = strlen(cantStr);
-
+            if (lenID > MasLargoID) {
+                MasLargoID = lenID;
+            }
+            if (lenDNI > MasLargoDNI) {
+                MasLargoDNI = lenDNI;
+            }
             if (lenISBN > MasLargoISBN) {
                 MasLargoISBN = lenISBN;
             }
-            if (lenAutor > MasLargoAutor) {
-                MasLargoAutor = lenAutor;
-            }
-            if (lenTitulo > MasLargoTitulo) {
-                MasLargoTitulo = lenTitulo;
-            }
-            if (lenCant > MasLargoCant) {
-                MasLargoCant = lenCant;
-            }
         }
     }
-    return {MasLargoISBN, MasLargoTitulo, MasLargoAutor, MasLargoCant};
-}*/
+    return {MasLargoID, MasLargoDNI, MasLargoISBN};
+}
 
 void Prestamo::Mostrar() {
+
+
+    ArchivoPrestamo arcPrestamo;
+    vector<int> largos = arcPrestamo.BuscarMasLargo();
+    int MasLargoID = largos[0];
+    int MasLargoDNI = largos[1];
+    int MasLargoISBN = largos[2];
+
+    /*
+        char id[] = "ID PREST.";
+        char dni[] = "DNI SOCIO";
+        char isbn[] = "ISBN";
+        char fechaPr[] = "FECHA PR.";
+        char fechaDev[] = "FECHA DEV.";*/
+
+
+    char idStr[10];
+    sprintf(idStr, "%d", idPrestamo);
+
+    cout << " " << espaciarTexto(idStr, MasLargoID)
+         << " │ " << espaciarTexto(dniSocio, MasLargoDNI)
+         << " │ " << espaciarTexto(isbn, MasLargoISBN) << " │ ";
+    fechaPrestamo.Mostrar();
+    cout << " │ ";
+    fechaDevolucion.Mostrar();
+    cout << "\n";
+
+
+    /*
     cout << "│ " << idPrestamo
          << "│ " << dniSocio << espaciarTexto(dniSocio, 11)
          << "│ " << isbn
@@ -168,11 +171,11 @@ void Prestamo::Mostrar() {
     cout << "│ ";
     fechaDevolucion.Mostrar();
     cout << "\n";
-    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";
+    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";*/
 }
 
 void ArchivoPrestamo::MostrarHeader() {
-/*    vector<int> largos = BuscarMasLargo();
+    vector<int> largos = BuscarMasLargo();
     int MarLargoID = largos[0];
     int MasLargoDNI = largos[1];
     int MasLargoISBN = largos[2];
@@ -185,26 +188,36 @@ void ArchivoPrestamo::MostrarHeader() {
     cout << " " << espaciarTexto(id, MarLargoID)
          << " │ " << espaciarTexto(dni, MasLargoDNI)
          << " │ " << espaciarTexto(isbn, MasLargoISBN)
-         << " │ AÑO PUBL"
-         << " │ " << espaciarTexto(fechaPr, 9) << "\n";
-         << " │ " << espaciarTexto(fechaDev, 9) << "\n";*/
+         << " │ " << espaciarTexto(fechaPr, 10)
+         << " │ " << espaciarTexto(fechaDev, 9) << "\n";
 }
 
 
 
-void ArchivoPrestamo::RegistrarPrestamo()
-{
+void ArchivoPrestamo::Registrar() {
     Prestamo obj;
-    if (obj.Cargar(*this))
-    {
-        grabarRegistro(obj);
+    if (obj.Cargar(*this)) {
+        int posLibre = -1;
+        for (int i = 0; i < contarRegistros(); i++) {
+            /// Busca la posicion libre (PRESTAMOID = -1) y la guarda en una variable
+            if (leerRegistro(i).getIdPrestamo() > -1) {
+                posLibre = i;
+                break;
+            }
+        }
+        /// Verifica si existe posicion libre
+        if (posLibre != -1) {
+            /// Escribe en esa posicion
+            modificarRegistro(obj, posLibre);
+        } else {
+            /// Si no la encuentra, guarda en una nueva posicion
+            grabarRegistro(obj);
+        }
     }
 }
 
 
-
-void ArchivoPrestamo::Eliminar()
-{
+void ArchivoPrestamo::Eliminar() {
     Prestamo obj;
     /// Llama la opcion de buscar y asi obtener el objeto
     //int idPrestamo;
@@ -215,13 +228,11 @@ void ArchivoPrestamo::Eliminar()
     obj = leerRegistro(pos);
     cout << endl;
 
-    if (obj.getIdPrestamo() != -1)
-    {
+    if (obj.getIdPrestamo() != -1) {
         cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
         char opc;
         cin >> opc;
-        if (opc == 'S' || opc == 's')
-        {
+        if (opc == 'S' || opc == 's') {
             /// Busca la posicion en el regsitro del DNI
             int pos = buscarRegistro(obj.getIdPrestamo());
             obj.setIdPrestamo(-1);
@@ -235,16 +246,18 @@ void ArchivoPrestamo::Eliminar()
 
 }
 
+// lee el archivo de libros y los muestra en pantalla
 void ArchivoPrestamo::Listar() {
-
     MostrarHeader();
     Prestamo obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++) {
+    for(int i=0; i<cantReg; i++)
+    {
         obj = leerRegistro(i);
         /// Verifica si esta ocupada la direccion para mostrarla
-        if (leerRegistro(i).getIdPrestamo() != -1){
+        if (leerRegistro(i).getIdPrestamo() > -1) {
             obj.Mostrar();
         }
     }
+
 }

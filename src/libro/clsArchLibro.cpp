@@ -82,6 +82,14 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
         return true;
     }
     else {
+        /*cout << "Queire sumar una cantidad?: "
+        if (opc == 'S' || opc == 's') {
+            cout << "INGRESE CANTIDAD DE EJEMPLARES: ";
+            cin >> cantidadEjemplares;
+            Libro libro = arcLibro.buscarRegistro(isbn);
+
+        }*/
+
         cout << "ISBN: [" << isbn << "] YA EXISTENTE." << endl;
         return false;
     }
