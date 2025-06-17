@@ -2,6 +2,9 @@
 #define CLSARCHLIBRO_H_INCLUDED
 
 #include "libro/clsLibro.h"
+#include <vector>
+
+using namespace std;
 
 class ArchivoLibros {
 private:
@@ -19,6 +22,9 @@ public:
     void Registrar();
     void Eliminar();
     void Listar();
+
+
+    vector<int> BuscarMayor();
     Libro MostrarBusqueda(int pos);
     void BuscarISBN(const char* isbn);
     void BuscarTitulo(const char* titulo);

@@ -23,8 +23,15 @@
 #include "clsBackup.h"
 #define IDI_APP_ICON 101 // define el recurso ICON para tener el icono
 
-void ajustesConsola(int ancho, int alto)
-{
+
+/// COSAS A HACER
+/// AL MOMENTO DE CARGAR UN LIBRO, VERIFICAR SI EXISTE EL LIBRO, SI EXISTE, SUMAR LA CANTIDAD.
+/// AL MOMENTO DE PEDIR UN PRESTAMO, VERIFICAR SI EXISTE, Y SI EXISTE RESTAR UNA CANTIDAD
+/// AL MOMENTO DE ELIMINAR UN PRESTAMO, SUMAR UNA CANTIDAD AL LIBRO
+/// TABLAS DINAMICAS
+///
+
+void ajustesConsola(int ancho, int alto) {
     HWND consola = GetConsoleWindow();
     if (consola == NULL) return;
 
@@ -50,8 +57,7 @@ void ajustesConsola(int ancho, int alto)
 }
 
 using namespace std;
-void menuPrincipal()
-{
+void menuPrincipal() {
     ajustesConsola(143,30);
 
     system("title GESTION DE BIBLIOTECA");
@@ -61,8 +67,7 @@ void menuPrincipal()
     bool menu=true;
     bool subMenu=true;
 
-    while(menu)
-    {
+    while(menu) {
         system("cls");
         cout << "╔══════════════════════════════════════╗\n";
         cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -89,12 +94,10 @@ void menuPrincipal()
         subMenu=true;
         system("cls");
 
-        switch (opc)
-        {
+        switch (opc) {
         /// SOCIOS ------------------------------
         case 1:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -113,8 +116,7 @@ void menuPrincipal()
                 cin >> opc;
                 cout << endl;
                 ArchivoSocios obj;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR SOCIO                    ║\n";
@@ -142,8 +144,7 @@ void menuPrincipal()
                     cout << "╚══════════════════════════════════════╝\n";
                     cout << "Ingrese opcion: ";
                     cin >> opc;
-                    switch (opc)
-                    {
+                    switch (opc) {
                     case 1:
                         char dni[10];
                         cout << ">> Ingrese DNI socio a buscar: ";
@@ -180,8 +181,7 @@ void menuPrincipal()
             }
         /// LIBROS ------------------------------
         case 2:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -201,8 +201,7 @@ void menuPrincipal()
                 ArchivoLibros obj;
                 cin >> opc;
                 cout << endl;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   REGISTRAR LIBRO                    ║\n";
@@ -218,6 +217,7 @@ void menuPrincipal()
                     system("pause");
                     break;
                 case 3:
+<<<<<<< Updated upstream
     cout << "╔══════════════════════════════════════╗\n";
     cout << "║   BUSCAR LIBRO                       ║\n";
     cout << "╟──────────────────────────────────────╣\n";
@@ -230,39 +230,53 @@ void menuPrincipal()
     cout << "╚══════════════════════════════════════╝\n";
     cout << ">> Ingrese opción: ";
     cin >> opc;
+=======
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   BUSCAR LIBRO                      ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [1] Buscar por ISBN                ║\n";
+                    cout << "║  [2] Buscar por Título              ║\n";
+                    cout << "║  [3] Buscar por Autor               ║\n";
+                    cout << "║  [4] Buscar por Disponibilidad      ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                         ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    cout << ">> Ingrese opción: ";
+                    cin >> opc;
+>>>>>>> Stashed changes
 
-    switch (opc) {
-        case 1: {
-            char isbn[20];
-            cout << ">> Ingrese ISBN: ";
-            cargarCadena(isbn, 19);
-            obj.BuscarISBN(isbn);
-            break;
-        }
-        case 2: {
-            char titulo[50];
-            cout << ">> Ingrese Título: ";
-            cargarCadena(titulo, 49);
-            obj.BuscarTitulo(titulo);
-            break;
-        }
-        case 3: {
-            char autor[50];
-            cout << ">> Ingrese Autor: ";
-            cargarCadena(autor, 49);
-            obj.BuscarAutor(autor);
-            break;
-        }
-        case 4: {
-            int disponible;
-            cout << ">> Ingrese cantidad solicitada: ";
-            cin >> disponible;
-            obj.BuscarCantEjemp(disponible);
-            break;
-        }
-    }
-    system("pause");
-    break;
+                    switch (opc) {
+                    case 1: {
+                        char isbn[20];
+                        cout << ">> Ingrese ISBN: ";
+                        cargarCadena(isbn, 19);
+                        obj.BuscarISBN(isbn);
+                        break;
+                    }
+                    case 2: {
+                        char titulo[50];
+                        cout << ">> Ingrese Título: ";
+                        cargarCadena(titulo, 49);
+                        obj.BuscarTitulo(titulo);
+                        break;
+                    }
+                    case 3: {
+                        char autor[50];
+                        cout << ">> Ingrese Autor: ";
+                        cargarCadena(autor, 49);
+                        obj.BuscarAutor(autor);
+                        break;
+                    }
+                    case 4: {
+                        int disponible;
+                        cout << ">> Ingrese cantidad solicitada: ";
+                        cin >> disponible;
+                        obj.BuscarCantEjemp(disponible);
+                        break;
+                    }
+                    }
+                    system("pause");
+                    break;
 
                 case 4:
                     cout << "╔══════════════════════════════════════╗\n";
@@ -280,8 +294,7 @@ void menuPrincipal()
             }
         /// PRESTAMOS ------------------------------
         case 3:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -301,8 +314,7 @@ void menuPrincipal()
                 cin >> opc;
                 cout << endl;
                 ArchivoPrestamo obj;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     obj.RegistrarPrestamo();
                     system("pause");
@@ -327,8 +339,7 @@ void menuPrincipal()
             }
         /// CUOTA ------------------------------
         case 4:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -348,8 +359,7 @@ void menuPrincipal()
                 cin >> opc;
                 cout << endl;
                 ArchivoCuotas obj;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     obj.RegistrarCuota();
                     system("pause");
@@ -366,8 +376,7 @@ void menuPrincipal()
 
             }
         case 8:
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -383,9 +392,13 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
+<<<<<<< Updated upstream
                     BackupManager backup;
                 switch (opc)
                 {
+=======
+                switch (opc) {
+>>>>>>> Stashed changes
                 case 1:
                     backup.restaurarGeneral();
                     break;
@@ -400,8 +413,7 @@ void menuPrincipal()
             }
         case 9:
             Exporte exp;
-            while(subMenu)
-            {
+            while(subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -419,8 +431,7 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
-                switch (opc)
-                {
+                switch (opc) {
                 case 1:
                     exp.archExportar("Socio");
                     break;
@@ -444,8 +455,7 @@ void menuPrincipal()
             }
 
         case 0:
-            if(opc !=-1)
-            {
+            if(opc !=-1) {
                 menu = false;
             }
             break;
@@ -454,31 +464,28 @@ void menuPrincipal()
     }
 }
 
-/// La funcion obitene la palabra y el ancho deseado, similar la funcion de cargarCadena
-string espaciarTexto(char *pal, int ancho)
-{
+/// La funcion obtiene la palabra y el ancho deseado, similar la funcion de cargarCadena
+string espaciarTexto(const char *pal, int ancho) {
+
     /// Toma el ancho deseado, y le resta el largo de la palabra
     int espacio = ancho-strlen(pal);
     /// Si el espacio es negativo, pondra uno
-    if (espacio < 0)
-    {
-        espacio = 1;
+    if (espacio < 0) {
+        espacio = 0;
     }
-    /// Devuelve un string de ' '
-    return string(espacio, ' ');
+        /// Devuelve un string de la palabra mas el relleno
+        return string(pal) + string(espacio, ' ');
+
 }
 
 /// Esta funcion carga los caracteres recibidios en un vector "palabra", con el tamaño indicado en la variable "tamano".
-void cargarCadena(char *palabra, int tamano)
-{
+void cargarCadena(char *palabra, int tamano) {
     int i=0;
 
     fflush(stdin);
-    for (i=0; i<tamano; i++)
-    {
+    for (i=0; i<tamano; i++) {
         palabra[i]=cin.get();
-        if (palabra[i]=='\n')
-        {
+        if (palabra[i]=='\n') {
             break;
         }
     }

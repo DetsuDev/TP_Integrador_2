@@ -77,6 +77,7 @@ int ArchivoPrestamo::buscarRegistro(int idPrestamo)
     return -1;
 }
 
+
 bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
 {
     ArchivoSocios arcSoc;
@@ -120,17 +121,6 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest)
     }
 
 }
-
-/*void Prestamo::Mostrar()
-{
-    cout << "ID PRÉSTAMO: " << idPrestamo << endl;
-    cout << "DNI SOCIO: " << dniSocio << endl;
-    cout << "ISBN LIBRO: " << isbn << endl;
-    cout << "FECHA PRÉSTAMO: ";
-    fechaPrestamo.Mostrar();
-    cout << "FECHA DEVOLUCIÓN: ";
-    fechaDevolucion.Mostrar();
-}*/
 
 void Prestamo::Mostrar() {
     cout << "│ " << idPrestamo
