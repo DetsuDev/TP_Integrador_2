@@ -1,13 +1,43 @@
 #include "clsBackup.h"
 #include <fstream>
 #include <iostream>
+#include <direct.h>
+#include <windows.h>
+#include <ctime>
+#include <vector>
+
 using namespace std;
 
-bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivoBackup) {
+string BackupManager::obtenerFechaActual()
+{
+    time_t t = time(nullptr);
+    struct tm* now = localtime(&t);
+    char buffer[20];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d_%H-%M-%S", now);
+
+    return string(buffer);
+}
+
+
+string BackupManager::crearDirectorioBackup() {
+    const std::string& basePath = "FILES/backup/";
+    //_mkdir(basePath.c_str());  // Crea carpeta "backups" si no existe
+
+    string fecha = obtenerFechaActual();
+    string ruta = basePath + "/" + fecha;
+    string comando = "mkdir \"" + ruta + "\"";
+    system(comando.c_str()); // Crea carpeta con fecha
+
+    return ruta;
+}
+
+bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivoBackup)
+{
     ifstream origen(archivoOriginal, ios::binary);
     ofstream destino(archivoBackup, ios::binary);
 
-    if (!origen || !destino) {
+    if (!origen || !destino)
+    {
         cout << "Error al abrir archivos para backup: " << archivoOriginal << endl;
         return false;
     }
@@ -18,13 +48,18 @@ bool BackupManager::hacerBackup(const char* archivoOriginal, const char* archivo
     return true;
 }
 
-void BackupManager::backupGeneral() {
+void BackupManager::backupGeneral()
+{
+    string bufferRuta;
     bool ok = true;
-
-    ok &= hacerBackup("FILES/current/Socios.dat", "FILES/backup/Socios.bkp");
-    ok &= hacerBackup("FILES/current/Libros.dat", "FILES/backup/Libros.bkp");
-    ok &= hacerBackup("FILES/current/Prestamos.dat", "FILES/backup/Prestamos.bkp");
-    ok &= hacerBackup("FILES/current/Cuotas.dat", "FILES/backup/Cuotas.bkp");
+    bufferRuta = crearDirectorioBackup() + "/Socios.bkp";
+    ok &= hacerBackup("FILES/current/Socios.dat",bufferRuta.c_str());
+    bufferRuta = crearDirectorioBackup() + "/Libros.bkp";
+    ok &= hacerBackup("FILES/current/Libros.dat",bufferRuta.c_str());
+    bufferRuta = crearDirectorioBackup() + "/Prestamos.bkp";
+    ok &= hacerBackup("FILES/current/Prestamos.dat",bufferRuta.c_str());
+    bufferRuta = crearDirectorioBackup() + "/Cuotas.bkp";
+    ok &= hacerBackup("FILES/current/Cuotas.dat",bufferRuta.c_str());
 
     if (ok) cout << "Backup general completado correctamente." << endl;
     else cout << "Ocurrieron errores durante el backup." << endl;
@@ -34,11 +69,13 @@ void BackupManager::backupGeneral() {
 
 // NUEVO: función para restaurar archivos
 
-bool BackupManager::restaurarArchivo(const char* archivoBackup, const char* archivoOriginal) {
+bool BackupManager::restaurarArchivo(const char* archivoBackup, const char* archivoOriginal)
+{
     ifstream origen(archivoBackup, ios::binary);
     ofstream destino(archivoOriginal, ios::binary);
 
-    if (!origen || !destino) {
+    if (!origen || !destino)
+    {
         cout << "Error al abrir archivos para restaurar: " << archivoBackup << endl;
         return false;
     }
@@ -49,12 +86,14 @@ bool BackupManager::restaurarArchivo(const char* archivoBackup, const char* arch
     return true;
 }
 
-void BackupManager::restaurarGeneral() {
+void BackupManager::restaurarGeneral()
+{
     cout << "Esta acción restaurará los archivos desde el backup y puede sobrescribir datos actuales." << endl;
     cout << "¿Desea continuar? (S/N): ";
     char opcion;
     cin >> opcion;
-    if (opcion != 'S' && opcion != 's') {
+    if (opcion != 'S' && opcion != 's')
+    {
         cout << "Restauración cancelada." << endl;
         return;
     }

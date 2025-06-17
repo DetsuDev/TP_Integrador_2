@@ -140,6 +140,7 @@ void menuPrincipal()
                     cout << "╟──────────────────────────────────────╣\n";
                     cout << "║  [0] Volver                          ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
+                    cout << "Ingrese opcion: ";
                     cin >> opc;
                     switch (opc)
                     {
@@ -218,14 +219,14 @@ void menuPrincipal()
                     break;
                 case 3:
     cout << "╔══════════════════════════════════════╗\n";
-    cout << "║   BUSCAR LIBRO                      ║\n";
+    cout << "║   BUSCAR LIBRO                       ║\n";
     cout << "╟──────────────────────────────────────╣\n";
-    cout << "║  [1] Buscar por ISBN                ║\n";
-    cout << "║  [2] Buscar por Título              ║\n";
-    cout << "║  [3] Buscar por Autor               ║\n";
-    cout << "║  [4] Buscar por Disponibilidad      ║\n";
+    cout << "║  [1] Buscar por ISBN                 ║\n";
+    cout << "║  [2] Buscar por Título               ║\n";
+    cout << "║  [3] Buscar por Autor                ║\n";
+    cout << "║  [4] Buscar por Disponibilidad       ║\n";
     cout << "╟──────────────────────────────────────╣\n";
-    cout << "║  [0] Volver                         ║\n";
+    cout << "║  [0] Volver                          ║\n";
     cout << "╚══════════════════════════════════════╝\n";
     cout << ">> Ingrese opción: ";
     cin >> opc;
@@ -375,7 +376,7 @@ void menuPrincipal()
                 cout << "║                                      ║\n";
                 cout << "║  [1] Restaurar BACKUP                ║\n";
                 cout << "║  [2] Generar BACKUP                  ║\n";
-                cout << "║                                      ║\n";
+                cout << "║   [3]                                ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
                 cout << "╚══════════════════════════════════════╝\n";
@@ -383,13 +384,17 @@ void menuPrincipal()
 
                 cin >> opc;
                 cout << endl;
+                    BackupManager backup;
                 switch (opc)
                 {
                 case 1:
                     break;
                 case 2:
-                    BackupManager backup;
                     backup.backupGeneral();
+                    break;
+                case 3:
+                    cout << backup.crearDirectorioBackup();
+                    system("pause");
                     break;
                 case 0:
                     opc =-1;
