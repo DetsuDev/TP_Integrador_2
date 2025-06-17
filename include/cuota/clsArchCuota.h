@@ -13,7 +13,7 @@ public:
     bool grabarRegistro(Cuota obj);
     bool modificarRegistro(Cuota obj, int pos);
     int contarRegistros();
-    int buscarRegistro(int numeroSocio); // Opcional
+    int buscarRegistro(const char *); // Opcional
     void RegistrarCuota();
     void ListarCuota();
 

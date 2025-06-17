@@ -2,6 +2,8 @@
 #include <cstring>
 #include "cuota/clsArchCuota.h"
 #include "funciones.h"
+#include "socio/clsArchSocio.h"
+#include "socio/clsSocio.h"
 
 using namespace std;
 
@@ -50,14 +52,15 @@ int ArchivoCuotas::contarRegistros()
     return tam / sizeof(Cuota);
 }
 
-int ArchivoCuotas::buscarRegistro(int numeroSocio)
+int ArchivoCuotas::buscarRegistro(const char *dni)
 {
-    Cuota obj;
-    int cant = contarRegistros();
+    Socio obj;
+    ArchivoSocios arcSoc;
+    int cant = arcSoc.contarRegistros();
     for (int i = 0; i < cant; i++)
     {
-        obj = leerRegistro(i);
-        if (obj.getNumeroSocio() == numeroSocio)
+        obj = arcSoc.leerRegistro(i);
+        if (strcmp(obj.getDni(),dni) == 0)
         {
             return i;
         }
@@ -67,10 +70,11 @@ int ArchivoCuotas::buscarRegistro(int numeroSocio)
 
 bool Cuota::Cargar(ArchivoCuotas &arcCuot)
 {
-    cout << "INGRESE NÚMERO DE SOCIO: ";
-    cin >> numeroSocio;
-
-    if (arcCuot.buscarRegistro(numeroSocio) == -1)
+    ArchivoSocios obj;
+    cout << "INGRESE NÚMERO DE DNI: ";
+    cargarCadena(dni,9);
+    int pos = obj.buscarRegistro(dni);
+    if (pos != -1)
     {
         cout << "INGRESE FECHA DE PAGO: " << endl;
         fechaPago.Cargar();
@@ -87,14 +91,14 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot)
     }
     else
     {
-        cout << "NUMERO SOCIO: [" << numeroSocio << "] YA EXISTENTE." << endl;
+        cout << "DNI: [" << dni << "] NO EXISTENTE." << endl;
         return false;
     }
 }
 
 void Cuota::Mostrar()
 {
-    cout << "NÚMERO DE SOCIO: " << numeroSocio << endl;
+    cout << "NÚMERO DE DNI: " << dni << endl;
     cout << "FECHA DE PAGO: ";
     fechaPago.Mostrar();
     cout << "IMPORTE: $" << importe << endl;
@@ -110,8 +114,6 @@ void ArchivoCuotas::RegistrarCuota()
     Cuota obj;
     if (obj.Cargar(*this))
     {
-        obj.setEstado(true);
-
         grabarRegistro(obj);
     }
 }
@@ -123,11 +125,11 @@ void ArchivoCuotas::ListarCuota()
     for(int i=0; i<cantReg; i++)
     {
         obj = leerRegistro(i);
-        if (obj.getEstado())
-        {
+        //if (obj.getEstado())
+        //{
             obj.Mostrar();
             cout << endl;
-        }
+       // }
     }
 
 }

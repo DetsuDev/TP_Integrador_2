@@ -6,25 +6,21 @@
 class ArchivoCuotas;
 class Cuota {
 private:
-    int numeroSocio;
+    char dni[10];
     Fecha fechaPago;
     float importe;
     int mes;
     int anio;
 
-    bool estado = false;
 
 public:
-    void setEstado(bool);
-    bool getEstado();
 
-    int getNumeroSocio();
+
     Fecha getFechaPago();
     float getImporte();
     int getMes();
     int getAnio();
 
-    void setNumeroSocio(int num);
     void setFechaPago(Fecha f);
     void setImporte(float imp);
     void setMes(int m);

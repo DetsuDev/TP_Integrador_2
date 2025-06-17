@@ -1,11 +1,10 @@
 #include <iostream>
 #include <cstring>
 #include "cuota/clsCuota.h"
+#include "socio/clsSocio.h"
 
 
-int Cuota::getNumeroSocio() {
-    return numeroSocio;
-}
+
 Fecha Cuota::getFechaPago() {
     return fechaPago;
 }
@@ -18,17 +17,8 @@ int Cuota::getMes() {
 int Cuota::getAnio() {
     return anio;
 }
-void Cuota::setEstado(bool e) {
-    estado = e;
-}
 
-bool Cuota::getEstado() {
-    return estado;
-}
 
-void Cuota::setNumeroSocio(int num) {
-    numeroSocio = num;
-}
 void Cuota::setFechaPago(Fecha f) {
     fechaPago = f;
 }
