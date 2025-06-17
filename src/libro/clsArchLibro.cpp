@@ -172,6 +172,7 @@ void ArchivoLibros::BuscarISBN(const char* isbn) {
 
     if (pos != -1) {
         Libro obj = MostrarBusqueda(pos);
+        modificarRegistro(obj,pos);
     } else {
         cout << "ISBN NO ENCONTRADO" << endl;
     }
@@ -223,6 +224,7 @@ void ArchivoLibros::BuscarCantEjemp(int cant) {
 Libro ArchivoLibros::MostrarBusqueda(int pos) {
     if(pos != -1) {
         char opc;
+        int cantEjemp;
         Libro obj = leerRegistro(pos);
         MostrarHeader();
         /// Muestra el objeto de esa posicon
@@ -232,7 +234,10 @@ Libro ArchivoLibros::MostrarBusqueda(int pos) {
         cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
         cin >> opc;
         if(opc == 's' || opc == 'S') {
-
+            cout << "ingrese cantidad de libros: ";
+            cin >> cantEjemp;
+            obj.setCantidadEjemplares(cantEjemp);
+            return obj;
         }
         else{
             return obj;
