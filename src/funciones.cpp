@@ -217,9 +217,52 @@ void menuPrincipal()
                     system("pause");
                     break;
                 case 3:
-                    obj.Buscar();
-                    system("pause");
-                    break;
+    cout << "╔══════════════════════════════════════╗\n";
+    cout << "║   BUSCAR LIBRO                      ║\n";
+    cout << "╟──────────────────────────────────────╣\n";
+    cout << "║  [1] Buscar por ISBN                ║\n";
+    cout << "║  [2] Buscar por Título              ║\n";
+    cout << "║  [3] Buscar por Autor               ║\n";
+    cout << "║  [4] Buscar por Disponibilidad      ║\n";
+    cout << "╟──────────────────────────────────────╣\n";
+    cout << "║  [0] Volver                         ║\n";
+    cout << "╚══════════════════════════════════════╝\n";
+    cout << ">> Ingrese opción: ";
+    cin >> opc;
+
+    switch (opc) {
+        case 1: {
+            char isbn[20];
+            cout << ">> Ingrese ISBN: ";
+            cargarCadena(isbn, 19);
+            obj.BuscarISBN(isbn);
+            break;
+        }
+        case 2: {
+            char titulo[50];
+            cout << ">> Ingrese Título: ";
+            cargarCadena(titulo, 49);
+            obj.BuscarTitulo(titulo);
+            break;
+        }
+        case 3: {
+            char autor[50];
+            cout << ">> Ingrese Autor: ";
+            cargarCadena(autor, 49);
+            obj.BuscarAutor(autor);
+            break;
+        }
+        case 4: {
+            int disponible;
+            cout << ">> Ingrese 1 para Disponible, 0 para No disponible: ";
+            cin >> disponible;
+            obj.BuscarPorDisponibilidad(disponible == 1);
+            break;
+        }
+    }
+    system("pause");
+    break;
+
                 case 4:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR LIBRO                     ║\n";
