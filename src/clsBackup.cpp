@@ -89,10 +89,12 @@ bool BackupManager::restaurarArchivo(const char* archivoBackup, const char* arch
 void BackupManager::restaurarGeneral()
 {
     string ruta = "FILES\\backup\\*"; // ¡IMPORTANTE: terminar en \\*
+    string ruta2= "FILES/backup/";
     WIN32_FIND_DATA datos;
     HANDLE hFind = FindFirstFile(ruta.c_str(), &datos);
     bool bandera = true;
-    //int contador = 0;
+    int contador = 0;
+    string nombre_backups[10];
 
     if (hFind == INVALID_HANDLE_VALUE) {
         std::cerr << "No se pudo abrir el directorio.\n";
@@ -108,7 +110,9 @@ void BackupManager::restaurarGeneral()
                 cout << "backups disponibles: " << endl << endl;
                 bandera = false;
                 }
-                cout << endl << nombre << endl;
+                contador++;
+                nombre_backups[contador] = nombre;
+                cout << endl << contador << "_ " << nombre << endl;
             }
         }
     } while (FindNextFile(hFind, &datos));
@@ -122,17 +126,32 @@ void BackupManager::restaurarGeneral()
         cout << "Restauración cancelada." << endl;
         return;
     }
+    cout << "Indique el indice de backup a restaurar: ";
+    int opcion2;
+    cin >> opcion2;
 
-
+    if((opcion2 > contador )| (opcion2 < 0)){
+        cout << "Opcion invalida."<< endl;
+        system("pause");
+        return;
+    }
+    else{
+        string rutaBackup = ruta2 + nombre_backups[opcion2];
+        string bufferRuta;
     bool ok = true;
-
-    ok &= restaurarArchivo("FILES/backup/Socios.bkp", "FILES/current/Socios.dat");
-    ok &= restaurarArchivo("FILES/backup/Libros.bkp", "FILES/current/Libros.dat");
-    ok &= restaurarArchivo("FILES/backup/Prestamos.bkp", "FILES/current/Prestamos.dat");
-    ok &= restaurarArchivo("FILES/backup/Cuotas.bkp", "FILES/current/Cuotas.dat");
+    bufferRuta = rutaBackup + "/Socios.bkp";
+    ok &= restaurarArchivo(bufferRuta.c_str(), "FILES/current/Socios.dat");
+    bufferRuta = rutaBackup + "/Libros.bkp";
+    ok &= restaurarArchivo(bufferRuta.c_str(), "FILES/current/Libros.dat");
+    bufferRuta = rutaBackup + "/Prestamos.bkp";
+    ok &= restaurarArchivo(bufferRuta.c_str(), "FILES/current/Prestamos.dat");
+    bufferRuta = rutaBackup + "/Cuotas.bkp";
+    ok &= restaurarArchivo(bufferRuta.c_str(), "FILES/current/Cuotas.dat");
 
     if (ok) cout << "Restauración general completada correctamente." << endl;
     else cout << "Ocurrieron errores durante la restauración." << endl;
+    }
+
 
     system("pause");
 }
