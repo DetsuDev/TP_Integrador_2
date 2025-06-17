@@ -99,8 +99,7 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot)
 void Cuota::Mostrar()
 {
     cout << "NÚMERO DE DNI: " << dni << endl;
-    cout << "FECHA DE PAGO: ";
-    fechaPago.Mostrar();
+    cout << "FECHA DE PAGO: " << fechaPago.getFechaCompleta() << endl;
     cout << "IMPORTE: $" << importe << endl;
     cout << "MES: " << mes << " - AÑO: " << anio << endl;
 }

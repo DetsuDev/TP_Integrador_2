@@ -1,6 +1,9 @@
 #ifndef CLSFECHA_H_INCLUDED
 #define CLSFECHA_H_INCLUDED
 
+#include <vector>
+
+using namespace std;
 class Fecha{
     private:
         int dia, mes, anio;
@@ -13,7 +16,7 @@ class Fecha{
         int getMes();
         int getAnio();
         void Cargar();
-        void Mostrar();
+        string getFechaCompleta();
 };
 
 #endif // CLSFECHA_H_INCLUDED

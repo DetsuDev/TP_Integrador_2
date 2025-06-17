@@ -142,36 +142,15 @@ void Prestamo::Mostrar() {
     int MasLargoDNI = largos[1];
     int MasLargoISBN = largos[2];
 
-    /*
-        char id[] = "ID PREST.";
-        char dni[] = "DNI SOCIO";
-        char isbn[] = "ISBN";
-        char fechaPr[] = "FECHA PR.";
-        char fechaDev[] = "FECHA DEV.";*/
-
-
     char idStr[10];
     sprintf(idStr, "%d", idPrestamo);
 
     cout << " " << espaciarTexto(idStr, MasLargoID)
          << " │ " << espaciarTexto(dniSocio, MasLargoDNI)
-         << " │ " << espaciarTexto(isbn, MasLargoISBN) << " │ ";
-    fechaPrestamo.Mostrar();
-    cout << " │ ";
-    fechaDevolucion.Mostrar();
-    cout << "\n";
+         << " │ " << espaciarTexto(isbn, MasLargoISBN)
+         << " │ " << fechaPrestamo.getFechaCompleta()
+         << " │ " << fechaDevolucion.getFechaCompleta() << "\n";
 
-
-    /*
-    cout << "│ " << idPrestamo
-         << "│ " << dniSocio << espaciarTexto(dniSocio, 11)
-         << "│ " << isbn
-         << "│ ";
-    fechaPrestamo.Mostrar();
-    cout << "│ ";
-    fechaDevolucion.Mostrar();
-    cout << "\n";
-    cout << "├────────────┼────────────┼────────────┼───────────┼────────────┤\n";*/
 }
 
 void ArchivoPrestamo::MostrarHeader() {
@@ -217,18 +196,41 @@ void ArchivoPrestamo::Registrar() {
 }
 
 
+
+/*
+Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
+    if(pos != -1) {
+        char opc;
+        int cantEjemp;
+        Prestamo obj = leerRegistro(pos);
+        MostrarHeader();
+        /// Muestra el objeto de esa posicon
+        obj.Mostrar();
+        /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
+
+        cout << endl;
+        return obj;
+    } else {
+        /// Crea un objeto auxiliar
+        Prestamo aux;
+        /// Setea el ISBN en -1
+        aux.setISBN("-1");
+        return aux;
+    }
+}*/
+
+
 void ArchivoPrestamo::Eliminar() {
     Prestamo obj;
     /// Llama la opcion de buscar y asi obtener el objeto
-    //int idPrestamo;
-    cout << "INGRESE EL ID del PRESTAMO: ";
+    cout << "INGRESE EL ID del PRESTAMO a eliminar: ";
     int idPrestamo;
     cin >> idPrestamo;
     int pos = buscarRegistro(idPrestamo);
     obj = leerRegistro(pos);
     cout << endl;
 
-    if (obj.getIdPrestamo() != -1) {
+    if (obj.getIdPrestamo() > -1) {
         cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
         char opc;
         cin >> opc;
@@ -251,8 +253,7 @@ void ArchivoPrestamo::Listar() {
     MostrarHeader();
     Prestamo obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++)
-    {
+    for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
         /// Verifica si esta ocupada la direccion para mostrarla
         if (leerRegistro(i).getIdPrestamo() > -1) {

@@ -38,7 +38,8 @@ void Fecha::Cargar() {
     cout<<"ANIO: ";
     cin>>anio;
 }
-void Fecha::Mostrar() {
+
+string Fecha::getFechaCompleta() {
 
     /// Convierte los INT a CHAR
     char diaStr[3];
@@ -57,5 +58,5 @@ void Fecha::Mostrar() {
     strcat(fechaCompleta, anioStr);
 
 
-    cout << espaciarTexto(fechaCompleta, 10);
+    return espaciarTexto(fechaCompleta, 10);
 }

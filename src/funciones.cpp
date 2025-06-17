@@ -236,7 +236,7 @@ void menuPrincipal() {
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
                         obj.BuscarISBN(isbn);
-                    system("pause");
+                        system("pause");
                         break;
                     }
                     case 2: {
@@ -244,7 +244,7 @@ void menuPrincipal() {
                         cout << ">> Ingrese Título: ";
                         cargarCadena(titulo, 49);
                         obj.BuscarTitulo(titulo);
-                    system("pause");
+                        system("pause");
                         break;
                     }
                     case 3: {
@@ -252,7 +252,7 @@ void menuPrincipal() {
                         cout << ">> Ingrese Autor: ";
                         cargarCadena(autor, 49);
                         obj.BuscarAutor(autor);
-                    system("pause");
+                        system("pause");
                         break;
                     }
                     case 4: {
@@ -260,7 +260,7 @@ void menuPrincipal() {
                         cout << "║   LIBROS DISPONIBLES                 ║\n";
                         cout << "╚══════════════════════════════════════╝\n";
                         obj.BuscarCantEjemp();
-                    system("pause");
+                        system("pause");
                         break;
                     }
                     case 0:
@@ -319,7 +319,55 @@ void menuPrincipal() {
                     obj.Listar();
                     system("pause");
                     break;
+                /*case 3:
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   BUSCAR LIBRO                       ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [1] Buscar por Socio                ║\n";
+                    cout << "║  [2] Buscar por Libro                ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    cout << ">> Ingrese opción: ";
+                    cin >> opc;
 
+                    switch (opc) {
+                    case 1: {
+                        char isbn[20];
+                        cout << ">> Ingrese ISBN: ";
+                        cargarCadena(isbn, 19);
+                        obj.BuscarISBN(isbn);
+                        system("pause");
+                        break;
+                    }
+                    case 2: {
+                        char titulo[50];
+                        cout << ">> Ingrese Título: ";
+                        cargarCadena(titulo, 49);
+                        obj.BuscarTitulo(titulo);
+                        system("pause");
+                        break;
+                    }
+                    case 3: {
+                        char autor[50];
+                        cout << ">> Ingrese Autor: ";
+                        cargarCadena(autor, 49);
+                        obj.BuscarAutor(autor);
+                        system("pause");
+                        break;
+                    }
+                    case 4: {
+                        cout << "╔══════════════════════════════════════╗\n";
+                        cout << "║   LIBROS DISPONIBLES                 ║\n";
+                        cout << "╚══════════════════════════════════════╝\n";
+                        obj.BuscarCantEjemp();
+                        system("pause");
+                        break;
+                    }
+                    case 0:
+                        break;
+                    }
+                    break;*/
                 case 4:
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR PRESTAMO                  ║\n";
