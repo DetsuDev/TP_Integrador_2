@@ -153,16 +153,6 @@ void ArchivoLibros::Eliminar() {
     }
 }
 
-Libro ArchivoLibros::modificarLibros(){
-    Libro obj;
-    int ejemplares;
-    cout << "Ingrese la nueva cantidad de ejemplares: ";
-    cin >> ejemplares;
-    obj.setCantidadEjemplares(ejemplares);
-
-    return obj;
-}
-
 
 
 void ArchivoLibros::BuscarISBN(const char* isbn) {
