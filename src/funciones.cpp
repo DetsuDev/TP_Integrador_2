@@ -376,7 +376,6 @@ void menuPrincipal()
                 cout << "║                                      ║\n";
                 cout << "║  [1] Restaurar BACKUP                ║\n";
                 cout << "║  [2] Generar BACKUP                  ║\n";
-                cout << "║   [3]                                ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
                 cout << "╚══════════════════════════════════════╝\n";
@@ -388,13 +387,10 @@ void menuPrincipal()
                 switch (opc)
                 {
                 case 1:
+                    backup.restaurarGeneral();
                     break;
                 case 2:
                     backup.backupGeneral();
-                    break;
-                case 3:
-                    cout << backup.crearDirectorioBackup();
-                    system("pause");
                     break;
                 case 0:
                     opc =-1;

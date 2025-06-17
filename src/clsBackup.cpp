@@ -88,8 +88,33 @@ bool BackupManager::restaurarArchivo(const char* archivoBackup, const char* arch
 
 void BackupManager::restaurarGeneral()
 {
-    cout << "Esta acción restaurará los archivos desde el backup y puede sobrescribir datos actuales." << endl;
-    cout << "¿Desea continuar? (S/N): ";
+    string ruta = "FILES\\backup\\*"; // ¡IMPORTANTE: terminar en \\*
+    WIN32_FIND_DATA datos;
+    HANDLE hFind = FindFirstFile(ruta.c_str(), &datos);
+    bool bandera = true
+    int contador = 0;
+
+    if (hFind == INVALID_HANDLE_VALUE) {
+        std::cerr << "No se pudo abrir el directorio.\n";
+        system("pause");
+    }
+
+    do {
+        // Ignorar "." y ".."
+        if (datos.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            string nombre = datos.cFileName;
+            if (nombre != "." && nombre != "..") {
+                if(bandera){
+                cout << "backups disponibles: " << endl << endl;
+                bandera = false;
+                }
+                cout << endl << nombre << endl;
+            }
+        }
+    } while (FindNextFile(hFind, &datos));
+    cout << endl;
+    FindClose(hFind);
+    cout << "¿Desea restaurar una copia anterior? (S/N): ";
     char opcion;
     cin >> opcion;
     if (opcion != 'S' && opcion != 's')
@@ -97,6 +122,7 @@ void BackupManager::restaurarGeneral()
         cout << "Restauración cancelada." << endl;
         return;
     }
+
 
     bool ok = true;
 
