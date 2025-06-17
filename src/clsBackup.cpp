@@ -91,8 +91,8 @@ void BackupManager::restaurarGeneral()
     string ruta = "FILES\\backup\\*"; // ¡IMPORTANTE: terminar en \\*
     WIN32_FIND_DATA datos;
     HANDLE hFind = FindFirstFile(ruta.c_str(), &datos);
-    bool bandera = true
-    int contador = 0;
+    bool bandera = true;
+    //int contador = 0;
 
     if (hFind == INVALID_HANDLE_VALUE) {
         std::cerr << "No se pudo abrir el directorio.\n";
