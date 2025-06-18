@@ -63,7 +63,12 @@ void Exporte::archExportar(std::string claseCls)
             obj = arcLibr.leerRegistro(i);
             if(strcmp(obj.getISBN(), "-1") != 0)
             {
-                file << obj.getISBN() <<"," << obj.getTitulo() << "," << obj.getAutor() << "," << obj.getAnioPublicacion() << "," << obj.getCantidadEjemplares() << "\n";
+                file << obj.getISBN()
+                     << "," << obj.getTitulo()
+                     << "," << obj.getAutor()
+                     << "," << obj.getAnioPublicacion()
+                     << "," << obj.getCantidadEjemplares()
+                     << "\n";
             }
         }
         file.close();
@@ -79,13 +84,21 @@ void Exporte::archExportar(std::string claseCls)
         std::ofstream file("CSV/Prestamos.csv");
 
         int cantReg = arcPrest.contarRegistros();
-        file << "DNI" << "," <<"ISBN" << ","<< "FECHA PREST" <<"\n";
+        file << "DNI"
+             << "," <<"ISBN"
+             << "," << "FECHA PREST"
+             << "," << "FECHA DEV."
+             << "\n";
         for(int i=0; i<cantReg; i++)
         {
             obj = arcPrest.leerRegistro(i);
             if(obj.getIdPrestamo() != -1)
             {
-                file << obj.getDniSocio() << "," << obj.getISBN() <<"\n";
+                file << obj.getDniSocio()
+                     << "," << obj.getISBN()
+                     << "," << obj.getFechaPrestamo().getDia() << "/" << obj.getFechaPrestamo().getMes() << "/" << obj.getFechaPrestamo().getAnio()
+                     << "," << obj.getFechaDevolucion().getDia() << "/" << obj.getFechaDevolucion().getMes() << "/" << obj.getFechaDevolucion().getAnio()
+                     <<"\n";
             }
         }
         file.close();
