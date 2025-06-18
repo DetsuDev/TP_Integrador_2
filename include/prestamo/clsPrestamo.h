@@ -2,6 +2,7 @@
 #define CLSPRESTAMO_H
 
 #include "clsFecha.h"
+using namespace std;
 
 class ArchivoPrestamo;
 
@@ -12,6 +13,7 @@ private:
     char isbn[20];
     Fecha fechaPrestamo;
     Fecha fechaDevolucion;
+    //string fechaCompleta;
 
 
 public:
@@ -29,10 +31,10 @@ public:
     const char* getISBN();
     Fecha getFechaPrestamo();
     Fecha getFechaDevolucion();
-
+    //string setFechaCompleta();
     bool Cargar(ArchivoPrestamo&);
     void Mostrar();
-
+    //void setFechaCompleta(Fecha);
 
 };
 

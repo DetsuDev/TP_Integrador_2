@@ -4,11 +4,13 @@
 class Fecha{
     private:
         int dia, mes, anio;
+        char fechaCompleta[11];
     public:
         Fecha(int d=1, int m=1, int a=1900);
         void setDia(int);
         void setMes(int);
         void setAnio(int);
+        void setFechaCompleta();
         int getDia();
         int getMes();
         int getAnio();
