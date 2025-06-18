@@ -5,3 +5,5 @@ Sistema de Gestion de Biblioteca.
 * Modificar ejemplares de libros.
 * Consultar prestamo por dni o isbn.
 * Consultar cuotas por dni.
+* Generar y restaurar backups
+* Exportar en .CSV
