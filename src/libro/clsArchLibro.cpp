@@ -280,7 +280,6 @@ Libro ArchivoLibros::MostrarBusqueda(int pos) {
         char opc;
         int cantEjemp;
         Libro obj = leerRegistro(pos);
-        MostrarHeader();
         /// Muestra el objeto de esa posicon
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad

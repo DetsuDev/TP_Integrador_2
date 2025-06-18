@@ -212,10 +212,10 @@ void ArchivoPrestamo::Registrar() {
 
 Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
     if(pos != -1) {
+        MostrarHeader();
         char opc;
         int cantEjemp;
         Prestamo obj = leerRegistro(pos);
-        MostrarHeader();
         /// Muestra el objeto de esa posicon
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
