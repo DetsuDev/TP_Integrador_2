@@ -159,16 +159,6 @@ vector<int> ArchivoSocios::BuscarMasLargo() {
 void ArchivoSocios::MostrarHeader() {
     vector<int> largos = BuscarMasLargo();
 
-    int MasLargoDNI = largos[0];
-    int MasLargoNombre = largos[1];
-    int MasLargoApellido = largos[2];
-    int MasLargoCalle = largos[3];
-    int MasLargoAltura = largos[4];
-    int MasLargoLocalidad = largos[5];
-    int MasLargoPartido = largos[6];
-    int MasLargoCodPostal = largos[7];
-    int MasLargoEmail = largos[8];
-
     char dni[] = "DNI";
     char nombre[] = "NOMBRE";
     char apellido[] = "APELLIDO";
@@ -179,43 +169,34 @@ void ArchivoSocios::MostrarHeader() {
     char partido[] = "PARTIDO";
     char CodigoPostal[] = "CP";
 
-    cout << " " << espaciarTexto(dni, MasLargoDNI)
-         << " │ " << espaciarTexto(nombre, MasLargoNombre)
-         << " │ " << espaciarTexto(apellido, MasLargoApellido)
-         << " │ " << espaciarTexto(calle, MasLargoCalle)
-         << " │ " << espaciarTexto(altura, MasLargoAltura)
-         << " │ " << espaciarTexto(localidad, MasLargoLocalidad)
-         << " │ " << espaciarTexto(partido, MasLargoPartido)
-         << " │ " << espaciarTexto(CodigoPostal, MasLargoCodPostal)
-         << " │ " << espaciarTexto(email, MasLargoEmail)  << "\n";
+    cout << " " << espaciarTexto(dni, largos[0])
+         << " │ " << espaciarTexto(nombre, largos[1])
+         << " │ " << espaciarTexto(apellido, largos[2])
+         << " │ " << espaciarTexto(calle, largos[3])
+         << " │ " << espaciarTexto(altura, largos[4])
+         << " │ " << espaciarTexto(localidad, largos[5])
+         << " │ " << espaciarTexto(partido, largos[6])
+         << " │ " << espaciarTexto(CodigoPostal, largos[7])
+         << " │ " << espaciarTexto(email, largos[8])  << "\n";
 }
 
 void Socio::Mostrar() {
     ArchivoSocios arcSoc;
-    vector<int> largos = arcSoc.BuscarMasLargo();
 
-    int MasLargoDNI = largos[0];
-    int MasLargoNombre = largos[1];
-    int MasLargoApellido = largos[2];
-    int MasLargoCalle = largos[3];
-    int MasLargoAltura = largos[4];
-    int MasLargoLocalidad = largos[5];
-    int MasLargoPartido = largos[6];
-    int MasLargoCodPostal = largos[7];
-    int MasLargoEmail = largos[8];
+    vector<int> largos = arcSoc.BuscarMasLargo();
 
     char altura[10];
     sprintf(altura, "%d", domicilio.getAltura());
 
-    cout << " " << espaciarTexto(dni, MasLargoDNI)
-         << " │ " << espaciarTexto(nombre, MasLargoNombre)
-         << " │ " << espaciarTexto(apellido, MasLargoApellido)
-         << " │ " << espaciarTexto(domicilio.getCalle(), MasLargoCalle)
-         << " │ " << espaciarTexto(altura, MasLargoAltura)
-         << " │ " << espaciarTexto(domicilio.getLocalidad(), MasLargoLocalidad)
-         << " │ " << espaciarTexto(domicilio.getPartido(), MasLargoPartido)
-         << " │ " << espaciarTexto(domicilio.getCodPostal(), MasLargoCodPostal)
-         << " │ " << espaciarTexto(email, MasLargoEmail) << "\n";
+    cout << " " << espaciarTexto(dni, largos[0])
+         << " │ " << espaciarTexto(nombre, largos[1])
+         << " │ " << espaciarTexto(apellido, largos[2])
+         << " │ " << espaciarTexto(domicilio.getCalle(), largos[3])
+         << " │ " << espaciarTexto(altura, largos[4])
+         << " │ " << espaciarTexto(domicilio.getLocalidad(), largos[5])
+         << " │ " << espaciarTexto(domicilio.getPartido(), largos[6])
+         << " │ " << espaciarTexto(domicilio.getCodPostal(), largos[7])
+         << " │ " << espaciarTexto(email, largos[8]) << "\n";
 }
 
 void ArchivoSocios::Eliminar() {
@@ -246,6 +227,7 @@ void ArchivoSocios::Eliminar() {
 }
 
 void ArchivoSocios::BuscarDni(const char* dni) {
+    MostrarHeader();
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
         pos = buscarRegistro(dni);
@@ -254,6 +236,8 @@ void ArchivoSocios::BuscarDni(const char* dni) {
 }
 
 void ArchivoSocios::BuscarNombre(const char* nombre, const char* apellido) {
+
+    MostrarHeader();
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
         if (strcmp(leerRegistro(i).getNombre(),nombre) == 0 && strcmp(leerRegistro(i).getApellido(),apellido) == 0) {

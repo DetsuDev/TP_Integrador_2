@@ -89,16 +89,13 @@ bool Libro::Cargar(ArchivoLibros &arcLibro) {
 void Libro::Mostrar() {
     ArchivoLibros arcLibros;
     vector<int> largos = arcLibros.BuscarMasLargo();
-    int MasLargoISBN = largos[0];
-    int MasLargoTitulo = largos[1];
-    int MasLargoAutor = largos[2];
     char anioStr[8];
     sprintf(anioStr, "%d", anioPublicacion);
     char cantEjStr[10];
     sprintf(cantEjStr, "%d", cantidadEjemplares);
-    cout << " " << espaciarTexto(isbn, MasLargoISBN)
-         << " │ " << espaciarTexto(titulo, MasLargoTitulo)
-         << " │ " << espaciarTexto(autor, MasLargoAutor)
+    cout << " " << espaciarTexto(isbn, largos[0])
+         << " │ " << espaciarTexto(titulo, largos[1])
+         << " │ " << espaciarTexto(autor, largos[2])
          << " │ " << espaciarTexto(anioStr, 8)
          << " │ " << espaciarTexto(cantEjStr, 10) << "\n";
 }
@@ -141,30 +138,32 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
 
 void ArchivoLibros::MostrarHeader() {
     vector<int> largos = BuscarMasLargo();
-    int MasLargoISBN = largos[0];
-    int MasLargoTitulo = largos[1];
-    int MasLargoAutor = largos[2];
-    int MasLargoCant = largos[3];
     char isbn[] = "ISBN";
     char titulo[] = "TITULO";
     char autor[] = "AUTOR";
     char ejempl[] = "EJEMPLARES";
 
-    cout << " " << espaciarTexto(isbn, MasLargoISBN)
-         << " │ " << espaciarTexto(titulo, MasLargoTitulo)
-         << " │ " << espaciarTexto(autor, MasLargoAutor)
+    cout << " " << espaciarTexto(isbn, largos[0])
+         << " │ " << espaciarTexto(titulo, largos[1])
+         << " │ " << espaciarTexto(autor, largos[2])
          << " │ AÑO PUBL"
-         << " │ " << espaciarTexto(ejempl, MasLargoCant) << "\n";
+         << " │ " << espaciarTexto(ejempl, largos[3]) << "\n";
 }
 
 
 
 void ArchivoLibros::BuscarISBN(const char* isbn) {
     /// Busca el isbn en el registro y obtiene su posicion
+    bool encontrado = false;
     int pos = buscarRegistro(isbn);
 
     if (pos != -1) {
-            MostrarBusqueda(pos);
+        if (!encontrado) {
+            MostrarHeader();
+            encontrado = true;
+
+        }
+        MostrarBusqueda(pos);
         Libro obj = leerRegistro(pos);
         modificarRegistro(obj,pos);
     } else {
@@ -177,8 +176,12 @@ void ArchivoLibros::BuscarTitulo(const char* titulo) {
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
         if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0) {
+            if (!encontrado) {
+                MostrarHeader();
+                encontrado = true;
+
+            }
             MostrarBusqueda(i);
-            encontrado = true;
         }
     }
     if (!encontrado) {
@@ -191,8 +194,12 @@ void ArchivoLibros::BuscarAutor(const char* autor) {
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
         if (strcmp(leerRegistro(i).getAutor(),autor) == 0) {
+            if (!encontrado) {
+                MostrarHeader();
+                encontrado = true;
+
+            }
             MostrarBusqueda(i);
-            encontrado = true;
         }
     }
     if (!encontrado) {
@@ -201,6 +208,7 @@ void ArchivoLibros::BuscarAutor(const char* autor) {
 }
 
 void ArchivoLibros::BuscarCantEjemp() {
+    MostrarHeader();
     int cant = 0;
     for (int i=0; i < contarRegistros(); i++) {
         if (leerRegistro(i).getCantidadEjemplares() > 0) {
@@ -210,9 +218,6 @@ void ArchivoLibros::BuscarCantEjemp() {
         }
     }
     cout << "Libros distintos en stock: " << cant << endl;
-    /*if (cant > 0) {
-        cout << "NO HAY DISPONIBILIDAD" << endl;
-    }*/
 }
 
 
@@ -223,10 +228,10 @@ void ArchivoLibros::Eliminar() {
     cargarCadena(isbn,19);
     int pos = buscarRegistro(isbn);
 
-    Libro obj = MostrarBusqueda(pos);
-    cout << endl;
-
     if (strcmp(isbn, "-1") != 0) {
+        MostrarHeader();
+        Libro obj = MostrarBusqueda(pos);
+        cout << endl;
         cout << "ELIMINAR ESTE LIBRO? (S/N): ";
         char opc;
         cin >> opc;
@@ -252,7 +257,8 @@ void ArchivoLibros::ModificarEjemplares() {
     int cantEjemp = 0;
     cout << ">> Ingrese ISBN del libro a modificar: ";
     cargarCadena(isbn,19);
-    if (strcmp(isbn, "-1") != 0) {
+    if (buscarRegistro(isbn) > -1) {
+        MostrarHeader();
         int pos = buscarRegistro(isbn);
         Libro obj = MostrarBusqueda(pos);
         cout << endl;
@@ -267,7 +273,7 @@ void ArchivoLibros::ModificarEjemplares() {
             /// Modifica el objeto en esa posicion
             modificarRegistro(obj, pos);
         } else {
-            cout << "Operacion cancelada.";
+            cout << "Operacion cancelada. \n";
         }
     } else {
         cout << "LIBRO INEXISTENTE." << endl;
@@ -276,6 +282,7 @@ void ArchivoLibros::ModificarEjemplares() {
 }
 
 Libro ArchivoLibros::MostrarBusqueda(int pos) {
+
     if(pos != -1) {
         char opc;
         int cantEjemp;
@@ -284,7 +291,6 @@ Libro ArchivoLibros::MostrarBusqueda(int pos) {
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad
 
-        cout << endl;
         return obj;
     } else {
         /// Crea un objeto auxiliar

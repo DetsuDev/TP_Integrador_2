@@ -152,7 +152,6 @@ void menuPrincipal() {
                         char dni[10];
                         cout << ">> Ingrese DNI socio a buscar: ";
                         cargarCadena(dni,9);
-                        obj.MostrarHeader();
                         obj.BuscarDni(dni);
                         system("pause");
                         break;
@@ -164,7 +163,6 @@ void menuPrincipal() {
                         char apellido[29];
                         cout << "Ingrese apellido: ";
                         cargarCadena(apellido,29);
-                        obj.MostrarHeader();
                         obj.BuscarNombre(nombre, apellido);
                         system("pause");
                         break;
@@ -252,7 +250,6 @@ void menuPrincipal() {
                         char titulo[50];
                         cout << ">> Ingrese Título: ";
                         cargarCadena(titulo, 49);
-                        obj.MostrarHeader();
                         obj.BuscarTitulo(titulo);
                         system("pause");
                         break;
@@ -261,7 +258,6 @@ void menuPrincipal() {
                         char autor[50];
                         cout << ">> Ingrese Autor: ";
                         cargarCadena(autor, 49);
-                        obj.MostrarHeader();
                         obj.BuscarAutor(autor);
                         system("pause");
                         break;
@@ -270,7 +266,6 @@ void menuPrincipal() {
                         cout << "╔══════════════════════════════════════╗\n";
                         cout << "║   LIBROS DISPONIBLES                 ║\n";
                         cout << "╚══════════════════════════════════════╝\n";
-                        obj.MostrarHeader();
                         obj.BuscarCantEjemp();
                         system("pause");
                         break;
@@ -282,7 +277,6 @@ void menuPrincipal() {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   MODIFICAR DE LIBROS                ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                        obj.MostrarHeader();
                     obj.ModificarEjemplares();
                     system("pause");
                     break;
@@ -290,7 +284,6 @@ void menuPrincipal() {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR LIBRO                     ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
-                        obj.MostrarHeader();
                     obj.Eliminar();
                     system("pause");
                     break;
@@ -358,7 +351,6 @@ void menuPrincipal() {
                         cout << ">> Ingrese DNI: ";
                         cargarCadena(dni, 9);
                         pos = arcSoc.buscarRegistro(dni);
-                        obj.MostrarHeader();
                         obj.MostrarBusqueda(pos);
                         system("pause");
                         break;
@@ -368,7 +360,6 @@ void menuPrincipal() {
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
                         pos = arcLibr.buscarRegistro(isbn);
-                        obj.MostrarHeader();
                         obj.MostrarBusqueda(pos);
                         system("pause");
                         break;
@@ -421,7 +412,6 @@ void menuPrincipal() {
                     system("pause");
                     break;
                 case 2:
-                    obj.MostrarHeader();
                     obj.Listar();
                     system("pause");
                     break;
@@ -429,7 +419,6 @@ void menuPrincipal() {
                     char dni[9];
                     cout << "Ingrese DNI" << endl;
                     cargarCadena(dni, 9);
-                    obj.MostrarHeader();
                     obj.BuscarDni(dni);
                     system("pause");
                     break;

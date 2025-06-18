@@ -150,16 +150,13 @@ void Prestamo::Mostrar() {
 
     ArchivoPrestamo arcPrestamo;
     vector<int> largos = arcPrestamo.BuscarMasLargo();
-    int MasLargoID = largos[0];
-    int MasLargoDNI = largos[1];
-    int MasLargoISBN = largos[2];
 
     char idStr[10];
     sprintf(idStr, "%d", idPrestamo);
 
-    cout << " " << espaciarTexto(idStr, MasLargoID)
-         << " │ " << espaciarTexto(dniSocio, MasLargoDNI)
-         << " │ " << espaciarTexto(isbn, MasLargoISBN)
+    cout << " " << espaciarTexto(idStr, largos[0])
+         << " │ " << espaciarTexto(dniSocio,largos[1])
+         << " │ " << espaciarTexto(isbn, largos[2])
          << " │ " << fechaPrestamo.getFechaCompleta()
          << " │ " << fechaDevolucion.getFechaCompleta() << "\n";
 
@@ -167,18 +164,15 @@ void Prestamo::Mostrar() {
 
 void ArchivoPrestamo::MostrarHeader() {
     vector<int> largos = BuscarMasLargo();
-    int MarLargoID = largos[0];
-    int MasLargoDNI = largos[1];
-    int MasLargoISBN = largos[2];
     char id[] = "ID PREST.";
     char dni[] = "DNI SOCIO";
     char isbn[] = "ISBN";
     char fechaPr[] = "FECHA PR.";
     char fechaDev[] = "FECHA DEV.";
 
-    cout << " " << espaciarTexto(id, MarLargoID)
-         << " │ " << espaciarTexto(dni, MasLargoDNI)
-         << " │ " << espaciarTexto(isbn, MasLargoISBN)
+    cout << " " << espaciarTexto(id, largos[0])
+         << " │ " << espaciarTexto(dni, largos[1])
+         << " │ " << espaciarTexto(isbn, largos[2])
          << " │ " << espaciarTexto(fechaPr, 10)
          << " │ " << espaciarTexto(fechaDev, 9) << "\n";
 }
@@ -271,7 +265,6 @@ void ArchivoPrestamo::Eliminar() {
 
 // lee el archivo de libros y los muestra en pantalla
 void ArchivoPrestamo::Listar() {
-    MostrarHeader();
     Prestamo obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
