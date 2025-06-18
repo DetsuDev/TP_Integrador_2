@@ -129,7 +129,6 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
                 srand(time(0));
                 idPrestamo = rand() % 100000 + 1;
                 /// Modifica el objeto en esa posicion
-                arcPrest.grabarRegistro(*this);
                 return true;
 
             } else {
@@ -216,7 +215,7 @@ void ArchivoPrestamo::Registrar() {
         int posLibre = -1;
         for (int i = 0; i < contarRegistros(); i++) {
             /// Busca la posicion libre (PRESTAMOID = -1) y la guarda en una variable
-            if (leerRegistro(i).getIdPrestamo() > -1) {
+            if (leerRegistro(i).getIdPrestamo() == -1) {
                 posLibre = i;
                 break;
             }
