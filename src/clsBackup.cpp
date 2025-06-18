@@ -116,6 +116,11 @@ void BackupManager::restaurarGeneral()
             }
         }
     } while (FindNextFile(hFind, &datos));
+    if(contador == 0){
+        cout << "No se encontraron archivos para restaurar." << endl << endl;
+        system("pause");
+        return;
+    }
     cout << endl;
     FindClose(hFind);
     cout << "¿Desea restaurar una copia anterior? (S/N): ";
