@@ -21,7 +21,7 @@ public:
     int buscarRegistro(int idPrestamo);
     void Eliminar();
     void MostrarHeader();
-
+    Prestamo MostrarBusqueda(int pos);
 
 
     void Registrar();

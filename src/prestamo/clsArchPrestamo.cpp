@@ -71,10 +71,10 @@ int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
 bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     ArchivoSocios arcSoc;
     ArchivoLibros arcLibr;
-
+    Libro libro;
+    Prestamo prestamo;
     cout << "DNI DEL SOCIO: ";
     cargarCadena(dniSocio, 9);
-
     // IMPLEMENTACION USANDO EL ESTADO
     int socioPos = arcSoc.buscarRegistro(dniSocio);
     cout << socioPos;
@@ -84,16 +84,28 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
         cout << "ISBN DEL LIBRO: ";
         cargarCadena(isbn, 19);
 
+        int ejemplares = libro.getCantidadEjemplares();
         int isbnPos = arcLibr.buscarRegistro(isbn);
-        if (isbnPos != -1) { // CHEQUEA SOLO SI ESTA EN EL REGISTRO, NO SI ESTA ACTIVO
-            cout << "FECHA DEL PRÉSTAMO: ";
-            fechaPrestamo.Cargar();
-            cout << "FECHA DE DEVOLUCIÓN: ";
-            fechaDevolucion.Cargar();
 
-            srand(time(0));
-            idPrestamo = rand() % 100000 + 1;
-            return true;
+        if (isbnPos != -1) { /// Chequea si esta en el registro
+            if (ejemplares > 0) { /// chequea si hay unidades disponibles
+                cout << "FECHA DEL PRÉSTAMO: ";
+                fechaPrestamo.Cargar();
+                cout << "FECHA DE DEVOLUCIÓN: ";
+                fechaDevolucion.Cargar();
+
+                libro.setCantidadEjemplares(ejemplares -1);
+                srand(time(0));
+                idPrestamo = rand() % 100000 + 1;
+                /// Modifica el objeto en esa posicion
+                arcPrest.modificarRegistro(prestamo, socioPos);
+                return true;
+
+            } else {
+                cout << "NO HAY EJEMPLARES DISPONIBLES" << endl;
+                return false;
+            }
+
         } else {
             cout << "ISBN NO EXISTENTE" << endl;
             return false;
@@ -197,7 +209,7 @@ void ArchivoPrestamo::Registrar() {
 
 
 
-/*
+
 Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
     if(pos != -1) {
         char opc;
@@ -217,7 +229,7 @@ Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
         aux.setISBN("-1");
         return aux;
     }
-}*/
+}
 
 
 void ArchivoPrestamo::Eliminar() {
