@@ -293,7 +293,7 @@ void ArchivoPrestamo::Eliminar() {
 }
 
 
-// lee el archivo de libros y los muestra en pantalla
+// lee el archivo de prestamo y los muestra en pantalla
 void ArchivoPrestamo::Listar() {
     MostrarHeader();
     Prestamo obj;

@@ -149,11 +149,8 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
         cout << "INGRESE IMPORTE: ";
         cin >> importe;
 
-        cout << "INGRESE MES (1-12): ";
-        do {
-            cin >> mes;
-            if(mes < 1 || mes > 12) cout << "Mes inválido. Ingrese nuevamente: ";
-        } while(mes < 1 || mes > 12);
+        cout << "INGRESE MES: ";
+        cin >> mes;
 
         cout << "INGRESE AÑO: ";
         cin >> anio;
@@ -218,8 +215,14 @@ void ArchivoCuotas::BuscarDni(const char* dni) {
 }
 
 Cuota ArchivoCuotas::MostrarBusqueda(int pos) {
+    bool encontrado = false;
     if(pos != -1) {
         Cuota obj = leerRegistro(pos);
+        if (!encontrado)
+            {
+                MostrarHeader();
+                encontrado = true;
+            }
         obj.Mostrar();
         return obj;
     } else {
@@ -249,12 +252,12 @@ void ArchivoCuotas::Registrar() {
 }
 
 void ArchivoCuotas::Listar() {
-    //MostrarHeader();
+    MostrarHeader();
     Cuota obj;
     int cantReg = contarRegistros();
     for(int i = 0; i < cantReg; i++) {
         obj = leerRegistro(i);
-        if (strcmp(obj.getDni(), "-1") != 0) {
+        if (obj.getDni() > 0) {
             obj.Mostrar();
         }
     }
@@ -266,7 +269,7 @@ void ArchivoCuotas::ListarPorMesAnio(int mes, int anio) {
     int cantReg = contarRegistros();
     for(int i = 0; i < cantReg; i++) {
         obj = leerRegistro(i);
-        if (strcmp(obj.getDni(), "-1") != 0 &&
+        if (obj.getDni() > 0 &&
                 obj.getMes() == mes &&
                 obj.getAnio() == anio) {
             obj.Mostrar();
