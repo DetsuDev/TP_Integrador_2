@@ -89,16 +89,16 @@ vector<int> ArchivoCuotas::BuscarMasLargo() {
         int lenImporte = strlen(importeStr);
 
         char mesStr[3];
-        sprintf(mesStr, "%d", reg.getMes());
+        sprintf(mesStr, "%i", reg.getMes());
         int lenMes = strlen(mesStr);
 
         char anioStr[5];
-        sprintf(anioStr, "%d", reg.getAnio());
+        sprintf(anioStr, "%i", reg.getAnio());
         int lenAnio = strlen(anioStr);
 
 
         char fechaStr[11];
-        sprintf(fechaStr, "%d", reg.getFechaPago().getFechaCompleta());
+        sprintf(fechaStr, "%i", reg.getFechaPago().getFechaCompleta());
         int lenFecha = strlen(fechaStr);
 
         if (lenDNI > MasLargoDNI) {
@@ -169,12 +169,10 @@ void Cuota::Mostrar() {
     char importeStr[20];
     sprintf(importeStr, "%.2f", importe);
     char mesStr[3];
-    sprintf(mesStr, "%d", mes);
+    sprintf(mesStr, "%i", mes);
     char anioStr[5];
-    sprintf(anioStr, "%d", anio);
+    sprintf(anioStr, "%i", anio);
 
-    /*char fechaStr[11];
-    sprintf(fechaStr, "%d", fechaPago.getFechaCompleta());*/
 
 
     cout << " " << espaciarTexto(dni, largos[0])

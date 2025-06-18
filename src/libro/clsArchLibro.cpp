@@ -95,9 +95,9 @@ void Libro::Mostrar() {
     ArchivoLibros arcLibros;
     vector<int> largos = arcLibros.BuscarMasLargo();
     char anioStr[8];
-    sprintf(anioStr, "%d", anioPublicacion);
+    sprintf(anioStr, "%i", anioPublicacion);
     char cantEjStr[10];
-    sprintf(cantEjStr, "%d", cantidadEjemplares);
+    sprintf(cantEjStr, "%i", cantidadEjemplares);
     cout << " " << espaciarTexto(isbn, largos[0])
          << " │ " << espaciarTexto(titulo, largos[1])
          << " │ " << espaciarTexto(autor, largos[2])
@@ -113,14 +113,13 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
     int MasLargoCant = strlen("EJEMPLARES");
 
     /// Busca en el registro las palabras mas largas, usando como minimo el titulo de columna
-    for (int i=0; i < contarRegistros(); i++) {
         for (int i = 0; i < contarRegistros(); i++) {
             Libro reg = leerRegistro(i);
             int lenISBN = strlen(reg.getISBN());
             int lenAutor = strlen(reg.getAutor());
             int lenTitulo = strlen(reg.getTitulo());
             char cantStr[10];
-            sprintf(cantStr, "%d", reg.getCantidadEjemplares());
+            sprintf(cantStr, "%i", reg.getCantidadEjemplares());
 
 
             int lenCant = strlen(cantStr);
@@ -138,7 +137,6 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
                 MasLargoCant = lenCant;
             }
         }
-    }
     return {MasLargoISBN, MasLargoTitulo, MasLargoAutor, MasLargoCant};
 }
 

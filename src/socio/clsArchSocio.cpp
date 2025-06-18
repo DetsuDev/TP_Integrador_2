@@ -115,7 +115,7 @@ vector<int> ArchivoSocios::BuscarMasLargo() {
 
         int lenCalle = strlen(reg.getDomicilio().getCalle());
         char alturaStr[12];
-        sprintf(alturaStr, "%d", reg.getDomicilio().getAltura());
+        sprintf(alturaStr, "%i", reg.getDomicilio().getAltura());
         int lenAltura = strlen(alturaStr);
         int lenLocalidad = strlen(reg.getDomicilio().getLocalidad());
         int lenPartido = strlen(reg.getDomicilio().getPartido());
@@ -188,7 +188,7 @@ void Socio::Mostrar() {
     vector<int> largos = arcSoc.BuscarMasLargo();
 
     char altura[10];
-    sprintf(altura, "%d", domicilio.getAltura());
+    sprintf(altura, "%i", domicilio.getAltura());
 
     cout << " " << espaciarTexto(dni, largos[0])
          << " │ " << espaciarTexto(nombre, largos[1])
