@@ -28,7 +28,7 @@ public:
     void BuscarISBN(const char* isbn);
     void BuscarTitulo(const char* titulo);
     void BuscarAutor(const char* autor);
-    void BuscarCantEjemp();
+    void BuscarDisponibilidad();
     void MostrarHeader();
 };
 

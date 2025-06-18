@@ -107,6 +107,7 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
     int MasLargoTitulo = strlen("AUTOR");
     int MasLargoCant = strlen("EJEMPLARES");
 
+    /// Busca en el registro las palabras mas largas, usando como minimo el titulo de columna
     for (int i=0; i < contarRegistros(); i++) {
         for (int i = 0; i < contarRegistros(); i++) {
             Libro reg = leerRegistro(i);
@@ -136,37 +137,40 @@ vector<int> ArchivoLibros::BuscarMasLargo() {
     return {MasLargoISBN, MasLargoTitulo, MasLargoAutor, MasLargoCant};
 }
 
-void ArchivoLibros::MostrarHeader() {
-    vector<int> largos = BuscarMasLargo();
+void ArchivoLibros::MostrarHeader() { /// Muestra el Header de la tabla
+    vector<int> largos = BuscarMasLargo(); /// Copia el vector de BuscarMasLargo
+
+    /// Crea un char de cada titulo de fila
     char isbn[] = "ISBN";
     char titulo[] = "TITULO";
     char autor[] = "AUTOR";
     char ejempl[] = "EJEMPLARES";
 
+    /// Arma el titulo de tabla con el (titulo tabla, largo maximo de palabra)
     cout << " " << espaciarTexto(isbn, largos[0])
          << " │ " << espaciarTexto(titulo, largos[1])
          << " │ " << espaciarTexto(autor, largos[2])
          << " │ AÑO PUBL"
          << " │ " << espaciarTexto(ejempl, largos[3]) << "\n";
+         cout << "───────────────────────────────────────────────────────────────────────\n";
+
 }
 
 
 
 void ArchivoLibros::BuscarISBN(const char* isbn) {
-    /// Busca el isbn en el registro y obtiene su posicion
     bool encontrado = false;
     int pos = buscarRegistro(isbn);
 
-    if (pos != -1) {
-        if (!encontrado) {
+    if (pos != -1) { /// Verifica que se encuentre el registro
+        if (!encontrado) { /// Verfica que este en false para mostrar el header
             MostrarHeader();
-            encontrado = true;
+            encontrado = true;/// Setea en true para no volver a mostrarlo
 
         }
         MostrarBusqueda(pos);
-        Libro obj = leerRegistro(pos);
-        modificarRegistro(obj,pos);
-    } else {
+        }
+    if (!encontrado) {
         cout << "ISBN NO ENCONTRADO" << endl;
     }
 }
@@ -174,14 +178,14 @@ void ArchivoLibros::BuscarISBN(const char* isbn) {
 void ArchivoLibros::BuscarTitulo(const char* titulo) {
     bool encontrado = false;
     int pos = -1;
-    for (int i=0; i < contarRegistros(); i++) {
-        if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0) {
-            if (!encontrado) {
+    for (int i=0; i < contarRegistros(); i++) { /// Lee todos los registros
+        if (strcmp(leerRegistro(i).getTitulo(),titulo) == 0) { /// Verifica que se encuentre el registro
+            if (!encontrado) { /// Verfica que este en false para mostrar el header
                 MostrarHeader();
-                encontrado = true;
+                encontrado = true; /// Setea en true para no volver a mostrarlo
 
             }
-            MostrarBusqueda(i);
+            MostrarBusqueda(i); /// Muestra la coincidencia
         }
     }
     if (!encontrado) {
@@ -192,14 +196,14 @@ void ArchivoLibros::BuscarTitulo(const char* titulo) {
 void ArchivoLibros::BuscarAutor(const char* autor) {
     bool encontrado = false;
     int pos = -1;
-    for (int i=0; i < contarRegistros(); i++) {
-        if (strcmp(leerRegistro(i).getAutor(),autor) == 0) {
-            if (!encontrado) {
+    for (int i=0; i < contarRegistros(); i++) { /// Lee todos los registros
+        if (strcmp(leerRegistro(i).getAutor(),autor) == 0) { /// Verifica que se encuentre el registro
+            if (!encontrado) { /// Verfica que este en false para mostrar el header
                 MostrarHeader();
-                encontrado = true;
+                encontrado = true;  /// Setea en true para no volver a mostrarlo
 
             }
-            MostrarBusqueda(i);
+            MostrarBusqueda(i);/// Muestra la coincidencia
         }
     }
     if (!encontrado) {
@@ -207,28 +211,33 @@ void ArchivoLibros::BuscarAutor(const char* autor) {
     }
 }
 
-void ArchivoLibros::BuscarCantEjemp() {
+void ArchivoLibros::BuscarDisponibilidad() {
     MostrarHeader();
     int cant = 0;
-    for (int i=0; i < contarRegistros(); i++) {
+    for (int i=0; i < contarRegistros(); i++) { /// Lee todos los registros
         if (leerRegistro(i).getCantidadEjemplares() > 0) {
-            /// Consigue la posicion en el registro gracias al ISBN
             MostrarBusqueda(i);
-            cant++;
+            cant++; /// Cuenta los registros
         }
     }
+    if (cant > 0) {
     cout << "Libros distintos en stock: " << cant << endl;
+    }
+    else
+    {
+        cout << "NO HAY LIBROS EN STOCK" << endl;
+    }
 }
 
 
 void ArchivoLibros::Eliminar() {
-    /// Llama la opcion de buscar y asi obtener el objeto
+    /// Llama la opcion de mostrarBusqueda y asi obtener el objeto
     char isbn[20];
     cout << ">> Ingrese ISBN del libro a eliminar: ";
     cargarCadena(isbn,19);
     int pos = buscarRegistro(isbn);
 
-    if (strcmp(isbn, "-1") != 0) {
+    if (buscarRegistro(isbn) > -1) { /// Busca el isbn en el registro
         MostrarHeader();
         Libro obj = MostrarBusqueda(pos);
         cout << endl;
@@ -259,8 +268,8 @@ void ArchivoLibros::ModificarEjemplares() {
     cargarCadena(isbn,19);
     if (buscarRegistro(isbn) > -1) {
         MostrarHeader();
-        int pos = buscarRegistro(isbn);
-        Libro obj = MostrarBusqueda(pos);
+        int pos = buscarRegistro(isbn); /// Busca el isbn
+        Libro obj = MostrarBusqueda(pos); /// Muestra el objeto resultante
         cout << endl;
         cout << "DESEA MODIFICAR LAS EXISTENCIAS DE ESTE LIBRO? [s/n]: ";
         char opc;
@@ -268,10 +277,9 @@ void ArchivoLibros::ModificarEjemplares() {
         if(opc == 's' || opc == 'S') {
             cout << "ingrese cantidad de libros: ";
             cin >> cantEjemp;
-            obj.setCantidadEjemplares(cantEjemp);
+            obj.setCantidadEjemplares(cantEjemp); /// Setea la cantidad de ejemplares
             cout << "LIBRO MODIFICADO [" << isbn << "] \n";
-            /// Modifica el objeto en esa posicion
-            modificarRegistro(obj, pos);
+            modificarRegistro(obj, pos); /// Modifica el objeto en esa posicion
         } else {
             cout << "Operacion cancelada. \n";
         }
@@ -324,7 +332,7 @@ void ArchivoLibros::Registrar() {
     }
 }
 
-// lee el archivo de libros y los muestra en pantalla
+/// lee el archivo de libros y los muestra en pantalla
 void ArchivoLibros::Listar() {
     MostrarHeader();
     Libro obj;
@@ -336,6 +344,5 @@ void ArchivoLibros::Listar() {
             obj.Mostrar();
         }
     }
-
 }
 
