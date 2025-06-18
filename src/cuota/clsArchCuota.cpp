@@ -1,135 +1,258 @@
 #include <iostream>
 #include <cstring>
+#include <cstdio>
 #include "cuota/clsArchCuota.h"
-#include "funciones.h"
+#include "cuota/clsCuota.h"
 #include "socio/clsArchSocio.h"
-#include "socio/clsSocio.h"
-
+#include "funciones.h"
+#include <vector>
 using namespace std;
 
-ArchivoCuotas::ArchivoCuotas(const char *n)
-{
+ArchivoCuotas::ArchivoCuotas(const char *n) {
     strcpy(nombre, n);
 }
 
-Cuota ArchivoCuotas::leerRegistro(int pos)
-{
+Cuota ArchivoCuotas::leerRegistro(int pos) {
     Cuota obj;
     FILE *p = fopen(nombre, "rb");
-    if (p == nullptr) return obj;
-    fseek(p, pos * sizeof obj, SEEK_SET);
+    if (p == nullptr) {
+        return obj;
+    }
+    fseek(p, pos * sizeof obj, 0);
+    if (pos < 0) {
+        fclose(p);
+        return obj; // RECREA EL OBJETO PARA QUE NO DEVUELVA BASURA
+    }
     fread(&obj, sizeof obj, 1, p);
     fclose(p);
     return obj;
 }
 
-bool ArchivoCuotas::grabarRegistro(Cuota obj)
-{
+bool ArchivoCuotas::grabarRegistro(Cuota obj) {
     FILE *p = fopen(nombre, "ab");
-    if (p == nullptr) return false;
+    if(p == nullptr) {
+        return false;
+    }
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
     fclose(p);
     return escribio;
 }
 
-bool ArchivoCuotas::modificarRegistro(Cuota obj, int pos)
-{
+bool ArchivoCuotas::modificarRegistro(Cuota obj, int pos) {
     FILE *p = fopen(nombre, "rb+");
-    if (p == nullptr) return false;
-    fseek(p, pos * sizeof obj, SEEK_SET);
+    if(p == nullptr) {
+        return false;
+    }
+    fseek(p, pos * sizeof obj, 0);
     bool escribio = fwrite(&obj, sizeof obj, 1, p);
     fclose(p);
     return escribio;
 }
 
-int ArchivoCuotas::contarRegistros()
-{
+int ArchivoCuotas::contarRegistros() {
     FILE *p = fopen(nombre, "rb");
-    if (p == nullptr) return 0;
-    fseek(p, 0, SEEK_END);
+    if(p == nullptr) {
+        return -1;
+    }
+    fseek(p, 0, 2);
     int tam = ftell(p);
     fclose(p);
     return tam / sizeof(Cuota);
 }
 
-int ArchivoCuotas::buscarRegistro(const char *dni)
-{
-    Socio obj;
-    ArchivoSocios arcSoc;
-    int cant = arcSoc.contarRegistros();
-    for (int i = 0; i < cant; i++)
-    {
-        obj = arcSoc.leerRegistro(i);
-        if (strcmp(obj.getDni(),dni) == 0)
-        {
+int ArchivoCuotas::buscarRegistro(const char *dni) {
+    Cuota obj;
+    int cantReg = contarRegistros();
+    for(int i = 0; i < cantReg; i++) {
+        obj = leerRegistro(i);
+        if(strcmp(obj.getDni(), dni) == 0) {
             return i;
         }
     }
     return -1;
 }
 
-bool Cuota::Cargar(ArchivoCuotas &arcCuot)
-{
-    ArchivoSocios obj;
+vector<int> ArchivoCuotas::BuscarMasLargo() {
+    int MasLargoDNI = strlen("DNI");
+    int MasLargoImporte = strlen("IMPORTE");
+    int MasLargoMes = strlen("MES");
+    int MasLargoAnio = strlen("AÑO");
+    int MasLargoFecha = strlen("FECHA PAGO");
+
+    for (int i = 0; i < contarRegistros(); i++) {
+        Cuota reg = leerRegistro(i);
+        if (strcmp(reg.getDni(), "-1") == 0) continue;
+
+        int lenDNI = strlen(reg.getDni());
+        
+        char importeStr[20];
+        sprintf(importeStr, "%.2f", reg.getImporte());
+        int lenImporte = strlen(importeStr);
+        
+        char mesStr[3];
+        sprintf(mesStr, "%d", reg.getMes());
+        int lenMes = strlen(mesStr);
+        
+        char anioStr[5];
+        sprintf(anioStr, "%d", reg.getAnio());
+        int lenAnio = strlen(anioStr);
+        
+        int lenFecha = strlen(reg.getFechaPago().getFechaCompleta());
+
+        if (lenDNI > MasLargoDNI) MasLargoDNI = lenDNI;
+        if (lenImporte > MasLargoImporte) MasLargoImporte = lenImporte;
+        if (lenMes > MasLargoMes) MasLargoMes = lenMes;
+        if (lenAnio > MasLargoAnio) MasLargoAnio = lenAnio;
+        if (lenFecha > MasLargoFecha) MasLargoFecha = lenFecha;
+    }
+
+    return {MasLargoDNI, MasLargoImporte, MasLargoMes, MasLargoAnio, MasLargoFecha};
+}
+
+void ArchivoCuotas::MostrarHeader() {
+    vector<int> largos = BuscarMasLargo();
+
+    char dni[] = "DNI";
+    char importe[] = "IMPORTE";
+    char mes[] = "MES";
+    char anio[] = "AÑO";
+    char fecha[] = "FECHA PAGO";
+
+    cout << " " << espaciarTexto(dni, largos[0])
+         << " │ " << espaciarTexto(importe, largos[1])
+         << " │ " << espaciarTexto(mes, largos[2])
+         << " │ " << espaciarTexto(anio, largos[3])
+         << " │ " << espaciarTexto(fecha, largos[4]) << "\n";
+}
+
+bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
+    ArchivoSocios arcSoc;
     cout << "INGRESE NÚMERO DE DNI: ";
-    cargarCadena(dni,9);
-    int pos = obj.buscarRegistro(dni);
-    if (pos != -1)
-    {
+    cargarCadena(dni, 9);
+    
+    if (arcSoc.buscarRegistro(dni) != -1) {
         cout << "INGRESE FECHA DE PAGO: " << endl;
         fechaPago.Cargar();
 
         cout << "INGRESE IMPORTE: ";
         cin >> importe;
 
-        cout << "INGRESE MES: ";
-        cin >> mes;
+        cout << "INGRESE MES (1-12): ";
+        do {
+            cin >> mes;
+            if(mes < 1 || mes > 12) cout << "Mes inválido. Ingrese nuevamente: ";
+        } while(mes < 1 || mes > 12);
 
-        cout << "INGRERE AÑO: ";
+        cout << "INGRESE AÑO: ";
         cin >> anio;
+        
         return true;
-    }
-    else
-    {
+    } else {
         cout << "DNI: [" << dni << "] NO EXISTENTE." << endl;
         return false;
     }
 }
 
-void Cuota::Mostrar()
-{
-    cout << "NÚMERO DE DNI: " << dni << endl;
-    cout << "FECHA DE PAGO: " << fechaPago.getFechaCompleta() << endl;
-    cout << "IMPORTE: $" << importe << endl;
-    cout << "MES: " << mes << " - AÑO: " << anio << endl;
+void Cuota::Mostrar() {
+    ArchivoCuotas arcCuot;
+    vector<int> largos = arcCuot.BuscarMasLargo();
+
+    char importeStr[20];
+    sprintf(importeStr, "%.2f", importe);
+    char mesStr[3];
+    sprintf(mesStr, "%d", mes);
+    char anioStr[5];
+    sprintf(anioStr, "%d", anio);
+
+    cout << " " << espaciarTexto(dni, largos[0])
+         << " │ " << espaciarTexto(importeStr, largos[1])
+         << " │ " << espaciarTexto(mesStr, largos[2])
+         << " │ " << espaciarTexto(anioStr, largos[3])
+         << " │ " << espaciarTexto(fechaPago.getFechaCompleta(), largos[4]) << "\n";
 }
 
+void ArchivoCuotas::Eliminar() {
+    char dni[10];
+    cout << ">> Ingrese DNI para eliminar cuotas: ";
+    cargarCadena(dni, 9);
+    int pos = buscarRegistro(dni);
+    Cuota obj = MostrarBusqueda(pos);
+    cout << endl;
 
-
-
-void ArchivoCuotas::RegistrarCuota()
-{
-
-    Cuota obj;
-    if (obj.Cargar(*this))
-    {
-        grabarRegistro(obj);
+    if (strcmp(obj.getDni(), "-1") != 0) {
+        cout << "ELIMINAR ESTA CUOTA? (S/N): ";
+        char opc;
+        cin >> opc;
+        if (opc == 'S' || opc == 's') {
+            obj.setDni("-1");
+            obj.setImporte(0);
+            modificarRegistro(obj, pos);
+            cout << "CUOTA ELIMINADA" << endl;
+        }
     }
 }
 
-void ArchivoCuotas::ListarCuota()
-{
+void ArchivoCuotas::BuscarDni(const char* dni) {
+    int pos = -1;
+    for (int i = 0; i < contarRegistros(); i++) {
+        pos = buscarRegistro(dni);
+    }
+    MostrarBusqueda(pos);
+}
+
+Cuota ArchivoCuotas::MostrarBusqueda(int pos) {
+    if(pos != -1) {
+        Cuota obj = leerRegistro(pos);
+        obj.Mostrar();
+        return obj;
+    } else {
+        cout << "CUOTA NO ENCONTRADA." << endl;
+        Cuota aux;
+        aux.setDni("-1");
+        return aux;
+    }
+}
+
+void ArchivoCuotas::Registrar() {
+    Cuota obj;
+    if (obj.Cargar(*this)) {
+        int posLibre = -1;
+        for (int i = 0; i < contarRegistros(); i++) {
+            if (strcmp(leerRegistro(i).getDni(), "-1") == 0) {
+                posLibre = i;
+                break;
+            }
+        }
+        if (posLibre != -1) {
+            modificarRegistro(obj, posLibre);
+        } else {
+            grabarRegistro(obj);
+        }
+    }
+}
+
+void ArchivoCuotas::Listar() {
+    MostrarHeader();
     Cuota obj;
     int cantReg = contarRegistros();
-    for(int i=0; i<cantReg; i++)
-    {
+    for(int i = 0; i < cantReg; i++) {
         obj = leerRegistro(i);
-        //if (obj.getEstado())
-        //{
+        if (strcmp(obj.getDni(), "-1") != 0) {
             obj.Mostrar();
-            cout << endl;
-       // }
+        }
     }
-
 }
 
+void ArchivoCuotas::ListarPorMesAnio(int mes, int anio) {
+    MostrarHeader();
+    Cuota obj;
+    int cantReg = contarRegistros();
+    for(int i = 0; i < cantReg; i++) {
+        obj = leerRegistro(i);
+        if (strcmp(obj.getDni(), "-1") != 0 && 
+            obj.getMes() == mes && 
+            obj.getAnio() == anio) {
+            obj.Mostrar();
+        }
+    }
+}
