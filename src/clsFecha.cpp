@@ -60,3 +60,5 @@ string Fecha::getFechaCompleta() {
 
     return espaciarTexto(fechaCompleta, 10);
 }
+
+

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include "prestamo/clsPrestamo.h"
+#include "clsFecha.h"
 
 
 
@@ -36,3 +37,7 @@ Fecha Prestamo::getFechaDevolucion() {
     return fechaDevolucion;
 }
 
+/*void Prestamo::setFechaCompleta(Fecha obj){
+    Fecha fecha;
+    sprintf(fecha.fechaCompleta, "%02d/%02d/%04d", dia, mes, anio);
+}*/
