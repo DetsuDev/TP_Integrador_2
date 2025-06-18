@@ -249,8 +249,8 @@ void ArchivoSocios::BuscarDni(const char* dni) {
     int pos = -1;
     for (int i=0; i < contarRegistros(); i++) {
         pos = buscarRegistro(dni);
-        MostrarBusqueda(pos);
     }
+    MostrarBusqueda(pos);
 }
 
 void ArchivoSocios::BuscarNombre(const char* nombre, const char* apellido) {
@@ -268,7 +268,6 @@ Socio ArchivoSocios::MostrarBusqueda(int pos) {
     /// Busca el dni o el nombre en el registro y obtiene la posicione
     if(pos != -1) {
         Socio obj = leerRegistro(pos);
-        MostrarHeader();
         /// Muestra el objeto de esa posicon
         obj.Mostrar();
         /// Devuelve el objeto para usarlo en la funcion de Eliminar, el problema es que si no buscamos eliminar no tiene utilidad

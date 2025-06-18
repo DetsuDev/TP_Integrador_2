@@ -27,8 +27,7 @@
 /// COSAS A HACER
 /// AL MOMENTO DE PEDIR UN PRESTAMO, VERIFICAR SI EXISTE, Y SI EXISTE RESTAR UNA CANTIDAD
 /// AL MOMENTO DE ELIMINAR UN PRESTAMO, SUMAR UNA CANTIDAD AL LIBRO
-/// TABLAS DINAMICAS
-///
+
 
 void ajustesConsola(int ancho, int alto) {
     HWND consola = GetConsoleWindow();
@@ -57,7 +56,7 @@ void ajustesConsola(int ancho, int alto) {
 
 using namespace std;
 void menuPrincipal() {
-    ajustesConsola(180,30); //143
+    ajustesConsola(143,30); //143
 
     system("title GESTION DE BIBLIOTECA");
     system("chcp 65001 > nul");
@@ -144,23 +143,27 @@ void menuPrincipal() {
                     cout << "Ingrese opcion: ";
                     cin >> opc;
                     switch (opc) {
-                    case 1:
+                    case 1: {
                         char dni[10];
                         cout << ">> Ingrese DNI socio a buscar: ";
                         cargarCadena(dni,9);
+                        obj.MostrarHeader();
                         obj.BuscarDni(dni);
                         system("pause");
                         break;
-                    case 2:
+                    }
+                    case 2: {
                         char nombre[29];
                         cout << ">> Ingrese nombre: ";
                         cargarCadena(nombre,29);
                         char apellido[29];
                         cout << "Ingrese apellido: ";
                         cargarCadena(apellido,29);
+                        obj.MostrarHeader();
                         obj.BuscarNombre(nombre, apellido);
                         system("pause");
                         break;
+                    }
                     case 0:
                         break;
                     }
@@ -172,10 +175,10 @@ void menuPrincipal() {
                     obj.Eliminar();
                     system("pause");
                     break;
-                case 0:
+                case 0:{
                     opc =-1;
                     subMenu=false;
-                    break;
+                    break;}
                 }
             }
         /// LIBROS ------------------------------
@@ -235,34 +238,37 @@ void menuPrincipal() {
                         char isbn[20];
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
+                        obj.MostrarHeader();
                         obj.BuscarISBN(isbn);
-                    system("pause");
-                        break;
+                        system("pause");
                     }
+                    break;
                     case 2: {
                         char titulo[50];
                         cout << ">> Ingrese Título: ";
                         cargarCadena(titulo, 49);
+                        obj.MostrarHeader();
                         obj.BuscarTitulo(titulo);
-                    system("pause");
+                        system("pause");
                         break;
                     }
                     case 3: {
                         char autor[50];
                         cout << ">> Ingrese Autor: ";
                         cargarCadena(autor, 49);
+                        obj.MostrarHeader();
                         obj.BuscarAutor(autor);
-                    system("pause");
+                        system("pause");
                         break;
                     }
-                    case 4: {
+                    case 4:
                         cout << "╔══════════════════════════════════════╗\n";
                         cout << "║   LIBROS DISPONIBLES                 ║\n";
                         cout << "╚══════════════════════════════════════╝\n";
+                        obj.MostrarHeader();
                         obj.BuscarCantEjemp();
-                    system("pause");
+                        system("pause");
                         break;
-                    }
                     case 0:
                         break;
                     }
@@ -271,6 +277,7 @@ void menuPrincipal() {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   MODIFICAR DE LIBROS                ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
+                        obj.MostrarHeader();
                     obj.ModificarEjemplares();
                     system("pause");
                     break;
@@ -278,19 +285,20 @@ void menuPrincipal() {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR LIBRO                     ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
+                        obj.MostrarHeader();
                     obj.Eliminar();
                     system("pause");
                     break;
-                case 0:
+                case 0:{
                     opc =-1;
                     subMenu=false;
-                    break;
+                    break;}
                 }
 
             }
         /// PRESTAMOS ------------------------------
-        case 3:
-            while(subMenu) {
+        case 3: {
+            while (subMenu) {
                 system("cls");
                 cout << "╔══════════════════════════════════════╗\n";
                 cout << "║   SISTEMA DE GESTIÓN DE BIBLIOTECA   ║\n";
@@ -309,30 +317,78 @@ void menuPrincipal() {
 
                 cin >> opc;
                 cout << endl;
+
                 ArchivoPrestamo obj;
+
                 switch (opc) {
-                case 1:
+                case 1: {
                     obj.Registrar();
                     system("pause");
                     break;
-                case 2:
+                }
+                case 2: {
                     obj.Listar();
                     system("pause");
                     break;
+                }
+                case 3: {
+                    cout << "╔══════════════════════════════════════╗\n";
+                    cout << "║   BUSCAR PRESTAMO                    ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [1] Buscar por Socio                ║\n";
+                    cout << "║  [2] Buscar por Libro                ║\n";
+                    cout << "╟──────────────────────────────────────╣\n";
+                    cout << "║  [0] Volver                          ║\n";
+                    cout << "╚══════════════════════════════════════╝\n";
+                    cout << ">> Ingrese opción: ";
+                    cin >> opc;
 
-                case 4:
+                    ArchivoLibros arcLibr;
+                    ArchivoSocios arcSoc;
+                    int pos = -1;
+
+                    switch (opc) {
+                    case 1: {
+                        char dni[9];
+                        cout << ">> Ingrese DNI: ";
+                        cargarCadena(dni, 9);
+                        pos = arcSoc.buscarRegistro(dni);
+                        obj.MostrarHeader();
+                        obj.MostrarBusqueda(pos);
+                        system("pause");
+                        break;
+                    }
+                    case 2: {
+                        char isbn[20];
+                        cout << ">> Ingrese ISBN: ";
+                        cargarCadena(isbn, 19);
+                        pos = arcLibr.buscarRegistro(isbn);
+                        obj.MostrarHeader();
+                        obj.MostrarBusqueda(pos);
+                        system("pause");
+                        break;
+                    }
+                    case 0:
+                        break;
+                    }
+                    break;
+                }
+                case 4: {
                     cout << "╔══════════════════════════════════════╗\n";
                     cout << "║   ELIMINAR PRESTAMO                  ║\n";
                     cout << "╚══════════════════════════════════════╝\n";
                     obj.Eliminar();
                     break;
-                case 0:
-                    opc =-1;
-                    subMenu=false;
+                }
+                case 0: {
+                    opc = -1;
+                    subMenu = false;
                     break;
                 }
-
+                }
             }
+            break;
+        }
         /// CUOTA ------------------------------
         case 4:
             while(subMenu) {
@@ -364,10 +420,10 @@ void menuPrincipal() {
                     obj.ListarCuota();
                     system("pause");
                     break;
-                case 0:
+                case 0:{
                     opc =-1;
                     subMenu=false;
-                    break;
+                    break;}
                 }
 
             }
@@ -396,10 +452,10 @@ void menuPrincipal() {
                 case 2:
                     backup.backupGeneral();
                     break;
-                case 0:
+                case 0:{
                     opc =-1;
                     subMenu=false;
-                    break;
+                    break;}
                 }
             }
         case 9:
@@ -438,10 +494,10 @@ void menuPrincipal() {
                 case 4:
                     exp.archExportar("Cuota");
                     break;
-                case 0:
+                case 0:{
                     opc =-1;
                     subMenu=false;
-                    break;
+                    break;}
                 }
             }
 
