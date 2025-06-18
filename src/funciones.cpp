@@ -241,7 +241,6 @@ void menuPrincipal() {
                         char isbn[20];
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
-                        obj.MostrarHeader();
                         obj.BuscarISBN(isbn);
                         system("pause");
                     }
@@ -266,7 +265,7 @@ void menuPrincipal() {
                         cout << "╔══════════════════════════════════════╗\n";
                         cout << "║   LIBROS DISPONIBLES                 ║\n";
                         cout << "╚══════════════════════════════════════╝\n";
-                        obj.BuscarCantEjemp();
+                        obj.BuscarDisponibilidad();
                         system("pause");
                         break;
                     case 0:

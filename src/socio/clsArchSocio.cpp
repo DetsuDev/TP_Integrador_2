@@ -18,7 +18,7 @@ Socio ArchivoSocios::leerRegistro(int pos) {
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
     if (pos < 0) {
-        return obj; // RECREA EL OBJETO PARA QUE NO DEVUELVA BASURA
+        return obj; /// Recrea el objeto para que no devuelva basura
     }
     fread(&obj, sizeof obj, 1, p);
     fclose(p);
@@ -91,6 +91,27 @@ bool Socio::Cargar(ArchivoSocios &arcSoc) {
         return false;
     }
 }
+
+
+void Socio::Mostrar() {
+    ArchivoSocios arcSoc;
+
+    vector<int> largos = arcSoc.BuscarMasLargo();
+
+    char altura[10];
+    sprintf(altura, "%d", domicilio.getAltura());
+
+    cout << " " << espaciarTexto(dni, largos[0])
+         << " │ " << espaciarTexto(nombre, largos[1])
+         << " │ " << espaciarTexto(apellido, largos[2])
+         << " │ " << espaciarTexto(domicilio.getCalle(), largos[3])
+         << " │ " << espaciarTexto(altura, largos[4])
+         << " │ " << espaciarTexto(domicilio.getLocalidad(), largos[5])
+         << " │ " << espaciarTexto(domicilio.getPartido(), largos[6])
+         << " │ " << espaciarTexto(domicilio.getCodPostal(), largos[7])
+         << " │ " << espaciarTexto(email, largos[8]) << "\n";
+}
+
 vector<int> ArchivoSocios::BuscarMasLargo() {
     int MasLargoDNI = strlen("DNI");
     int MasLargoNombre = strlen("NOMBRE");
@@ -103,6 +124,8 @@ vector<int> ArchivoSocios::BuscarMasLargo() {
     int MasLargoPartido = strlen("PARTIDO");
     int MasLargoCodPostal = strlen("CP");
 
+
+    /// Busca en el registro las palabras mas largas, usando como minimo el titulo de columna
     for (int i = 0; i < contarRegistros(); i++) {
         Socio reg = leerRegistro(i);
 
@@ -155,10 +178,10 @@ vector<int> ArchivoSocios::BuscarMasLargo() {
 }
 
 
+void ArchivoSocios::MostrarHeader() {  /// Muestra el Header de la tabla
+    vector<int> largos = BuscarMasLargo(); /// Copia el vector de BuscarMasLargo
 
-void ArchivoSocios::MostrarHeader() {
-    vector<int> largos = BuscarMasLargo();
-
+    /// Crea un char de cada titulo de fila
     char dni[] = "DNI";
     char nombre[] = "NOMBRE";
     char apellido[] = "APELLIDO";
@@ -169,6 +192,7 @@ void ArchivoSocios::MostrarHeader() {
     char partido[] = "PARTIDO";
     char CodigoPostal[] = "CP";
 
+    /// Arma el titulo de tabla con el (titulo tabla, largo maximo de palabra)
     cout << " " << espaciarTexto(dni, largos[0])
          << " │ " << espaciarTexto(nombre, largos[1])
          << " │ " << espaciarTexto(apellido, largos[2])
@@ -178,37 +202,56 @@ void ArchivoSocios::MostrarHeader() {
          << " │ " << espaciarTexto(partido, largos[6])
          << " │ " << espaciarTexto(CodigoPostal, largos[7])
          << " │ " << espaciarTexto(email, largos[8])  << "\n";
+
+        cout << "────────────────────────────────────────────────────────────────────────────────────────────────────\n";
 }
 
-void Socio::Mostrar() {
-    ArchivoSocios arcSoc;
 
-    vector<int> largos = arcSoc.BuscarMasLargo();
 
-    char altura[10];
-    sprintf(altura, "%d", domicilio.getAltura());
+void ArchivoSocios::BuscarDni(const char* dni) {
+    bool encontrado = false;
+    int pos = buscarRegistro(dni);
+    if (pos != -1) { /// Verifica que se encuentre el registro
+        if (!encontrado) { /// Verfica que este en false para mostrar el header
+            MostrarHeader();
+            encontrado = true; /// Setea en true para no volver a mostrarlo
+        }
+        MostrarBusqueda(pos);
+    }
+    if (!encontrado) {
+        cout << "DNI NO ENCONTRADO." << endl;
+    }
+}
 
-    cout << " " << espaciarTexto(dni, largos[0])
-         << " │ " << espaciarTexto(nombre, largos[1])
-         << " │ " << espaciarTexto(apellido, largos[2])
-         << " │ " << espaciarTexto(domicilio.getCalle(), largos[3])
-         << " │ " << espaciarTexto(altura, largos[4])
-         << " │ " << espaciarTexto(domicilio.getLocalidad(), largos[5])
-         << " │ " << espaciarTexto(domicilio.getPartido(), largos[6])
-         << " │ " << espaciarTexto(domicilio.getCodPostal(), largos[7])
-         << " │ " << espaciarTexto(email, largos[8]) << "\n";
+void ArchivoSocios::BuscarNombre(const char* nombre, const char* apellido) {
+    bool encontrado = false;
+    int pos = -1;
+    for (int i=0; i < contarRegistros(); i++) { /// Lee todos los registros
+        if (strcmp(leerRegistro(i).getNombre(),nombre) == 0
+            && strcmp(leerRegistro(i).getApellido(),apellido) == 0) { /// Verifica que se encuentre el registro
+            if (!encontrado) {  /// Verfica que este en false para mostrar el header
+                MostrarHeader();
+                encontrado = true; /// Setea en true para no volver a mostrarlo
+            }
+            MostrarBusqueda(i); /// Muestra la coincidencia
+        }
+    }
+    if (!encontrado) {
+        cout << "DNI NO ENCONTRADO." << endl;
+    }
 }
 
 void ArchivoSocios::Eliminar() {
-    /// Llama la opcion de buscar y asi obtener el objeto
+    /// Llama la opcion de mostrarBusqueda y asi obtener el objeto
     char dni[10];
     cout << ">> Ingrese DNI socio a eliminar: ";
     cargarCadena(dni,9);
     int pos = buscarRegistro(dni);
-    Socio obj = MostrarBusqueda(pos);
-    cout << endl;
 
-    if (strcmp(obj.getDni(), "-1") != 0) {
+    if (buscarRegistro(dni) > -1) { /// Busca el dni en el registro
+        MostrarHeader();
+        Socio obj = MostrarBusqueda(pos);
+        cout << endl;
         cout << "ELIMINAR ESTE SOCIO? (S/N): ";
         char opc;
         cin >> opc;
@@ -223,28 +266,8 @@ void ArchivoSocios::Eliminar() {
             modificarRegistro(obj, pos);
             cout << "SOCIO ELIMINADO" << endl;
         }
-    }
-}
-
-void ArchivoSocios::BuscarDni(const char* dni) {
-    MostrarHeader();
-    int pos = -1;
-    for (int i=0; i < contarRegistros(); i++) {
-        pos = buscarRegistro(dni);
-    }
-    MostrarBusqueda(pos);
-}
-
-void ArchivoSocios::BuscarNombre(const char* nombre, const char* apellido) {
-
-    MostrarHeader();
-    int pos = -1;
-    for (int i=0; i < contarRegistros(); i++) {
-        if (strcmp(leerRegistro(i).getNombre(),nombre) == 0 && strcmp(leerRegistro(i).getApellido(),apellido) == 0) {
-            /// Consigue la posicion en el registro gracias al DNI
-            pos = buscarRegistro(leerRegistro(i).getDni());
-            MostrarBusqueda(pos);
-        }
+    } else {
+        cout << "SOCIO INEXISTENTE." << endl;
     }
 }
 
@@ -258,7 +281,6 @@ Socio ArchivoSocios::MostrarBusqueda(int pos) {
         return obj;
 
     } else {
-        cout << "SOCIO NO ENCONTRADO." << endl;
         /// Crea un objeto auxiliar
         Socio aux;
         /// Setea el estado en false
@@ -288,8 +310,8 @@ void ArchivoSocios::Registrar() {
     }
 }
 
+/// lee el archivo de libros y los muestra en pantalla
 void ArchivoSocios::Listar() {
-
     MostrarHeader();
     Socio obj;
     int cantReg = contarRegistros();
