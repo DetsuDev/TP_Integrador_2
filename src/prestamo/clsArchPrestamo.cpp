@@ -233,32 +233,43 @@ Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
 
 
 void ArchivoPrestamo::Eliminar() {
-    Prestamo obj;
-    /// Llama la opcion de buscar y asi obtener el objeto
     cout << "INGRESE EL ID del PRESTAMO a eliminar: ";
     int idPrestamo;
     cin >> idPrestamo;
+
     int pos = buscarRegistro(idPrestamo);
-    obj = leerRegistro(pos);
-    cout << endl;
-
-    if (obj.getIdPrestamo() > -1) {
-        cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
-        char opc;
-        cin >> opc;
-        if (opc == 'S' || opc == 's') {
-            /// Busca la posicion en el regsitro del DNI
-            int pos = buscarRegistro(obj.getIdPrestamo());
-            obj.setIdPrestamo(-1);
-
-            /// Modifica el objeto en esa posicion
-            modificarRegistro(obj, pos);
-            cout << "PRESTAMO ELIMINADO" << endl;
-        }
+    if (pos == -1) {
+        cout << "PRÉSTAMO NO ENCONTRADO" << endl;
+        return;
     }
 
+    Prestamo obj = leerRegistro(pos);
 
+    cout << "ELIMINAR ESTE PRESTAMO? (S/N): ";
+    char opc;
+    cin >> opc;
+
+    if (opc == 'S' || opc == 's') {
+        /// Marcar el préstamo como eliminado
+        obj.setIdPrestamo(-1);
+        modificarRegistro(obj, pos);
+        cout << "PRÉSTAMO ELIMINADO" << endl;
+
+        /// SUMAR CANTIDAD AL LIBRO
+        ArchivoLibros arcLibros;
+        int posLibro = arcLibros.buscarRegistro(obj.getISBN());
+
+        if (posLibro != -1) {
+            Libro lib = arcLibros.leerRegistro(posLibro);
+            lib.setCantidadEjemplares(lib.getCantidadEjemplares() + 1);
+            arcLibros.modificarRegistro(lib, posLibro);
+            cout << "Se devolvió 1 ejemplar al libro con ISBN " << obj.getISBN() << endl;
+        } else {
+            cout << "ERROR: No se encontró el libro con ISBN: " << obj.getISBN() << endl;
+        }
+    }
 }
+
 
 // lee el archivo de libros y los muestra en pantalla
 void ArchivoPrestamo::Listar() {
