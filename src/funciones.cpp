@@ -483,6 +483,7 @@ void menuPrincipal() {
                 cout << "║  [1] Generar reporte socios          ║\n";
                 cout << "║  [2] Generar reporte libros          ║\n";
                 cout << "║  [3] Generar reporte prestamos       ║\n";
+                cout << "║  [4] Generar reporte cuotas          ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";

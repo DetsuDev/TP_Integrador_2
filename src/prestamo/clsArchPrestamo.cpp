@@ -213,8 +213,6 @@ void ArchivoPrestamo::Registrar() {
 Prestamo ArchivoPrestamo::MostrarBusqueda(int pos) {
     if(pos != -1) {
         MostrarHeader();
-        char opc;
-        int cantEjemp;
         Prestamo obj = leerRegistro(pos);
         /// Muestra el objeto de esa posicon
         obj.Mostrar();

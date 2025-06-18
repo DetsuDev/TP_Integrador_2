@@ -7,6 +7,10 @@
 #include "libro/clsArchLibro.h"
 #include "prestamo/clsPrestamo.h"
 #include "prestamo/clsArchPrestamo.h"
+#include "cuota/clsCuota.h"
+#include "cuota/clsArchCuota.h"
+
+using namespace std;
 void Exporte::archExportar(std::string claseCls)
 {
 
@@ -107,9 +111,36 @@ void Exporte::archExportar(std::string claseCls)
 
     if(claseCls == "Cuota")
     {
+        ArchivoCuotas arcCuota;
+        Cuota obj;
+        std::ofstream file("CSV/Cuotas.csv");
+        int cantReg = arcCuota.contarRegistros();
+
+        file << "DNI"
+             << "," << "FECHA PAGO"
+             << "," << "IMPORTE"
+             << "," << "MES"
+             << "," << "AÑO"
+             << "\n";
+
+        for(int i=0; i<cantReg; i++)
+        {
+            obj = arcCuota.leerRegistro(i);
+            if((obj.getDni(), "-1") != 0)
+            {
+                file << obj.getDni()
+                     << "," << obj.getImporte()
+                     << "," << obj.getFechaPago().getDia() << "/" << obj.getFechaPago().getMes() << "/" << obj.getFechaPago().getAnio()
+                     << "," << obj.getMes()
+                     << "," << obj.getAnio()
+                     << "\n";
+            }
+        }
+        file.close();
 
     }
-    cout << "Hecho." << endl;
-    system("pause");
-
+cout << "Hecho." << endl;
+system("pause");
 }
+
+
