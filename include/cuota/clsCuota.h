@@ -20,9 +20,12 @@ public:
     float getImporte();
     int getMes();
     int getAnio();
+    const char* getDni();
 
+    void setDni(const char*);
     void setFechaPago(Fecha f);
     void setImporte(float imp);
+
     void setMes(int m);
     void setAnio(int a);
 

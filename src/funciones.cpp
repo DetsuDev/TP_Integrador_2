@@ -406,7 +406,6 @@ void menuPrincipal() {
                 cout << "║  [1] Registrar Cuota                 ║\n";
                 cout << "║  [2] Mostrar Lista de Cuotas         ║\n";
                 cout << "║  [3] Buscar Cuota                    ║\n";
-                cout << "║  [4] Eliminar Cuota                  ║\n";
                 cout << "║                                      ║\n";
                 cout << "╟──────────────────────────────────────╣\n";
                 cout << "║  [0] Volver                          ║\n";
@@ -418,11 +417,20 @@ void menuPrincipal() {
                 ArchivoCuotas obj;
                 switch (opc) {
                 case 1:
-                    obj.RegistrarCuota();
+                    obj.Registrar();
                     system("pause");
                     break;
                 case 2:
-                    obj.ListarCuota();
+                    obj.MostrarHeader();
+                    obj.Listar();
+                    system("pause");
+                    break;
+                case 3:
+                    char dni[9];
+                    cout << "Ingrese DNI" << endl;
+                    cargarCadena(dni, 9);
+                    obj.MostrarHeader();
+                    obj.BuscarDni(dni);
                     system("pause");
                     break;
                 case 0:{

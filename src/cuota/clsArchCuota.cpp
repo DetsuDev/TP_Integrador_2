@@ -84,26 +84,39 @@ vector<int> ArchivoCuotas::BuscarMasLargo() {
         if (strcmp(reg.getDni(), "-1") == 0) continue;
 
         int lenDNI = strlen(reg.getDni());
-        
+
         char importeStr[20];
         sprintf(importeStr, "%.2f", reg.getImporte());
         int lenImporte = strlen(importeStr);
-        
+
         char mesStr[3];
         sprintf(mesStr, "%d", reg.getMes());
         int lenMes = strlen(mesStr);
-        
+
         char anioStr[5];
         sprintf(anioStr, "%d", reg.getAnio());
         int lenAnio = strlen(anioStr);
-        
-        int lenFecha = strlen(reg.getFechaPago().getFechaCompleta());
 
-        if (lenDNI > MasLargoDNI) MasLargoDNI = lenDNI;
-        if (lenImporte > MasLargoImporte) MasLargoImporte = lenImporte;
-        if (lenMes > MasLargoMes) MasLargoMes = lenMes;
-        if (lenAnio > MasLargoAnio) MasLargoAnio = lenAnio;
-        if (lenFecha > MasLargoFecha) MasLargoFecha = lenFecha;
+
+        char fechaStr[11];
+        sprintf(fechaStr, "%d", reg.getFechaPago().getFechaCompleta());
+        int lenFecha = strlen(fechaStr);
+
+        if (lenDNI > MasLargoDNI) {
+            MasLargoDNI = lenDNI;
+        }
+        if (lenImporte > MasLargoImporte) {
+            MasLargoImporte = lenImporte;
+        }
+        if (lenMes > MasLargoMes) {
+            MasLargoMes = lenMes;
+        }
+        if (lenAnio > MasLargoAnio) {
+            MasLargoAnio = lenAnio;
+        }
+        if (lenFecha > MasLargoFecha) {
+            MasLargoFecha = lenFecha;
+        }
     }
 
     return {MasLargoDNI, MasLargoImporte, MasLargoMes, MasLargoAnio, MasLargoFecha};
@@ -121,7 +134,7 @@ void ArchivoCuotas::MostrarHeader() {
     cout << " " << espaciarTexto(dni, largos[0])
          << " │ " << espaciarTexto(importe, largos[1])
          << " │ " << espaciarTexto(mes, largos[2])
-         << " │ " << espaciarTexto(anio, largos[3])
+         << " │ " << espaciarTexto(anio, 5)
          << " │ " << espaciarTexto(fecha, largos[4]) << "\n";
 }
 
@@ -129,7 +142,7 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
     ArchivoSocios arcSoc;
     cout << "INGRESE NÚMERO DE DNI: ";
     cargarCadena(dni, 9);
-    
+
     if (arcSoc.buscarRegistro(dni) != -1) {
         cout << "INGRESE FECHA DE PAGO: " << endl;
         fechaPago.Cargar();
@@ -145,7 +158,7 @@ bool Cuota::Cargar(ArchivoCuotas &arcCuot) {
 
         cout << "INGRESE AÑO: ";
         cin >> anio;
-        
+
         return true;
     } else {
         cout << "DNI: [" << dni << "] NO EXISTENTE." << endl;
@@ -164,11 +177,16 @@ void Cuota::Mostrar() {
     char anioStr[5];
     sprintf(anioStr, "%d", anio);
 
+    /*char fechaStr[11];
+    sprintf(fechaStr, "%d", fechaPago.getFechaCompleta());*/
+
+
     cout << " " << espaciarTexto(dni, largos[0])
          << " │ " << espaciarTexto(importeStr, largos[1])
          << " │ " << espaciarTexto(mesStr, largos[2])
          << " │ " << espaciarTexto(anioStr, largos[3])
-         << " │ " << espaciarTexto(fechaPago.getFechaCompleta(), largos[4]) << "\n";
+         << " │ " <<  fechaPago.getFechaCompleta();
+         cout << "\n";
 }
 
 void ArchivoCuotas::Eliminar() {
@@ -232,7 +250,7 @@ void ArchivoCuotas::Registrar() {
 }
 
 void ArchivoCuotas::Listar() {
-    MostrarHeader();
+    //MostrarHeader();
     Cuota obj;
     int cantReg = contarRegistros();
     for(int i = 0; i < cantReg; i++) {
@@ -249,9 +267,9 @@ void ArchivoCuotas::ListarPorMesAnio(int mes, int anio) {
     int cantReg = contarRegistros();
     for(int i = 0; i < cantReg; i++) {
         obj = leerRegistro(i);
-        if (strcmp(obj.getDni(), "-1") != 0 && 
-            obj.getMes() == mes && 
-            obj.getAnio() == anio) {
+        if (strcmp(obj.getDni(), "-1") != 0 &&
+                obj.getMes() == mes &&
+                obj.getAnio() == anio) {
             obj.Mostrar();
         }
     }

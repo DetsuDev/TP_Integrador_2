@@ -1,10 +1,10 @@
 #include <iostream>
 #include <cstring>
 #include "cuota/clsCuota.h"
-#include "socio/clsSocio.h"
 
-
-
+const char* Cuota::getDni(){
+    return dni;
+}
 Fecha Cuota::getFechaPago() {
     return fechaPago;
 }
@@ -18,6 +18,10 @@ int Cuota::getAnio() {
     return anio;
 }
 
+
+void Cuota::setDni(const char *i){
+    strcpy(dni, i);
+}
 
 void Cuota::setFechaPago(Fecha f) {
     fechaPago = f;

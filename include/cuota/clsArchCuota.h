@@ -14,8 +14,14 @@ public:
     bool modificarRegistro(Cuota obj, int pos);
     int contarRegistros();
     int buscarRegistro(const char *); // Opcional
-    void RegistrarCuota();
-    void ListarCuota();
+    void Registrar();
+    void Listar();
+    vector<int> BuscarMasLargo();
+    void MostrarHeader();
+    void Eliminar();
+    void ListarPorMesAnio(int mes, int anio);
+    void BuscarDni(const char*);
+    Cuota MostrarBusqueda(int pos);
 
 };
 
