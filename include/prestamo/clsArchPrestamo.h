@@ -19,7 +19,8 @@ public:
     bool modificarRegistro(Prestamo, int);
     int contarRegistros();
     int buscarRegistro(int idPrestamo);
-    int buscarRegistroDni(char*);
+    int buscarDni(char*);
+    int buscarISBN(const char *);
     void Eliminar();
     void MostrarHeader();
     Prestamo MostrarBusqueda(int pos);

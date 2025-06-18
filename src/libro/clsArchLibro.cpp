@@ -2,6 +2,8 @@
 #include <cstring>
 #include "libro/clsArchLibro.h"
 #include "funciones.h"
+#include "prestamo/clsArchPrestamo.h"
+#include "prestamo/clsPrestamo.h"
 #include <vector>
 
 using namespace std;
@@ -152,7 +154,7 @@ void ArchivoLibros::MostrarHeader() { /// Muestra el Header de la tabla
          << " │ " << espaciarTexto(autor, largos[2])
          << " │ AÑO PUBL"
          << " │ " << espaciarTexto(ejempl, largos[3]) << "\n";
-         cout << "───────────────────────────────────────────────────────────────────────\n";
+    cout << "───────────────────────────────────────────────────────────────────────\n";
 
 }
 
@@ -169,7 +171,7 @@ void ArchivoLibros::BuscarISBN(const char* isbn) {
 
         }
         MostrarBusqueda(pos);
-        }
+    }
     if (!encontrado) {
         cout << "ISBN NO ENCONTRADO" << endl;
     }
@@ -221,10 +223,8 @@ void ArchivoLibros::BuscarDisponibilidad() {
         }
     }
     if (cant > 0) {
-    cout << "Libros distintos en stock: " << cant << endl;
-    }
-    else
-    {
+        cout << "Libros distintos en stock: " << cant << endl;
+    } else {
         cout << "NO HAY LIBROS EN STOCK" << endl;
     }
 }
@@ -232,10 +232,13 @@ void ArchivoLibros::BuscarDisponibilidad() {
 
 void ArchivoLibros::Eliminar() {
     /// Llama la opcion de mostrarBusqueda y asi obtener el objeto
+    Prestamo prest;
+    ArchivoPrestamo arcPrest;
     char isbn[20];
     cout << ">> Ingrese ISBN del libro a eliminar: ";
     cargarCadena(isbn,19);
     int pos = buscarRegistro(isbn);
+    int posPrest = arcPrest.buscarISBN(isbn);
 
     if (buscarRegistro(isbn) > -1) { /// Busca el isbn en el registro
         MostrarHeader();
@@ -252,6 +255,11 @@ void ArchivoLibros::Eliminar() {
             obj.setTitulo(" ");
             obj.setCantidadEjemplares(-1);
 
+        if(posPrest != -1){ /// borra el prestamo que este a nombre de este dni
+            prest = arcPrest.leerRegistro(posPrest);
+            prest.setIdPrestamo(-1);
+            arcPrest.modificarRegistro(prest,posPrest);
+        }
             /// Modifica el objeto en esa posicion
             modificarRegistro(obj, pos);
             cout << "LIBRO ELIMINADO " << endl;

@@ -211,7 +211,7 @@ void ArchivoSocios::Eliminar() {
     int pos = buscarRegistro(dni);
     Socio obj = MostrarBusqueda(pos);
     cout << endl;
-    int posPrest = arcPrest.buscarRegistroDni(dni);
+    int posPrest = arcPrest.buscarDni(dni);
 
     if (strcmp(obj.getDni(), "-1") != 0) {
         if(posPrest != -1){
@@ -227,7 +227,7 @@ void ArchivoSocios::Eliminar() {
             obj.setNombre(" ");
             obj.setApellido(" ");
 
-        if(posPrest != -1){ // borra el prestamo que este a nombre de este dni
+        if(posPrest != -1){ /// borra el prestamo que este a nombre de este dni
             prest = arcPrest.leerRegistro(posPrest);
             prest.setIdPrestamo(-1);
             arcPrest.modificarRegistro(prest,posPrest);

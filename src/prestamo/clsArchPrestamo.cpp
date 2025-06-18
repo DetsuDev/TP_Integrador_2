@@ -67,12 +67,27 @@ int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
     return -1;
 }
 
-int ArchivoPrestamo::buscarRegistroDni(char* dni) {
+int ArchivoPrestamo::buscarDni(char* dni) {
+
     Prestamo obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {
         obj = leerRegistro(i);
         if(strcmp(obj.getDniSocio(), dni) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+int ArchivoPrestamo::buscarISBN(const char* isbn) {
+
+    Prestamo obj;
+    int cantReg = contarRegistros();
+    for(int i=0; i<cantReg; i++) {
+        obj = leerRegistro(i);
+        if(strcmp(obj.getISBN(), isbn) == 0) {
             return i;
         }
     }
@@ -90,7 +105,7 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     cargarCadena(dniSocio, 9);
     // IMPLEMENTACION USANDO EL ESTADO
     int socioPos = arcSoc.buscarRegistro(dniSocio);
-    cout << socioPos;
+    //cout << socioPos;
 
 
     if (socioPos != -1) {
@@ -111,7 +126,7 @@ bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
                 srand(time(0));
                 idPrestamo = rand() % 100000 + 1;
                 /// Modifica el objeto en esa posicion
-                arcPrest.modificarRegistro(prestamo, socioPos);
+                arcPrest.grabarRegistro(*this);
                 return true;
 
             } else {
@@ -135,7 +150,6 @@ vector<int> ArchivoPrestamo::BuscarMasLargo() {
     int MasLargoDNI = strlen("DNI SOCIO");
     int MasLargoISBN = strlen("ISBN");
 
-    for (int i=0; i < contarRegistros(); i++) {
         for (int i = 0; i < contarRegistros(); i++) {
             Prestamo prest = leerRegistro(i);
             char idStr[10];
@@ -154,7 +168,6 @@ vector<int> ArchivoPrestamo::BuscarMasLargo() {
                 MasLargoISBN = lenISBN;
             }
         }
-    }
     return {MasLargoID, MasLargoDNI, MasLargoISBN};
 }
 
@@ -188,6 +201,8 @@ void ArchivoPrestamo::MostrarHeader() {
          << " │ " << espaciarTexto(isbn, largos[2])
          << " │ " << espaciarTexto(fechaPr, 10)
          << " │ " << espaciarTexto(fechaDev, 9) << "\n";
+    cout << "───────────────────────────────────────────────────────────────────────\n";
+
 }
 
 
@@ -278,6 +293,7 @@ void ArchivoPrestamo::Eliminar() {
 
 // lee el archivo de libros y los muestra en pantalla
 void ArchivoPrestamo::Listar() {
+    MostrarHeader();
     Prestamo obj;
     int cantReg = contarRegistros();
     for(int i=0; i<cantReg; i++) {

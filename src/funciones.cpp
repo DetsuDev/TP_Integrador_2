@@ -349,8 +349,7 @@ void menuPrincipal() {
                         char dni[9];
                         cout << ">> Ingrese DNI: ";
                         cargarCadena(dni, 9);
-                        pos = arcSoc.buscarRegistro(dni);
-                        obj.MostrarBusqueda(pos);
+                        arcSoc.BuscarDni(dni);
                         system("pause");
                         break;
                     }
@@ -358,8 +357,8 @@ void menuPrincipal() {
                         char isbn[20];
                         cout << ">> Ingrese ISBN: ";
                         cargarCadena(isbn, 19);
-                        pos = arcLibr.buscarRegistro(isbn);
-                        obj.MostrarBusqueda(pos);
+
+                        arcLibr.BuscarISBN(isbn);
                         system("pause");
                         break;
                     }
