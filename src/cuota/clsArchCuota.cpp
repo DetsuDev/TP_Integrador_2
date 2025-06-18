@@ -20,8 +20,7 @@ Cuota ArchivoCuotas::leerRegistro(int pos) {
     }
     fseek(p, pos * sizeof obj, 0);
     if (pos < 0) {
-        fclose(p);
-        return obj; // RECREA EL OBJETO PARA QUE NO DEVUELVA BASURA
+        return obj; /// Recrea el objeto para que no devuelva basura
     }
     fread(&obj, sizeof obj, 1, p);
     fclose(p);

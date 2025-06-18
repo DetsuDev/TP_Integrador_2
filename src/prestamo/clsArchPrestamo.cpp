@@ -17,6 +17,9 @@ Prestamo ArchivoPrestamo::leerRegistro(int pos) {
     Prestamo obj;
     FILE *p = fopen(nombre, "rb");
     fseek(p, pos * sizeof obj, 0);
+    if (pos < 0) {
+        return obj; /// Recrea el objeto para que no devuelva basura
+    }
     fread(&obj, sizeof obj, 1, p);
     fclose(p);
     return obj;
