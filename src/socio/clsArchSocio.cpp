@@ -6,6 +6,8 @@
 #include "clsFecha.h"
 #include "clsDomicilio.h"
 #include "funciones.h"
+#include "prestamo/clsArchPrestamo.h"
+#include "prestamo/clsPrestamo.h"
 #include <vector>
 using namespace std;
 
@@ -201,14 +203,20 @@ void Socio::Mostrar() {
 
 void ArchivoSocios::Eliminar() {
     /// Llama la opcion de buscar y asi obtener el objeto
+    Prestamo prest;
+    ArchivoPrestamo arcPrest;
     char dni[10];
     cout << ">> Ingrese DNI socio a eliminar: ";
     cargarCadena(dni,9);
     int pos = buscarRegistro(dni);
     Socio obj = MostrarBusqueda(pos);
     cout << endl;
+    int posPrest = arcPrest.buscarRegistroDni(dni);
 
     if (strcmp(obj.getDni(), "-1") != 0) {
+        if(posPrest != -1){
+            cout << "ATENCION, SE BORRARAN TODOS LOS PRESTAMOS" << endl;
+        }
         cout << "ELIMINAR ESTE SOCIO? (S/N): ";
         char opc;
         cin >> opc;
@@ -219,6 +227,11 @@ void ArchivoSocios::Eliminar() {
             obj.setNombre(" ");
             obj.setApellido(" ");
 
+        if(posPrest != -1){ // borra el prestamo que este a nombre de este dni
+            prest = arcPrest.leerRegistro(posPrest);
+            prest.setIdPrestamo(-1);
+            arcPrest.modificarRegistro(prest,posPrest);
+        }
             /// Modifica el objeto en esa posicion
             modificarRegistro(obj, pos);
             cout << "SOCIO ELIMINADO" << endl;

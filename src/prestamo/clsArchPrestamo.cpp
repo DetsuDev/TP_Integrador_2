@@ -67,6 +67,19 @@ int ArchivoPrestamo::buscarRegistro(int idPrestamo) {
     return -1;
 }
 
+int ArchivoPrestamo::buscarRegistroDni(char* dni) {
+    Prestamo obj;
+    int cantReg = contarRegistros();
+    for(int i=0; i<cantReg; i++) {
+        obj = leerRegistro(i);
+        if(strcmp(obj.getDniSocio(), dni) == 0) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 
 bool Prestamo::Cargar(ArchivoPrestamo &arcPrest) {
     ArchivoSocios arcSoc;
